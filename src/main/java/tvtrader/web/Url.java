@@ -1,0 +1,67 @@
+package tvtrader.web;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Wrapper for a url. Holds the base url, parameters (if any) and headers (if any).
+ * 
+ * @author Wouter
+ *
+ */
+public class Url {
+	private String baseUrl;
+	private List<String> parameters;
+	private Map<String, String> headers;
+	
+	public Url(String url) {
+		baseUrl = url;
+		parameters = new ArrayList<>();
+		headers = new HashMap<>();
+	}
+	
+	/**
+	 * Returns the full endpoint url.
+	 * 
+	 * @return
+	 */
+	public String getUrl() {
+		StringBuilder url = new StringBuilder(baseUrl);
+		
+		for (int i=0; i<parameters.size(); i++) {
+			if (i == 0) {
+				url.append(parameters.get(i));
+			} else {
+				url.append("&" + parameters.get(i));
+			}
+		}
+		
+		return url.toString();
+	}
+	
+	public Map<String, String> getHeaders() {
+		return headers;
+	}
+	
+	public List<String> getParameters() {
+		return parameters;
+	}
+	
+	public void setUrl(String url) {
+		this.baseUrl = url;
+	}
+	
+	public void addHeader(String header, String value) {
+		headers.put(header, value);
+	}
+	
+	public void addParameters(String...params) {
+		for (String p : params) {
+			parameters.add(p);
+		}
+	}
+	
+	
+}

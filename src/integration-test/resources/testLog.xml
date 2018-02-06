@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%m%n" />
+		</Console>	
+	</Appenders>
+	<Loggers>
+		<Logger name="tvtrader" level="info" additivity="false">
+			<appender-ref ref="console" level="info" />
+		</Logger>
+		<Root level="info" additivity="false">
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+</Configuration>
