@@ -27,11 +27,11 @@ public class RequestHandler {
 	/**
 	 * Sends a requests to the url.
 	 * 
-	 * @return The response as a string.
+	 * @return The response.
 	 * @throws IOException
 	 *             If anything goes wrong while contacting the server.
 	 */
-	public String sendRequest(Url endpoint) throws IOException {
+	public Response sendRequest(Url endpoint) throws IOException {
 		log.debug("Building request with endpoint: {}", endpoint.getUrl());
 		Builder builder = setupBuilder(endpoint.getUrl());
 		addHeaders(endpoint.getHeaders(), builder);
@@ -52,12 +52,8 @@ public class RequestHandler {
 		}
 	}
 
-	private String sendRequest(Request request) throws IOException {
+	private Response sendRequest(Request request) throws IOException {
 		log.debug("Sending request...");
-		try (Response response = CLIENT.newCall(request).execute();) {
-			String responseBody = response.body().string();
-			log.debug("Received response: {}", responseBody);
-			return responseBody;
-		}
+		return CLIENT.newCall(request).execute();
 	}
 }

@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.extern.log4j.Log4j2;
+import okhttp3.Request;
+import okhttp3.Response;
 import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.apidata.JsonParser;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.orders.MarketOrder;
 import tvtrader.web.RequestHandler;
+import tvtrader.web.ResponseHandler;
 import tvtrader.web.Url;
 
 /**
@@ -25,13 +28,15 @@ import tvtrader.web.Url;
 @Log4j2
 public abstract class Exchange implements IExchange {
 	private Api api;
-	private RequestHandler handler;
+	private RequestHandler requestHandler;
+	private ResponseHandler responseHandler;
 	private JsonParser parser;
 
-	protected Exchange(Api api, RequestHandler handler, JsonParser parser) {
+	protected Exchange(Api api, RequestHandler requestHandler, ResponseHandler responseHandler, JsonParser parser) {
 		log.debug("Creating new {} exchange.", getName());
 		this.api = api;
-		this.handler = handler;
+		this.requestHandler = requestHandler;
+		this.responseHandler = responseHandler;
 		this.parser = parser;
 	}
 
@@ -40,7 +45,11 @@ public abstract class Exchange implements IExchange {
 		Url url = api.getMarketSummaries();
 
 		try {
-			String response = handler.sendRequest(url);
+			Response response = requestHandler.sendRequest(url);
+			
+			if (responseHandler.checkResponse(response)) {
+				// HandlerService?
+			}
 
 			return parser.parseMarketSummaries(response);
 		} catch (IOException | ExchangeException e) {
@@ -54,7 +63,7 @@ public abstract class Exchange implements IExchange {
 
 		try {
 			Url url = api.getBalances(credentials);
-			String response = handler.sendRequest(url);
+			String response = requestHandler.sendRequest(url);
 
 			return parser.parseBalances(response);
 		} catch (IOException e) {
@@ -69,7 +78,7 @@ public abstract class Exchange implements IExchange {
 		try {
 			Url url = api.placeOrder(order, credentials);
 
-			String response = handler.sendRequest(url);
+			String response = requestHandler.sendRequest(url);
 
 			return parser.checkResponse(response);
 		} catch (UnsupportedOrderTypeException | IOException e) {
@@ -87,8 +96,9 @@ public abstract class Exchange implements IExchange {
 		try {
 			Url url = api.cancelOrder(orderId, credentials);
 
-			String response = handler.sendRequest(url);
-
+			String response = requestHandler.sendRequest(url);
+			
+			
 			return parser.checkResponse(response);
 		} catch (IOException e) {
 			log.info("Couldn't cancel order {}. Received the following message: {}", orderId, e.getMessage());
@@ -104,7 +114,7 @@ public abstract class Exchange implements IExchange {
 		String response;
 		try {
 			Url url = api.getOpenOrders(credentials);
-			response = handler.sendRequest(url);
+			response = requestHandler.sendRequest(url);
 
 			return parser.parseOpenOrders(response);
 		} catch (IOException e) {
@@ -121,7 +131,7 @@ public abstract class Exchange implements IExchange {
 		String response;
 		try {
 			Url url = api.getOrderHistory(credentials);
-			response = handler.sendRequest(url);
+			response = requestHandler.sendRequest(url);
 
 			return parser.parseOrderHistory(response);
 		} catch (IOException e) {

@@ -34,7 +34,12 @@ public class OrderPlacer implements Runnable {
 
 	@Override
 	public void run() {
-		placeOrders();
+		try {
+			placeOrders();
+		} catch (Exception e) {
+			log.debug("Received the following exception: ", e);
+			log.error("Something went wrong:\n{}", e.getMessage());
+		}
 	}
 
 	/**

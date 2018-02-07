@@ -16,6 +16,7 @@ import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
+import okhttp3.Response;
 import test.logger.Logger;
 
 class RequestHandlerTest {
@@ -50,11 +51,12 @@ class RequestHandlerTest {
 		Url url = new Url(baseUrl.toString());
 		url.addHeader("foo", "bar");
 		
-		String actual = handler.sendRequest(url);
+		Response actual = handler.sendRequest(url);
+		String body = actual.body().string();
 		RecordedRequest request = server.takeRequest();
 		String actualHeader = request.getHeader("foo");
 		
-		assertEquals(expected, actual, "Response does not equal expected!");
+		assertEquals(expected, body, "Response does not equal expected!");
 		assertNotNull(actualHeader);
 		assertEquals("bar", actualHeader);
 		

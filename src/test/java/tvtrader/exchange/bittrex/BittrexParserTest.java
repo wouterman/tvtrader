@@ -1,5 +1,7 @@
 package tvtrader.exchange.bittrex;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -202,4 +204,19 @@ class BittrexParserTest {
 
 		assertThrows(ExchangeException.class, () -> parser.parseOpenOrders(unsuccessfulResponse));
 	}
+	
+	@Test
+	void checkSuccess_whenSuccessfulResponse_shouldReturnTrue() throws Exception {
+		String response = "{\"success\":true,\"message\":\"\",\"result\":{\"uuid\":\"4312c35a-8406-4a5e-97a5-6b020cd28b92\"}}";
+		
+		assertTrue(parser.checkResponse(response));
+	}
+	
+	@Test
+	void checkSuccess_whenUnsuccessfulResponse_shouldReturnFalse() throws Exception {
+		String response = "{\"success\":false,\"message\":\"INSUFFICIENT_FUNDS\",\"result\":null}";
+		
+		assertFalse(parser.checkResponse(response));
+	}
+	
 }
