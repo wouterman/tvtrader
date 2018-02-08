@@ -1,4 +1,4 @@
-package tvtrader.utils;
+package tvtrader.properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -29,6 +29,7 @@ import tvtrader.accounts.AccountCreator;
 import tvtrader.exceptionlogger.GameBreakerException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.model.MailConfiguration;
+import tvtrader.properties.PropertiesFileParser;
 import tvtrader.stubs.MailConfigurationStub;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)

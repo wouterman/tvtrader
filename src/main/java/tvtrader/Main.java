@@ -29,7 +29,7 @@ public class Main {
 		}
 	}
 
-	private void escapeStatic(String[] args) {
+	protected void escapeStatic(String[] args) {
 		if (args.length > 0) {
 			log.info("Starting console application.");
 			consoleRunner.run(args);

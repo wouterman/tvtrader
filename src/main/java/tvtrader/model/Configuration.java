@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 import tvtrader.accounts.Account;
 import tvtrader.controllers.Listener;
+import tvtrader.services.AccountService;
 
 @Component
 public class Configuration implements Serializable {
@@ -24,10 +25,10 @@ public class Configuration implements Serializable {
 	@Getter private boolean retryOrderFlag;
 	@Getter private int tickerRefreshRate;
 	@Getter private int assetRefreshRate;
-	@Getter private AccountRepository accountRepository;
+	@Getter private AccountService accountService;
 	
-	public Configuration(AccountRepository accountRepository) {
-		this.accountRepository = accountRepository;
+	public Configuration(AccountService accountService) {
+		this.accountService = accountService;
 	}
 
 	public void setMailConfig(MailConfiguration mailConfig) {
@@ -94,11 +95,11 @@ public class Configuration implements Serializable {
 	}
 
 	public void addAccount(String exchange, Account account) {
-		accountRepository.addAccount(exchange, account);
+		accountService.addAccount(exchange, account);
 	}
 	
 	public void deleteAccount(String exchange, String accountName) {
-		accountRepository.removeAccount(exchange, accountName);
+		accountService.removeAccount(exchange, accountName);
 		
 	}
 

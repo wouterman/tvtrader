@@ -30,10 +30,10 @@ import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderType;
+import tvtrader.services.RequestService;
 import tvtrader.stubs.BalanceStubs;
 import tvtrader.stubs.TickerStubs;
 import tvtrader.stubs.bittrex.BittrexResponseStub;
-import tvtrader.web.RequestHandler;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 class BittrexTest {
@@ -51,7 +51,7 @@ class BittrexTest {
 	@Mock
 	private MarketOrder order;
 	@Mock
-	private RequestHandler handler;
+	private RequestService requestService;
 	@Mock
 	private BittrexApi api;
 	@Mock
@@ -76,7 +76,7 @@ class BittrexTest {
 	void getTickers_whenProvidedWithMarket_shouldReturnTickerForThatMarket() throws Exception {
 		Map<String, Ticker> tickers = TickerStubs.getAllTickers();
 
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
 		when(parser.parseMarketSummaries(ArgumentMatchers.any())).thenReturn(tickers);
 
 		Ticker expected = TickerStubs.getBtcEthTicker();
@@ -88,7 +88,7 @@ class BittrexTest {
 
 	@Test
 	void getTickers_whenJsonIsMalformed_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
 		when(parser.parseMarketSummaries(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getTickers());
@@ -96,7 +96,7 @@ class BittrexTest {
 
 	@Test
 	void getTickers_whenResponseIsUnsuccessful_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
 		when(parser.parseMarketSummaries(BittrexResponseStub.getUnsuccessfulResponse())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getTickers());
@@ -109,7 +109,7 @@ class BittrexTest {
 		expected.put(ETH, 1.0);
 
 		when(parser.parseBalances(ArgumentMatchers.any())).thenReturn(BalanceStubs.getValidBalances());
-		when(handler.sendRequest(ArgumentMatchers.any()))
+		when(requestService.sendRequest(ArgumentMatchers.any()))
 				.thenReturn(BittrexResponseStub.getSuccessfulBalancesResponse());
 
 		Map<String, Double> actual = bittrex.getBalances(credentials);
@@ -124,7 +124,7 @@ class BittrexTest {
 		expected.put(ETH, 0.0);
 
 		when(parser.parseBalances(ArgumentMatchers.any())).thenReturn(BalanceStubs.getNullBalances());
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getNullBalancesResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getNullBalancesResponse());
 
 		Map<String, Double> actual = bittrex.getBalances(credentials);
 
@@ -132,15 +132,15 @@ class BittrexTest {
 	}
 
 	@Test
-	void getBalances_whenHandlerThrowsIOException_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenThrow(IOException.class);
+	void getBalances_whenRequestFails_shouldThrowExchangeException() throws Exception {
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getBalances(credentials));
 	}
 
 	@Test
 	void getOrderHistory_whenResponseIsSuccessful_shouldReturnListOfOrders() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		List<Order> expected = Arrays.asList(new BittrexFilledOrder());
 		when(parser.parseOrderHistory(ArgumentMatchers.notNull())).thenReturn(expected);
 
@@ -152,22 +152,22 @@ class BittrexTest {
 	@Test
 	void getOrderHistory_whenResponseIsUnsuccessful_shouldThrowExchangeException()
 			throws ExchangeException, IOException {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
 		when(parser.parseOrderHistory(BittrexResponseStub.getUnsuccessfulResponse())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOrderHistory(credentials));
 	}
 
 	@Test
-	void getOrderHistory_whenHandlerThrowsIOException_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenThrow(IOException.class);
+	void getOrderHistory_whenRequestFails_shouldThrowExchangeException() throws Exception {
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOrderHistory(credentials));
 	}
 
 	@Test
 	void getOpenOrders_whenResponseIsSuccessful_shouldReturnListOfOrders() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		List<Order> expected = Arrays.asList(new BittrexFilledOrder());
 		when(parser.parseOpenOrders(ArgumentMatchers.notNull())).thenReturn(expected);
 
@@ -177,15 +177,15 @@ class BittrexTest {
 	}
 
 	@Test
-	void getOpenOrders_whenHandlerThrowsIOException_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenThrow(IOException.class);
+	void getOpenOrders_whenRequestFails_shouldThrowExchangeException() throws Exception {
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOpenOrders(credentials));
 	}
 
 	@Test
 	void cancelOrder_whenResponseIsSuccessful_shouldReturnTrue() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		when(parser.checkResponse(BittrexResponseStub.getSuccessfulResponse())).thenReturn(true);
 
 		boolean actual = bittrex.cancelOrder(ORDERUUID, credentials);
@@ -194,15 +194,15 @@ class BittrexTest {
 	}
 
 	@Test
-	void cancelOrder_whenHandlerThrowsIOException_shouldThrowExchangeException() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenThrow(IOException.class);
+	void cancelOrder_whenRequestFails_shouldThrowExchangeException() throws Exception {
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertFalse(bittrex.cancelOrder(ORDERUUID, credentials));
 	}
 
 	@Test
-	void placeOrder_whenHandlerThrowsIOException_shouldReturnFalse() throws Exception {
-		when(handler.sendRequest(ArgumentMatchers.any())).thenThrow(IOException.class);
+	void placeOrder_whenRequestFails_shouldReturnFalse() throws Exception {
+		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 		MarketOrder order = new MarketOrder();
 		order.setAccount(ACCOUNTNAME);
 		order.setExchange(EXCHANGENAME);

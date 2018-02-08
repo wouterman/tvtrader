@@ -42,7 +42,7 @@ class OrderPlacerTest {
 		
 		Mockito.when(exchangeService.placeOrder(order)).thenReturn(true);
 		
-		orderPlacer.run();
+		orderPlacer.placeOrders();
 		
 		assertTrue(listener.isNotified());
 	}
@@ -55,7 +55,7 @@ class OrderPlacerTest {
 		
 		Mockito.when(exchangeService.placeOrder(order)).thenReturn(false);
 		
-		orderPlacer.run();
+		orderPlacer.placeOrders();
 		
 		assertFalse(listener.isNotified());
 	}

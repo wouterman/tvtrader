@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
 import tvtrader.accounts.Account;
-import tvtrader.exceptionlogger.GameBreakerException;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.mail.MailClient;
 import tvtrader.model.Configuration;
@@ -127,6 +126,10 @@ public class InputController {
 		} else {
 			throw new IllegalArgumentException("Refresh rate has to be > 0!");
 		}
+	}
+	
+	public void setUnfilledOrdersReplaceFlag(boolean flag) {
+		configuration.setUnfilledOrdersReplaceFlag(flag);
 	}
 
 	/**

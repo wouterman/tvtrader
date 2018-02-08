@@ -2,21 +2,19 @@ package tvtrader;
 
 import org.springframework.stereotype.Component;
 
-import lombok.extern.log4j.Log4j2;
-import tvtrader.services.CheckerService;
-import tvtrader.utils.PropertiesFileLoader;
+import tvtrader.properties.PropertiesFileLoader;
+import tvtrader.services.JobService;
 
-@Log4j2
 @Component
 public class ConsoleRunner {
 	private static final String ARGUMENT_USAGE_MESSAGE = "Invalid console arguments! Usage console arguments: -[db|properties] [FILE_PATH]";
 	private PropertiesFileLoader propertiesFileLoader;
-	private CheckerService checkerService;
+	private JobService jobService;
 
-	public ConsoleRunner(PropertiesFileLoader propertiesFileLoader, CheckerService checkerService) {
+	public ConsoleRunner(PropertiesFileLoader propertiesFileLoader, JobService jobService) {
 		super();
 		this.propertiesFileLoader = propertiesFileLoader;
-		this.checkerService = checkerService;
+		this.jobService = jobService;
 	}
 
 	public void run(String... args) {
@@ -37,7 +35,7 @@ public class ConsoleRunner {
 		}
 
 		if (successful) {
-			checkerService.run();
+			jobService.startJobs();
 		}
 	}
 

@@ -1,4 +1,4 @@
-package tvtrader.checkers;
+package tvtrader.jobs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import tvtrader.services.AccountService;
 
 @Log4j2
 @Component
-public class OrderChecker implements Runnable {
+public class OrderCheckJobs implements Runnable {
 
 	@Autowired
 	private MailClient client;

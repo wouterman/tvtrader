@@ -1,4 +1,4 @@
-package tvtrader.utils;
+package tvtrader.properties;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,13 +11,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.model.Configuration;
+import tvtrader.controllers.InputController;
+import tvtrader.properties.PropertiesFileLoader;
+import tvtrader.properties.PropertiesFileParser;
 
 class PropertiesFileLoaderTest {
 	private static final String INVALID_PATH = "INVALID";
 
 	@Mock
-	private Configuration config;
+	private InputController controller;
 	@Mock
 	private PropertiesFileParser parser;
 

@@ -1,4 +1,4 @@
-package tvtrader.utils;
+package tvtrader.properties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +16,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.mail.InvalidMailConfigException;
 import tvtrader.model.MailConfiguration;
+import tvtrader.utils.NumberParser;
 
 /**
  * Responsible for parsing the properties configuration file.<br>

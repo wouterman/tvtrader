@@ -1,4 +1,4 @@
-package tvtrader.checkers;
+package tvtrader.jobs;
 
 import org.springframework.stereotype.Component;
 
@@ -7,11 +7,11 @@ import tvtrader.orders.OpenOrdersWatcher;
 
 @Log4j2
 @Component
-public class OpenOrdersChecker implements Runnable {
+public class OpenOrdersJob implements Runnable {
 
 	private OpenOrdersWatcher orderWatcher;
 	
-	public OpenOrdersChecker(OpenOrdersWatcher orderWatcher) {
+	public OpenOrdersJob(OpenOrdersWatcher orderWatcher) {
 		this.orderWatcher = orderWatcher;
 	}
 	

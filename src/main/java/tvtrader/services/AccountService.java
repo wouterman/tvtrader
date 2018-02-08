@@ -28,6 +28,18 @@ public class AccountService {
 	public void addAccount(String exchange, Account account) {
 		repository.addAccount(exchange, account);
 	}
+	
+	/**
+	 * Removes the account to the repository.
+	 * 
+	 * @param exchange
+	 *            The exchange where the account is registered.
+	 * @param account
+	 *            The account to remove.
+	 */
+	public void removeAccount(String exchange, String accountName) {
+		repository.removeAccount(exchange, accountName);
+	}
 
 	/**
 	 * Checks if the account is registered with the repository.<br>

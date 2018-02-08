@@ -19,7 +19,7 @@ import tvtrader.stoploss.StoplossListener;
  */
 @Log4j2
 @Component
-public class OrderPlacer implements Runnable {
+public class OrderPlacer {
 	private static List<MarketOrder> orders = new ArrayList<>();
 
 	private ExchangeService exchangeService;
@@ -30,16 +30,6 @@ public class OrderPlacer implements Runnable {
 		this.exchangeService = exchangeService;
 
 		listeners = new ArrayList<>();
-	}
-
-	@Override
-	public void run() {
-		try {
-			placeOrders();
-		} catch (Exception e) {
-			log.debug("Received the following exception: ", e);
-			log.error("Something went wrong:\n{}", e.getMessage());
-		}
 	}
 
 	/**

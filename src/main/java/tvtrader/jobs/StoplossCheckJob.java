@@ -1,4 +1,4 @@
-package tvtrader.checkers;
+package tvtrader.jobs;
 
 import org.springframework.stereotype.Component;
 
@@ -7,10 +7,10 @@ import tvtrader.services.StoplossService;
 
 @Log4j2
 @Component
-public class StoplossChecker implements Runnable {
+public class StoplossCheckJob implements Runnable {
 	private StoplossService protector;
 	
-	public StoplossChecker(StoplossService protector) {
+	public StoplossCheckJob(StoplossService protector) {
 		this.protector = protector;
 	}
 	

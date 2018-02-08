@@ -1,4 +1,4 @@
-package tvtrader.utils;
+package tvtrader.properties;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
 import tvtrader.accounts.Account;
+import tvtrader.controllers.InputController;
 import tvtrader.exceptionlogger.GameBreakerException;
 import tvtrader.exchange.ExchangeException;
-import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 
 @Log4j2
 @Component
 public class PropertiesFileLoader {
-	private Configuration configuration;
+	private InputController controller;
 	private PropertiesFileParser parser;
 	
-	public PropertiesFileLoader(Configuration configuration, PropertiesFileParser parser) {
-		this.configuration = configuration;
+	public PropertiesFileLoader(InputController controller, PropertiesFileParser parser) {
+		this.controller = controller;
 		this.parser = parser;
 	}
 	
@@ -45,30 +45,30 @@ public class PropertiesFileLoader {
 
 			log.info("Loading mailclient.");
 			MailConfiguration mailConfig = parser.parseMailConfiguration();
-			configuration.setMailConfig(mailConfig);
+			controller.setMailConfiguration(mailConfig);
 			String expectedSender = parser.getExpectedSender();
-			configuration.setExpectedSender(expectedSender);
+			controller.setExpectedSender(expectedSender);
 
 			int pollingInterval = parser.getPollingInterval();
-			configuration.setMailPollingInterval(pollingInterval);
+			controller.setMailPollingInterval(pollingInterval);
 
 			int stoplossInterval = parser.getStoplossInterval();
-			configuration.setStoplossInterval(stoplossInterval);
+			controller.setStoplossInterval(stoplossInterval);
 
 			int openOrdersInterval = parser.getOpenOrdersInterval();
-			configuration.setOpenOrdersInterval(openOrdersInterval);
+			controller.setOpenOrdersInterval(openOrdersInterval);
 
 			int openOrdersExpirationTime = parser.getOpenOrdersExpirationTime();
-			configuration.setOpenOrdersExpirationTime(openOrdersExpirationTime);
+			controller.setOpenOrdersExpirationTime(openOrdersExpirationTime);
 
 			boolean replaceCancelledOrdersFlag = parser.getCancelledOrdersFlag();
-			configuration.setUnfilledOrdersReplaceFlag(replaceCancelledOrdersFlag);
+			controller.setUnfilledOrdersReplaceFlag(replaceCancelledOrdersFlag);
 
 			int tickerRefreshRate = parser.getTickerRefreshRate();
-			configuration.setTickerRefreshRate(tickerRefreshRate);
+			controller.setTickerRefreshRate(tickerRefreshRate);
 
 			int assetRefreshRate = parser.getAssetRefreshRate();
-			configuration.setAssetRefreshRate(assetRefreshRate);
+			controller.setAssetRefreshRate(assetRefreshRate);
 
 			log.info("Loading accounts.");
 			Map<String, List<Account>> extractedAccounts = parser.parseAccounts();
@@ -78,7 +78,7 @@ public class PropertiesFileLoader {
 				List<Account> accounts = entry.getValue();
 
 				for (Account account : accounts) {
-					configuration.addAccount(exchangeName, account);
+					controller.addAccount(exchangeName, account);
 				}
 			}
 

@@ -13,8 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.services.CheckerService;
-import tvtrader.utils.PropertiesFileLoader;
+import tvtrader.properties.PropertiesFileLoader;
+import tvtrader.services.JobService;
 
 public class ConsoleRunnerTest {
 	private static final String PROPERTIES_FLAG = "-properties";
@@ -25,7 +25,7 @@ public class ConsoleRunnerTest {
 	
 	
 	@Mock private PropertiesFileLoader propertiesLoader;
-	@Mock private CheckerService service;
+	@Mock private JobService service;
 	
 	@InjectMocks ConsoleRunner runner;
 	
@@ -61,7 +61,7 @@ public class ConsoleRunnerTest {
 		
 		runner.run(PROPERTIES_FLAG, PROPERTIES_FILE_PATH);
 		
-		verify(service, Mockito.times(1)).run();
+		verify(service, Mockito.times(1)).startJobs();
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class ConsoleRunnerTest {
 		
 		runner.run(PROPERTIES_FLAG, PROPERTIES_FILE_PATH);
 		
-		verify(service, Mockito.never()).run();
+		verify(service, Mockito.never()).startJobs();
 	}
 	
 }

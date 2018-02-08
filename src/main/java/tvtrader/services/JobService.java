@@ -9,56 +9,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.checkers.OpenOrdersChecker;
-import tvtrader.checkers.OrderChecker;
-import tvtrader.checkers.StoplossChecker;
 import tvtrader.controllers.Listener;
+import tvtrader.jobs.OpenOrdersJob;
+import tvtrader.jobs.OrderCheckJobs;
+import tvtrader.jobs.OrderPlacerJob;
+import tvtrader.jobs.StoplossCheckJob;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
-import tvtrader.orders.OrderPlacer;
 
 @Log4j2
 @Component
-public class CheckerService implements Runnable, Closeable, Listener {
+public class JobService implements Closeable, Listener {
+	private static final int ORDER_PLACER_INTERVAL = 5;
 	private int pollingInterval;
 	private int stoplossInterval;
 	private int openOrdersInterval;
 	private boolean running;
 
 	@Autowired
-	private OrderChecker orderChecker;
+	private OrderCheckJobs orderCheckJob;
 	@Autowired
-	private StoplossChecker stoplossChecker;
+	private StoplossCheckJob stoplossCheckJob;
 	@Autowired
-	private OpenOrdersChecker openOrdersChecker;
+	private OpenOrdersJob openOrdersJob;
 	@Autowired
-	private OrderPlacer orderPlacer;
+	private OrderPlacerJob orderPlacerJob;
 
 	@Autowired
 	private ScheduledExecutorService executorService;
-
 	private ScheduledFuture<?> orderCheckerFuture;
 	private ScheduledFuture<?> stoplossCheckerFuture;
 	private ScheduledFuture<?> openOrdersCheckerFuture;
 	
-	public CheckerService(Configuration configuration) {
+	public JobService(Configuration configuration) {
 		configuration.addChangeListener(this);
 	}
 	
-	@Override
-	public void run() {
+	public void startJobs() {
 		try {
 			running = true;
 
-			stoplossChecker.startStoplossProtection();
+			stoplossCheckJob.startStoplossProtection();
 
-			orderCheckerFuture = executorService.scheduleAtFixedRate(orderChecker, 0, pollingInterval,
+			orderCheckerFuture = executorService.scheduleAtFixedRate(orderCheckJob, 0, pollingInterval,
 					TimeUnit.SECONDS);
-			stoplossCheckerFuture = executorService.scheduleAtFixedRate(stoplossChecker, 0, stoplossInterval,
+			stoplossCheckerFuture = executorService.scheduleAtFixedRate(stoplossCheckJob, 0, stoplossInterval,
 					TimeUnit.SECONDS);
-			openOrdersCheckerFuture = executorService.scheduleAtFixedRate(openOrdersChecker, 0, openOrdersInterval,
+			openOrdersCheckerFuture = executorService.scheduleAtFixedRate(openOrdersJob, 0, openOrdersInterval,
 					TimeUnit.SECONDS);
-			ScheduledFuture<?> orderPlacerFuture = executorService.scheduleAtFixedRate(orderPlacer, 0, 5,
+			ScheduledFuture<?> orderPlacerFuture = executorService.scheduleAtFixedRate(orderPlacerJob, 0, ORDER_PLACER_INTERVAL,
 					TimeUnit.SECONDS);
 
 			// Checkers don't actually return anything. All exceptions get caught by the
@@ -88,7 +87,7 @@ public class CheckerService implements Runnable, Closeable, Listener {
 				orderCheckerFuture.cancel(true);
 			}
 
-			orderCheckerFuture = executorService.scheduleAtFixedRate(orderChecker, 0, pollingInterval,
+			orderCheckerFuture = executorService.scheduleAtFixedRate(orderCheckJob, 0, pollingInterval,
 					TimeUnit.SECONDS);
 		}
 	}
@@ -105,7 +104,7 @@ public class CheckerService implements Runnable, Closeable, Listener {
 				stoplossCheckerFuture.cancel(true);
 			}
 
-			stoplossCheckerFuture = executorService.scheduleAtFixedRate(stoplossChecker, 0, stoplossInterval,
+			stoplossCheckerFuture = executorService.scheduleAtFixedRate(stoplossCheckJob, 0, stoplossInterval,
 					TimeUnit.SECONDS);
 		}
 	}
@@ -122,7 +121,7 @@ public class CheckerService implements Runnable, Closeable, Listener {
 				openOrdersCheckerFuture.cancel(true);
 			}
 
-			openOrdersCheckerFuture = executorService.scheduleAtFixedRate(openOrdersChecker, 0, openOrdersInterval,
+			openOrdersCheckerFuture = executorService.scheduleAtFixedRate(openOrdersJob, 0, openOrdersInterval,
 					TimeUnit.SECONDS);
 		}
 	}
