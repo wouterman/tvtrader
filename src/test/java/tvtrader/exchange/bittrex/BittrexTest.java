@@ -30,7 +30,7 @@ import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderType;
-import tvtrader.services.RequestService;
+import tvtrader.services.WebService;
 import tvtrader.stubs.BalanceStubs;
 import tvtrader.stubs.TickerStubs;
 import tvtrader.stubs.bittrex.BittrexResponseStub;
@@ -51,7 +51,7 @@ class BittrexTest {
 	@Mock
 	private MarketOrder order;
 	@Mock
-	private RequestService requestService;
+	private WebService requestService;
 	@Mock
 	private BittrexApi api;
 	@Mock

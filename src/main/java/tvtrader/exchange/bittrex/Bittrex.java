@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import tvtrader.exchange.Api;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.apidata.JsonParser;
-import tvtrader.services.RequestService;
+import tvtrader.services.WebService;
 
 /**
  * Representation of Bittrex.<br>
@@ -27,7 +27,7 @@ public class Bittrex extends Exchange {
 	private static final double TAKER_FEE = 0.0025;
 	private static final double MAKER_FEE = 0.0025;
 
-	public Bittrex(@Qualifier("BittrexApi") Api api, RequestService requestService, @Qualifier("BittrexParser") JsonParser parser) {
+	public Bittrex(@Qualifier("BittrexApi") Api api, WebService requestService, @Qualifier("BittrexParser") JsonParser parser) {
 		super(api, requestService, parser);
 	}
 

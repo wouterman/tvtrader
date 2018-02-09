@@ -39,7 +39,7 @@ class GainCheckerTest {
 	}
 
 	@BeforeEach
-	void setupBittrex() throws Exception {
+	void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
 		when(exchangeService.getTakerFee(EXCHANGE)).thenReturn(0.0);

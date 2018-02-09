@@ -10,10 +10,10 @@ import tvtrader.web.RequestHandler;
 import tvtrader.web.Url;
 
 @Component
-public class RequestService {
+public class WebService {
 	private RequestHandler requestHandler;
 	
-	public RequestService(RequestHandler requestHandler) {
+	public WebService(RequestHandler requestHandler) {
 		super();
 		this.requestHandler = requestHandler;
 	}

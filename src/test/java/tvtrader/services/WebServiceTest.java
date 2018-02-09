@@ -26,7 +26,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.web.RequestHandler;
 import tvtrader.web.Url;
 
-public class RequestServiceTest {
+public class WebServiceTest {
 	private static final int INVALID_RESPONSE = 503;
 	private static final String RESPONSE_MESSAGE = "RESPONSE MESSAGE";
 
@@ -36,7 +36,7 @@ public class RequestServiceTest {
 	private RequestHandler requestHandler;
 	
 	@InjectMocks
-	private RequestService service;
+	private WebService service;
 	
 	@BeforeAll
 	synchronized static void startup() {

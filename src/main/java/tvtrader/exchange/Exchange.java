@@ -9,7 +9,7 @@ import tvtrader.exchange.apidata.JsonParser;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.orders.MarketOrder;
-import tvtrader.services.RequestService;
+import tvtrader.services.WebService;
 import tvtrader.web.Url;
 
 /**
@@ -24,10 +24,10 @@ import tvtrader.web.Url;
 @Log4j2
 public abstract class Exchange implements IExchange {
 	private Api api;
-	private RequestService requestService;
+	private WebService requestService;
 	private JsonParser parser;
 
-	protected Exchange(Api api, RequestService requestService, JsonParser parser) {
+	protected Exchange(Api api, WebService requestService, JsonParser parser) {
 		log.debug("Creating new {} exchange.", getName());
 		this.api = api;
 		this.requestService = requestService;

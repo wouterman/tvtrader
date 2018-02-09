@@ -1,5 +1,6 @@
 package tvtrader.model;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,12 +16,13 @@ import org.mockito.MockitoAnnotations;
 import test.logger.Logger;
 import test.logger.TestListener;
 import tvtrader.accounts.Account;
+import tvtrader.services.AccountService;
 
 public class ConfigurationTest {
 	
 	private TestListener listener;
 	
-	@Mock private AccountRepository repository;
+	@Mock private AccountService service;
 	
 	@InjectMocks
 	private Configuration configuration;
@@ -82,6 +84,13 @@ public class ConfigurationTest {
 		
 		assertFalse(listener.isNotified());
 		assertEquals(interval, configuration.getMailPollingInterval());
+	}
+	
+	@Test
+	void setMailPollingInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		//TODO
+		fail();
+		
 	}
 	
 	@Test
@@ -180,7 +189,7 @@ public class ConfigurationTest {
 		configuration.addAccount(exchange, account);
 		assertFalse(listener.isNotified());
 		
-		Mockito.verify(repository, Mockito.times(1)).addAccount(exchange, account);
+		Mockito.verify(service, Mockito.times(1)).addAccount(exchange, account);
 	}
 	
 	@Test
@@ -190,6 +199,6 @@ public class ConfigurationTest {
 		configuration.deleteAccount(exchange, account);
 		assertFalse(listener.isNotified());
 		
-		Mockito.verify(repository, Mockito.times(1)).removeAccount(exchange, account);
+		Mockito.verify(service, Mockito.times(1)).removeAccount(exchange, account);
 	}
 }
