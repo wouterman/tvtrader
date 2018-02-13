@@ -70,11 +70,9 @@ public class OrderBuilder {
 	 *             If anything goes wrong i.e. the account is unknown.
 	 */
 	private void calculateQuantity(MarketOrder order, double buylimit) throws ExchangeException {
-		log.debug("Order: {}", order);
 		OrderType orderType = order.getOrderType();
 
 		double quantity = 0;
-		log.debug("Fetching altCoinBalance.");
 		double altCoinBalance = exchangeService.getBalance(order.getExchange(), order.getAccount(), order.getAltCoin());
 		double valueInMainCurrency = order.getRate() * altCoinBalance;
 		

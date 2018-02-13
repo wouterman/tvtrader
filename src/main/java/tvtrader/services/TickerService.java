@@ -77,11 +77,12 @@ public class TickerService implements Listener {
 
 		// If we have never fetched a price for this exchange we first need to create a
 		// new
-		// chache.
+		// cache.
 		TickerCache cache = caches.computeIfAbsent(exchangeName, value -> new TickerCache());
 
 		long currentTimeMilli = System.currentTimeMillis();
 		if (refreshNeeded(cache, currentTimeMilli)) {
+			log.debug("Refreshing ticker cache for {}.", exchangeName);
 			cache.refreshCache(exchange.getTickers());
 
 		}
@@ -102,7 +103,9 @@ public class TickerService implements Listener {
 	 * Checks if the cache needs to be refreshed.<br>
 	 */
 	private boolean refreshNeeded(TickerCache cache, long currentTimeMilli) {
-		return currentTimeMilli >= (cache.getLastRefresh() + (tickerRefreshRate * 1_000));
+		long refreshtime = cache.getLastRefresh() + (tickerRefreshRate * 1_000);
+		log.debug("{} >= {}", currentTimeMilli, refreshtime);
+		return currentTimeMilli >= refreshtime;
 	}
 
 	private double determinePriceType(String type, Ticker current) {

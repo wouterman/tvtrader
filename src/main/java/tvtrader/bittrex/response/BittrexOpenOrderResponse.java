@@ -1,8 +1,8 @@
-package tvtrader.exchange.bittrex.response;
+package tvtrader.bittrex.response;
 
 import java.util.List;
 
-import tvtrader.exchange.bittrex.BittrexUnfilledOrder;
+import tvtrader.bittrex.BittrexUnfilledOrder;
 
 public class BittrexOpenOrderResponse extends BittrexBaseResponse<BittrexUnfilledOrder> {
 	List<BittrexUnfilledOrder> result;

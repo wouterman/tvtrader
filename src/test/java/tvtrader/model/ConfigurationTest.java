@@ -1,8 +1,8 @@
 package tvtrader.model;
 
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -88,9 +88,8 @@ public class ConfigurationTest {
 	
 	@Test
 	void setMailPollingInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		//TODO
-		fail();
-		
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setMailPollingInterval(interval));
 	}
 	
 	@Test
@@ -109,6 +108,12 @@ public class ConfigurationTest {
 	}
 	
 	@Test
+	void setStoplossInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setStoplossInterval(interval));
+	}
+	
+	@Test
 	void setOpenOrdersInterval_whenArgumentIsSameAsPrevious_shouldDoNothing() {
 		int interval = 1;
 		configuration.setOpenOrdersInterval(interval);
@@ -124,6 +129,12 @@ public class ConfigurationTest {
 	}
 	
 	@Test
+	void setOpenOrdersInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersInterval(interval));
+	}
+	
+	@Test
 	void setOpenOrdersExpirationTime_whenArgumentIsSameAsPrevious_shouldDoNothing() {
 		int interval = 1;
 		configuration.setOpenOrdersExpirationTime(interval);
@@ -136,6 +147,12 @@ public class ConfigurationTest {
 		
 		assertFalse(listener.isNotified());
 		assertEquals(interval, configuration.getOpenOrdersExpirationTime());
+	}
+	
+	@Test
+	void setOpenOrdersExpirationTime_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersExpirationTime(interval));
 	}
 	
 	@Test
@@ -168,6 +185,12 @@ public class ConfigurationTest {
 	}
 	
 	@Test
+	void setTickerRefreshRate_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setTickerRefreshRate(interval));
+	}
+	
+	@Test
 	void setAssetRefreshRate_whenArgumentIsSameAsPrevious_shouldDoNothing() {
 		int interval = 1;
 		configuration.setAssetRefreshRate(interval);
@@ -180,6 +203,12 @@ public class ConfigurationTest {
 		
 		assertFalse(listener.isNotified());
 		assertEquals(interval, configuration.getAssetRefreshRate());
+	}
+	
+	@Test
+	void setAssetRefreshRate_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
+		int interval = 0;
+		assertThrows(IllegalArgumentException.class, () -> configuration.setAssetRefreshRate(interval));
 	}
 	
 	@Test

@@ -42,7 +42,7 @@ class OpenOrdersWatcherTest {
 	private static final String ACCOUNT = "ACCOUNT";
 	private static final String ACCOUNT_2 = "ACCOUNT_2";
 	private static final long ONE_DAY = 1_000 * 60 * 60 * 24;
-	private static final int NOT_SET = 0;
+	private static final int ONE_SECOND = 1;
 	
 	private List<Account> accounts;
 	
@@ -154,11 +154,11 @@ class OpenOrdersWatcherTest {
 	@Test
 	void update_shouldUpdateExpirationTime_whenReceivingUpdate() throws Exception {
 		Configuration configuration = new Configuration(null);
-		configuration.setOpenOrdersExpirationTime(NOT_SET);
+		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		
 		orderWatcher.update(ConfigurationField.OPENORDERSEXPIRATIONTIME, configuration);
 		
-		assertEquals(NOT_SET, orderWatcher.getExpirationTime());
+		assertEquals(ONE_SECOND, orderWatcher.getExpirationTime());
 	}
 	
 	@Test
@@ -174,7 +174,7 @@ class OpenOrdersWatcherTest {
 	@Test
 	void update_shouldNotUpdate_whenReceivingIrrelevantUpdate() throws Exception {
 		Configuration configuration = new Configuration(null);
-		configuration.setOpenOrdersExpirationTime(NOT_SET);
+		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		configuration.setUnfilledOrdersReplaceFlag(true);
 		
 		orderWatcher.update(ConfigurationField.EXPECTEDSENDER, configuration);

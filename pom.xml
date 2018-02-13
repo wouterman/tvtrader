@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>TvTrader</groupId>
 	<artifactId>TvTrader</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version>
+				<version>2.19.1</version><!--$NO-MVN-MAN-VER$-->
 				<configuration>
 					<parallel>classes</parallel>
 					<useUnlimitedThreads>true</useUnlimitedThreads>
@@ -101,12 +101,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>5.0.3.RELEASE</version>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.0.3.RELEASE</version>
 		</dependency>
 
 		<!-- WEB -->
@@ -184,7 +182,7 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>2.10.0</version>
+			<version>2.10.0</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -207,11 +205,8 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>5.0.3.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-
-
 
 	</dependencies>
 </project>

@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex.response;
+package tvtrader.bittrex.response;
 
 import java.util.Collections;
 import java.util.List;

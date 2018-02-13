@@ -17,11 +17,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
+import tvtrader.bittrex.BittrexTicker;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Ticker;
-import tvtrader.exchange.bittrex.BittrexTicker;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 
@@ -146,6 +146,4 @@ class TickerServiceTest {
 		
 		assertEquals(NOT_SET, service.getTickerRefreshRate());
 	}
-	
-
 }

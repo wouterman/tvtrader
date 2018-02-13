@@ -101,7 +101,7 @@ public class AccountCreator {
 			return Double.parseDouble(field);
 		} catch (NumberFormatException nfe) {
 			throw new InvalidAccountException(
-					"Couldn't parse one of the following fields: buyLimit\\stoploss\\minimumGain. Please check your config.");
+					"Couldn't parse one of the following fields: buyLimit, stoploss or minimumGain. Please check your config.");
 		}
 	}
 }

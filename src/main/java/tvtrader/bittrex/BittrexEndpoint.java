@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 /**
  * Enum with all the supported Bittrex endpoints.

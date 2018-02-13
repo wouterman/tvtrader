@@ -1,11 +1,13 @@
 package tvtrader.jobs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
 import tvtrader.orders.OrderPlacer;
 
 @Log4j2
+@Component
 public class OrderPlacerJob implements Runnable {
 	
 	@Autowired

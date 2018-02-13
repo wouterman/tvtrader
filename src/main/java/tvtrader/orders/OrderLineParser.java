@@ -71,8 +71,8 @@ public class OrderLineParser {
 		order.setAccount(account);
 		order.setAltCoin(altCoin);
 		order.setOrderType(orderType);
-		log.debug("Created order: {}", order);
 
+		log.debug("Created order.");
 		return Optional.of(order);
 	}
 

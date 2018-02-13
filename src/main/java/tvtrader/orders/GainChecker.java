@@ -49,13 +49,11 @@ public class GainChecker {
 	}
 
 	private boolean gainMet(MarketOrder order) throws ExchangeException {
-		log.debug("Inside gainMet");
 		String exchange = order.getExchange();
 		String account = order.getAccount();
 
 		double minimumGain = accountService.getMinimumGain(exchange, account);
 
-		log.debug("Minimum gain: {}", minimumGain);
 		if (minimumGain > 0) {
 			double priceExFee = order.getQuantity() * order.getRate();
 			double fee = priceExFee * exchangeService.getTakerFee(exchange);

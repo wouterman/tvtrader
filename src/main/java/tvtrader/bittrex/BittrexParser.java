@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 
+import tvtrader.bittrex.response.BittrexBalanceResponse;
+import tvtrader.bittrex.response.BittrexBaseResponse;
+import tvtrader.bittrex.response.BittrexOpenOrderResponse;
+import tvtrader.bittrex.response.BittrexOrderHistoryResponse;
+import tvtrader.bittrex.response.BittrexOrderResponse;
+import tvtrader.bittrex.response.BittrexTickerResponse;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.JsonParser;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
-import tvtrader.exchange.bittrex.response.BittrexBalanceResponse;
-import tvtrader.exchange.bittrex.response.BittrexBaseResponse;
-import tvtrader.exchange.bittrex.response.BittrexOpenOrderResponse;
-import tvtrader.exchange.bittrex.response.BittrexOrderHistoryResponse;
-import tvtrader.exchange.bittrex.response.BittrexOrderResponse;
-import tvtrader.exchange.bittrex.response.BittrexTickerResponse;
 
 @Component(value="BittrexParser")
 public class BittrexParser implements JsonParser {

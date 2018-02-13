@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.exchange.bittrex.Bittrex;
+import tvtrader.bittrex.Bittrex;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 class ExchangeFactoryTest {

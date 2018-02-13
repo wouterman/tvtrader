@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

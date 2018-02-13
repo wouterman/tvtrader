@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,6 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.google.gson.Gson;
 
 import test.logger.Logger;
+import tvtrader.bittrex.BittrexParser;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.JsonParser;

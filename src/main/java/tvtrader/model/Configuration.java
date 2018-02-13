@@ -35,7 +35,6 @@ public class Configuration implements Serializable {
 	private int tickerRefreshRate;
 	@Getter
 	private int assetRefreshRate;
-	@Getter
 	private transient AccountService accountService;
 
 	public Configuration(AccountService accountService) {

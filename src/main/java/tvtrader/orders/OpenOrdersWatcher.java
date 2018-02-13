@@ -70,8 +70,6 @@ public class OpenOrdersWatcher implements Listener {
 	}
 
 	private void checkAccounts(String exchange) {
-		log.debug("Checking for {}", exchange);
-
 		Iterator<Account> accounts = accountService.getAccounts(exchange);
 
 		while (accounts.hasNext()) {

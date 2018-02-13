@@ -1,8 +1,8 @@
-package tvtrader.exchange.bittrex.response;
+package tvtrader.bittrex.response;
 
 import java.util.List;
 
-import tvtrader.exchange.bittrex.BittrexBalance;
+import tvtrader.bittrex.BittrexBalance;
 
 public class BittrexBalanceResponse extends BittrexBaseResponse<BittrexBalance> {
 	List<BittrexBalance> result;

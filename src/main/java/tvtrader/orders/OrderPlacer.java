@@ -56,7 +56,6 @@ public class OrderPlacer {
 	}
 
 	public void addOrder(MarketOrder order) {
-		log.debug("Adding order: {}", order);
 		orders.add(order);
 	}
 

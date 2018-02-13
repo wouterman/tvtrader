@@ -1,4 +1,4 @@
-package tvtrader.exchange;
+package tvtrader.orders;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
+import tvtrader.exchange.ExchangeException;
 import tvtrader.orders.GainChecker;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderType;

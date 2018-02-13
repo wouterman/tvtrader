@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,6 +23,8 @@ import tvtrader.web.Url;
 @Log4j2
 @Component(value = "BittrexApi")
 public class BittrexApi implements Api {
+	private static final String MARKET_DELIMITER = "-";
+
 	private static final String BASE_URL = "https://bittrex.com/api/v1.1/";
 	
 	@Qualifier("BittrexHasher")
@@ -36,8 +38,6 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url getMarketSummaries() {
-		log.debug("Inside getMarketSummaries()");
-
 		String parameterizedUrl = buildUrl(BittrexEndpoint.GET_MARKET_SUMMARIES.getEndpoint());
 		Url url = new Url(parameterizedUrl);
 
@@ -47,9 +47,7 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url placeOrder(MarketOrder order, ApiCredentials credentials) throws UnsupportedOrderTypeException {
-		log.debug("Inside placeOrder() with param: {}, {}", order, credentials.getKey());
-
-		String market = order.getMainCoin() + "-" + order.getAltCoin();
+		String market = order.getMainCoin() + MARKET_DELIMITER + order.getAltCoin();
 		String parameterizedUrl = buildUrl(determineOrderType(order), setApiKeyParam(credentials.getKey()),
 				setMarketParam(market), setQuantityParam(order.getQuantity()), setRateParam(order.getRate()),
 				addNonce());
@@ -63,8 +61,6 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url getBalances(ApiCredentials credentials) {
-		log.debug("Inside getBalances() with param: {}", credentials.getKey());
-
 		String parameterizedUrl = buildUrl(BittrexEndpoint.GET_BALANCES.getEndpoint(), setApiKeyParam(credentials.getKey()),
 				addNonce());
 		Url url = new Url(parameterizedUrl);
@@ -75,8 +71,6 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url getOrderHistory(ApiCredentials credentials) {
-		log.debug("Inside getOrderHistory() with params: {}", credentials.getKey());
-
 		String parameterizedUrl = buildUrl(BittrexEndpoint.GET_ORDERHISTORY.getEndpoint(),
 				setApiKeyParam(credentials.getKey()), addNonce());
 
@@ -89,8 +83,6 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url cancelOrder(String orderUuid, ApiCredentials credentials) {
-		log.debug("Inside cancelOrder() with params: {}, {}", orderUuid, credentials.getKey());
-
 		String parameterizedUrl = buildUrl(BittrexEndpoint.CANCEL_ORDER.getEndpoint(), setApiKeyParam(credentials.getKey()),
 				setUuidParam(orderUuid), addNonce());
 
@@ -103,8 +95,6 @@ public class BittrexApi implements Api {
 
 	@Override
 	public Url getOpenOrders(ApiCredentials credentials) {
-		log.debug("Inside getOpenOrders() with param: {}", credentials.getKey());
-
 		String parameterizedUrl = buildUrl(BittrexEndpoint.GET_OPEN_ORDERS.getEndpoint(),
 				setApiKeyParam(credentials.getKey()), addNonce());
 

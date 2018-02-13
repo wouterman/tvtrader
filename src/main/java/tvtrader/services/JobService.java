@@ -34,9 +34,9 @@ public class JobService implements Closeable, Listener {
 	private OpenOrdersJob openOrdersJob;
 	@Autowired
 	private OrderPlacerJob orderPlacerJob;
-
 	@Autowired
 	private ScheduledExecutorService executorService;
+	
 	private ScheduledFuture<?> orderCheckerFuture;
 	private ScheduledFuture<?> stoplossCheckerFuture;
 	private ScheduledFuture<?> openOrdersCheckerFuture;
@@ -57,7 +57,7 @@ public class JobService implements Closeable, Listener {
 					TimeUnit.SECONDS);
 			openOrdersCheckerFuture = executorService.scheduleAtFixedRate(openOrdersJob, 0, openOrdersInterval,
 					TimeUnit.SECONDS);
-			ScheduledFuture<?> orderPlacerFuture = executorService.scheduleAtFixedRate(orderPlacerJob, 0, ORDER_PLACER_INTERVAL,
+			ScheduledFuture<?>  orderPlacerFuture = executorService.scheduleAtFixedRate(orderPlacerJob, 0, ORDER_PLACER_INTERVAL,
 					TimeUnit.SECONDS);
 
 			// Checkers don't actually return anything. All exceptions get caught by the

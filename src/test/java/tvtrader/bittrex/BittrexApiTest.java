@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,13 +18,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
 import tvtrader.accounts.ApiCredentials;
+import tvtrader.bittrex.BittrexApi;
 import tvtrader.exchange.UnsupportedOrderTypeException;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderType;
 import tvtrader.utils.HashingUtility;
 import tvtrader.web.Url;
 
-@RunWith(MockitoJUnitRunner.StrictStubs.class)
 class BittrexApiTest {
 	private static final String ETH = "ETH";
 	private static final String BTC = "BTC";

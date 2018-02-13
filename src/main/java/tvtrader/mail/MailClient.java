@@ -17,6 +17,7 @@ import javax.mail.Store;
 
 import org.springframework.stereotype.Component;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.controllers.Listener;
 import tvtrader.exceptionlogger.UnverifiedException;
@@ -47,17 +48,20 @@ public class MailClient implements Listener {
 
 	private ConnectionListenerImpl listener = new ConnectionListenerImpl();
 	private int timeLimit = DEFAULT_TIME_LIMIT_IN_SECONDS;
+	
+	@Getter
 	private String expectedSender = TRADINGVIEW;
-
+	@Getter
 	private MailConfiguration config;
+
 	private Properties mailProps;
 	private Folder folder;
 	private Store store;
-	
+
 	public MailClient(Configuration configuration) {
 		configuration.addChangeListener(this);
 	}
-	
+
 	/**
 	 * Initializes the mail client with the provided configuration.
 	 * 
@@ -117,10 +121,7 @@ public class MailClient implements Listener {
 	public List<String> fetchSubjectLines() {
 		try {
 			openConnection();
-			log.debug("Getting the mail folder.");
 			folder = store.getFolder(config.getInbox());
-
-			log.debug("Opening the mail folder.");
 			folder.open(Folder.READ_WRITE);
 
 			log.info("Checking for new messages...");
@@ -152,11 +153,8 @@ public class MailClient implements Listener {
 		Session session = Session.getInstance(mailProps, null);
 
 		try {
-			log.debug("Opening the mail store.");
 			store = session.getStore();
 			store.addConnectionListener(listener);
-
-			log.debug("Connecting to the store.");
 			store.connect(config.getUsername(), config.getPassword());
 		} catch (IllegalStateException | MessagingException e) {
 			log.debug("Exception: ", e);
@@ -185,7 +183,6 @@ public class MailClient implements Listener {
 		log.debug("Processing messages.");
 		for (Message msg : messages) {
 			if (unread(msg)) {
-				log.debug("Converting sentDate to LocalDateTime.");
 				LocalDateTime date = convertToLocalDateTime(msg);
 
 				log.debug("Checking if mail is within timelimit.");
@@ -337,7 +334,7 @@ public class MailClient implements Listener {
 		if (changedField == ConfigurationField.EXPECTEDSENDER) {
 			setExpectedSender(configuration.getExpectedSender());
 		}
-		
+
 		if (changedField == ConfigurationField.MAILCONFIG) {
 			setMailConfiguration(configuration.getMailConfig());
 		}

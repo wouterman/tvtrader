@@ -1,4 +1,4 @@
-package tvtrader.exchange.bittrex;
+package tvtrader.bittrex;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -24,6 +24,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
 import tvtrader.accounts.ApiCredentials;
+import tvtrader.bittrex.Bittrex;
+import tvtrader.bittrex.BittrexApi;
+import tvtrader.bittrex.BittrexFilledOrder;
+import tvtrader.bittrex.BittrexParser;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.UnsupportedOrderTypeException;
 import tvtrader.exchange.apidata.Order;
@@ -51,7 +55,7 @@ class BittrexTest {
 	@Mock
 	private MarketOrder order;
 	@Mock
-	private WebService requestService;
+	private WebService webService;
 	@Mock
 	private BittrexApi api;
 	@Mock
@@ -76,7 +80,7 @@ class BittrexTest {
 	void getTickers_whenProvidedWithMarket_shouldReturnTickerForThatMarket() throws Exception {
 		Map<String, Ticker> tickers = TickerStubs.getAllTickers();
 
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
 		when(parser.parseMarketSummaries(ArgumentMatchers.any())).thenReturn(tickers);
 
 		Ticker expected = TickerStubs.getBtcEthTicker();
@@ -88,7 +92,7 @@ class BittrexTest {
 
 	@Test
 	void getTickers_whenJsonIsMalformed_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulTickerResponse());
 		when(parser.parseMarketSummaries(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getTickers());
@@ -96,7 +100,7 @@ class BittrexTest {
 
 	@Test
 	void getTickers_whenResponseIsUnsuccessful_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
 		when(parser.parseMarketSummaries(BittrexResponseStub.getUnsuccessfulResponse())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getTickers());
@@ -109,7 +113,7 @@ class BittrexTest {
 		expected.put(ETH, 1.0);
 
 		when(parser.parseBalances(ArgumentMatchers.any())).thenReturn(BalanceStubs.getValidBalances());
-		when(requestService.sendRequest(ArgumentMatchers.any()))
+		when(webService.sendRequest(ArgumentMatchers.any()))
 				.thenReturn(BittrexResponseStub.getSuccessfulBalancesResponse());
 
 		Map<String, Double> actual = bittrex.getBalances(credentials);
@@ -124,7 +128,7 @@ class BittrexTest {
 		expected.put(ETH, 0.0);
 
 		when(parser.parseBalances(ArgumentMatchers.any())).thenReturn(BalanceStubs.getNullBalances());
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getNullBalancesResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getNullBalancesResponse());
 
 		Map<String, Double> actual = bittrex.getBalances(credentials);
 
@@ -133,14 +137,14 @@ class BittrexTest {
 
 	@Test
 	void getBalances_whenRequestFails_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
+		when(webService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getBalances(credentials));
 	}
 
 	@Test
 	void getOrderHistory_whenResponseIsSuccessful_shouldReturnListOfOrders() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		List<Order> expected = Arrays.asList(new BittrexFilledOrder());
 		when(parser.parseOrderHistory(ArgumentMatchers.notNull())).thenReturn(expected);
 
@@ -152,7 +156,7 @@ class BittrexTest {
 	@Test
 	void getOrderHistory_whenResponseIsUnsuccessful_shouldThrowExchangeException()
 			throws ExchangeException, IOException {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getUnsuccessfulResponse());
 		when(parser.parseOrderHistory(BittrexResponseStub.getUnsuccessfulResponse())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOrderHistory(credentials));
@@ -160,14 +164,14 @@ class BittrexTest {
 
 	@Test
 	void getOrderHistory_whenRequestFails_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
+		when(webService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOrderHistory(credentials));
 	}
 
 	@Test
 	void getOpenOrders_whenResponseIsSuccessful_shouldReturnListOfOrders() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		List<Order> expected = Arrays.asList(new BittrexFilledOrder());
 		when(parser.parseOpenOrders(ArgumentMatchers.notNull())).thenReturn(expected);
 
@@ -178,14 +182,14 @@ class BittrexTest {
 
 	@Test
 	void getOpenOrders_whenRequestFails_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
+		when(webService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertThrows(ExchangeException.class, () -> bittrex.getOpenOrders(credentials));
 	}
 
 	@Test
 	void cancelOrder_whenResponseIsSuccessful_shouldReturnTrue() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
 		when(parser.checkResponse(BittrexResponseStub.getSuccessfulResponse())).thenReturn(true);
 
 		boolean actual = bittrex.cancelOrder(ORDERUUID, credentials);
@@ -195,14 +199,14 @@ class BittrexTest {
 
 	@Test
 	void cancelOrder_whenRequestFails_shouldThrowExchangeException() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
+		when(webService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 
 		assertFalse(bittrex.cancelOrder(ORDERUUID, credentials));
 	}
 
 	@Test
 	void placeOrder_whenRequestFails_shouldReturnFalse() throws Exception {
-		when(requestService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
+		when(webService.sendRequest(ArgumentMatchers.any())).thenThrow(ExchangeException.class);
 		MarketOrder order = new MarketOrder();
 		order.setAccount(ACCOUNTNAME);
 		order.setExchange(EXCHANGENAME);
@@ -212,6 +216,20 @@ class BittrexTest {
 		assertFalse(bittrex.placeOrder(order, credentials));
 	}
 
+	@Test
+	void placeOrder_whenRequestSucceeds_shouldReturnTrue() throws Exception {
+		when(webService.sendRequest(ArgumentMatchers.any())).thenReturn(BittrexResponseStub.getSuccessfulResponse());
+		when(parser.checkResponse(BittrexResponseStub.getSuccessfulResponse())).thenReturn(true);
+		
+		MarketOrder order = new MarketOrder();
+		order.setAccount(ACCOUNTNAME);
+		order.setExchange(EXCHANGENAME);
+		order.setAltCoin(ETH);
+		order.setMainCoin(BTC);
+		
+		assertTrue(bittrex.placeOrder(order, credentials));
+	}
+	
 	@Test
 	void placeOrder_whenUnsupportedOrder_shouldReturnFalse() throws Exception {
 		when(api.placeOrder(ArgumentMatchers.notNull(), ArgumentMatchers.notNull()))

@@ -3,8 +3,8 @@ package tvtrader.stubs;
 import java.util.HashMap;
 import java.util.Map;
 
+import tvtrader.bittrex.BittrexTicker;
 import tvtrader.exchange.apidata.Ticker;
-import tvtrader.exchange.bittrex.BittrexTicker;
 
 public class TickerStubs {
 	private static String btc1st = "BTC-1ST";

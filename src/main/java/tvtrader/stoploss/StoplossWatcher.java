@@ -107,7 +107,6 @@ public class StoplossWatcher {
 						double stoplossPercentage = accountService.getStoploss(exchange, account);
 						stoplossPrice = boughtPrice * ((100 - stoplossPercentage) / 100);
 					} else {
-						log.debug("Switching to tssl-mode.");
 						double trailingStoplossPercentage = accountService.getTrailingStoploss(exchange, account);
 						double tsslPercentage = (100 - trailingStoplossPercentage) / 100;
 						stoplossPrice = referencePrice * tsslPercentage;

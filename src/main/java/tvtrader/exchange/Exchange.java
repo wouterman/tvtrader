@@ -24,13 +24,12 @@ import tvtrader.web.Url;
 @Log4j2
 public abstract class Exchange implements IExchange {
 	private Api api;
-	private WebService requestService;
+	private WebService webService;
 	private JsonParser parser;
 
 	protected Exchange(Api api, WebService requestService, JsonParser parser) {
-		log.debug("Creating new {} exchange.", getName());
 		this.api = api;
-		this.requestService = requestService;
+		this.webService = requestService;
 		this.parser = parser;
 	}
 
@@ -39,8 +38,8 @@ public abstract class Exchange implements IExchange {
 		Url url = api.getMarketSummaries();
 
 		try {
-			String response = requestService.sendRequest(url);
-
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 			return parser.parseMarketSummaries(response);
 		} catch (ExchangeException e) {
 			throw new ExchangeException("Couldn't get tickers from " + getName(), e);
@@ -49,11 +48,10 @@ public abstract class Exchange implements IExchange {
 
 	@Override
 	public Map<String, Double> getBalances(ApiCredentials credentials) throws ExchangeException {
-		log.debug("Exchange: {}. Fetching {} balances for {}", getName(), credentials.getKey());
-
 		try {
 			Url url = api.getBalances(credentials);
-			String response = requestService.sendRequest(url);
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 
 			return parser.parseBalances(response);
 		} catch (ExchangeException e) {
@@ -63,12 +61,11 @@ public abstract class Exchange implements IExchange {
 
 	@Override
 	public boolean placeOrder(MarketOrder order, ApiCredentials credentials) {
-		log.debug("Exchange: {}. Placing order for {}", getName(), credentials.getKey());
-
 		try {
 			Url url = api.placeOrder(order, credentials);
 
-			String response = requestService.sendRequest(url);
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 
 			return parser.checkResponse(response);
 		} catch (UnsupportedOrderTypeException | ExchangeException e) {
@@ -81,13 +78,11 @@ public abstract class Exchange implements IExchange {
 
 	@Override
 	public boolean cancelOrder(String orderId, ApiCredentials credentials) {
-		log.debug("Exchange: {}. Canceling order for {}", getName(), credentials.getKey());
-
 		try {
 			Url url = api.cancelOrder(orderId, credentials);
 
-			String response = requestService.sendRequest(url);
-			
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 			
 			return parser.checkResponse(response);
 		} catch (ExchangeException e) {
@@ -99,11 +94,10 @@ public abstract class Exchange implements IExchange {
 
 	@Override
 	public List<Order> getOpenOrders(ApiCredentials credentials) throws ExchangeException {
-		log.debug("Fetching open orders for {}.", credentials.getKey());
-
 		try {
 			Url url = api.getOpenOrders(credentials);
-			String response = requestService.sendRequest(url);
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 
 			return parser.parseOpenOrders(response);
 		} catch (ExchangeException e) {
@@ -115,11 +109,10 @@ public abstract class Exchange implements IExchange {
 
 	@Override
 	public List<Order> getOrderHistory(ApiCredentials credentials) throws ExchangeException {
-		log.debug("Fetching {} orderhistory for {}.", credentials.getKey());
-
 		try {
 			Url url = api.getOrderHistory(credentials);
-			String response = requestService.sendRequest(url);
+			String response = webService.sendRequest(url);
+			log.debug("Received response: {}", response);
 
 			return parser.parseOrderHistory(response);
 		} catch (ExchangeException e) {

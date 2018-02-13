@@ -27,8 +27,13 @@ public class AppConfig {
 	}
 
 	@Bean(name = "BittrexHasher")
-	public HashingUtility hashingUtility() {
+	public HashingUtility bittrexHasher() {
 		return new HashingUtility(Encoding.SHA512);
+	}
+	
+	@Bean(name = "BinanceHasher")
+	public HashingUtility binanceHasher() {
+		return new HashingUtility(Encoding.SHA256);
 	}
 
 }

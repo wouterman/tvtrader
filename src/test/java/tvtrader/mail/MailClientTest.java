@@ -1,6 +1,7 @@
 package tvtrader.mail;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,6 +24,7 @@ import com.icegreen.greenmail.util.ServerSetupTest;
 import test.logger.Logger;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.model.Configuration;
+import tvtrader.model.ConfigurationField;
 import tvtrader.model.MailConfiguration;
 import tvtrader.stubs.MailConfigurationStub;
 
@@ -163,6 +165,49 @@ class MailClientTest {
 	    
 	    assertEquals(1, actual.size());
 	    assertTrue(actual.contains(FIRST_MAIL_SUBJECT), "Fetched mails should've contained the first mail subjectline!");
+	}
+	
+	@Test
+	void update_shouldUpdateExpectedSender_whenReceivingUpdate() throws Exception {
+		Configuration configuration = new Configuration(null);
+		configuration.setExpectedSender(EXPECTED_SENDER);
+		
+		client.update(ConfigurationField.EXPECTEDSENDER, configuration);
+		
+		assertEquals(EXPECTED_SENDER, client.getExpectedSender());
+	}
+	
+	@Test
+	void update_shouldNotUpdateExpectedSender_whenReceivingIrrelevantUpdate() throws Exception {
+		Configuration configuration = new Configuration(null);
+		configuration.setExpectedSender(UNEXPECTED_SENDER);
+		
+		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);
+		
+		assertEquals(EXPECTED_SENDER, client.getExpectedSender());
+	}
+	
+	@Test
+	void update_shouldUpdateMailConfig_whenReceivingUpdate() throws Exception {
+		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
+		Configuration configuration = new Configuration(null);
+		configuration.setMailConfig(config);
+		
+		client.update(ConfigurationField.MAILCONFIG, configuration);
+		
+		assertEquals(config, client.getConfig());
+	}
+	
+	@Test
+	void update_shouldNotUpdateMailConfig_whenReceivingIrrelevantUpdate() throws Exception {
+		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
+		
+		Configuration configuration = new Configuration(null);
+		configuration.setMailConfig(config);
+		
+		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);
+		
+		assertNull(null);
 	}
 	
 	@AfterEach
