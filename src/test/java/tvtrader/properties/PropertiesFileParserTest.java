@@ -27,9 +27,7 @@ import test.logger.Logger;
 import tvtrader.accounts.Account;
 import tvtrader.accounts.AccountCreator;
 import tvtrader.exceptionlogger.GameBreakerException;
-import tvtrader.exchange.SupportedExchange;
 import tvtrader.model.MailConfiguration;
-import tvtrader.properties.PropertiesFileParser;
 import tvtrader.stubs.MailConfigurationStub;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
@@ -320,7 +318,7 @@ class PropertiesFileParserTest {
 		
 		configParser.load(config);
 		
-		String exchange = SupportedExchange.BITTREX.getName();
+		String exchange = "BITTREX";
 		Account account = new Account(null, null, 0, 0, 0, 0, null);
 		Mockito.when(accountCreator.extractAccounts(exchange, config)).thenReturn(Arrays.asList(account));
 		

@@ -24,7 +24,6 @@ import tvtrader.web.Url;
 @Component(value = "BittrexApi")
 public class BittrexApi implements Api {
 	private static final String MARKET_DELIMITER = "-";
-
 	private static final String BASE_URL = "https://bittrex.com/api/v1.1/";
 	
 	@Qualifier("BittrexHasher")
@@ -205,6 +204,29 @@ public class BittrexApi implements Api {
 			}
 
 			sb.append(parameters[i]);
+		}
+	}
+	
+	/**
+	 * Enum with all the supported Bittrex endpoints.
+	 */
+	enum BittrexEndpoint {
+		GET_MARKET_SUMMARIES("public/getmarketsummaries"),
+		LIMIT_BUY("market/buylimit?"),
+		LIMIT_SELL("market/selllimit?"),
+		CANCEL_ORDER("market/cancel?"),
+		GET_OPEN_ORDERS("market/getopenorders?"),
+		GET_BALANCES("account/getbalances?"),
+		GET_ORDERHISTORY("account/getorderhistory?");
+		
+		String endpoint;
+		
+		BittrexEndpoint(String type) {
+			this.endpoint = type;
+		}
+		
+		public String getEndpoint() {
+			return endpoint;
 		}
 	}
 }

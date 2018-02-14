@@ -61,6 +61,7 @@ public class OpenOrdersWatcher implements Listener {
 
 		expirationDate = System.currentTimeMillis() - (expirationTime * 1000);
 		log.debug("Current expirationDate: {}", expirationDate);
+		
 
 		SupportedExchange[] exchanges = SupportedExchange.values();
 

@@ -30,10 +30,5 @@ public class AppConfig {
 	public HashingUtility bittrexHasher() {
 		return new HashingUtility(Encoding.SHA512);
 	}
-	
-	@Bean(name = "BinanceHasher")
-	public HashingUtility binanceHasher() {
-		return new HashingUtility(Encoding.SHA256);
-	}
 
 }
