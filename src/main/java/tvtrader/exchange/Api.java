@@ -1,6 +1,6 @@
 package tvtrader.exchange;
 
-import tvtrader.accounts.ApiCredentials;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 import tvtrader.web.Url;
 

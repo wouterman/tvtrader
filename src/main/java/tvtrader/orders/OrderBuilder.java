@@ -1,5 +1,6 @@
 package tvtrader.orders;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
@@ -21,12 +22,9 @@ import tvtrader.services.ExchangeService;
 @Component
 public class OrderBuilder {
 	private static final double EIGHT_DECIMALS = 1_0000_0000d;
-
+	
+	@Autowired
 	private ExchangeService exchangeService;
-
-	public OrderBuilder(ExchangeService exchangeService) {
-		this.exchangeService = exchangeService;
-	}
 
 	/**
 	 * Retrieves the current rate for the market.<br>

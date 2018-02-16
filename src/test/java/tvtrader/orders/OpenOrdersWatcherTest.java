@@ -22,9 +22,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 import tvtrader.services.AccountService;
@@ -153,7 +153,7 @@ class OpenOrdersWatcherTest {
 
 	@Test
 	void update_shouldUpdateExpirationTime_whenReceivingUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		
 		orderWatcher.update(ConfigurationField.OPENORDERSEXPIRATIONTIME, configuration);
@@ -163,7 +163,7 @@ class OpenOrdersWatcherTest {
 	
 	@Test
 	void update_shouldUpdateOpenOrdersInterval_whenReceivingUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setUnfilledOrdersReplaceFlag(true);
 		
 		orderWatcher.update(ConfigurationField.UNFILLEDORDERSREPLACEFLAG, configuration);
@@ -173,7 +173,7 @@ class OpenOrdersWatcherTest {
 	
 	@Test
 	void update_shouldNotUpdate_whenReceivingIrrelevantUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		configuration.setUnfilledOrdersReplaceFlag(true);
 		

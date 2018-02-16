@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
+import tvtrader.caches.AccountRepository;
 
 class AccountRepositoryTest {
 	private static final String EXCHANGE = "EXCHANGE";

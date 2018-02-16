@@ -5,36 +5,34 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.caches.BalanceCache;
 import tvtrader.controllers.Listener;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
+import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 
 @Log4j2
 @Component
 public class BalanceService implements Listener {
-	private AccountService accountService;
-	private ExchangeFactory factory;
-
+	@Autowired private AccountService accountService;
+	@Autowired private ExchangeFactory factory;
 	private Map<String, BalanceCache> caches;
+	
 	@Getter
 	@Setter
 	private int assetRefreshRate;
 
-	public BalanceService(ExchangeFactory factory, AccountService accountService, Configuration configuration) {
-		this.accountService = accountService;
-		this.factory = factory;
+	public BalanceService(Configuration configuration) {
 		caches = new HashMap<>();
-		
 		configuration.addChangeListener(this);
 	}
 

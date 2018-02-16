@@ -1,5 +1,6 @@
 package tvtrader.jobs;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
@@ -8,11 +9,9 @@ import tvtrader.services.StoplossService;
 @Log4j2
 @Component
 public class StoplossCheckJob implements Runnable {
-	private StoplossService protector;
 	
-	public StoplossCheckJob(StoplossService protector) {
-		this.protector = protector;
-	}
+	@Autowired
+	private StoplossService protector;
 	
 	@Override
 	public void run() {

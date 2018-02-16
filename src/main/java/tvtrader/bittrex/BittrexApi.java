@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.Api;
 import tvtrader.exchange.UnsupportedOrderTypeException;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 import tvtrader.utils.HashingUtility;
 import tvtrader.utils.NonceCreator;
@@ -26,14 +26,9 @@ public class BittrexApi implements Api {
 	private static final String MARKET_DELIMITER = "-";
 	private static final String BASE_URL = "https://bittrex.com/api/v1.1/";
 	
-	@Qualifier("BittrexHasher")
 	@Autowired
+	@Qualifier("BittrexHasher")
 	private HashingUtility hasher;
-
-	public BittrexApi(HashingUtility hasher) {
-		super();
-		this.hasher = hasher;
-	}
 
 	@Override
 	public Url getMarketSummaries() {

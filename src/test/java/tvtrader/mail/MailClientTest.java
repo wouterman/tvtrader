@@ -169,7 +169,7 @@ class MailClientTest {
 	
 	@Test
 	void update_shouldUpdateExpectedSender_whenReceivingUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setExpectedSender(EXPECTED_SENDER);
 		
 		client.update(ConfigurationField.EXPECTEDSENDER, configuration);
@@ -179,7 +179,7 @@ class MailClientTest {
 	
 	@Test
 	void update_shouldNotUpdateExpectedSender_whenReceivingIrrelevantUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setExpectedSender(UNEXPECTED_SENDER);
 		
 		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);
@@ -190,7 +190,7 @@ class MailClientTest {
 	@Test
 	void update_shouldUpdateMailConfig_whenReceivingUpdate() throws Exception {
 		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setMailConfig(config);
 		
 		client.update(ConfigurationField.MAILCONFIG, configuration);
@@ -202,7 +202,7 @@ class MailClientTest {
 	void update_shouldNotUpdateMailConfig_whenReceivingIrrelevantUpdate() throws Exception {
 		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
 		
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setMailConfig(config);
 		
 		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);

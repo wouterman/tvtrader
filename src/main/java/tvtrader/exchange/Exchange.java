@@ -3,9 +3,9 @@ package tvtrader.exchange;
 import java.util.List;
 import java.util.Map;
 
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 
 /**

@@ -1,5 +1,6 @@
 package tvtrader.orders;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
@@ -10,13 +11,11 @@ import tvtrader.services.ExchangeService;
 @Log4j2
 @Component
 public class GainChecker {
+	@Autowired
 	private ExchangeService exchangeService;
-	private AccountService accountService;
 	
-	public GainChecker(ExchangeService exchangeService, AccountService accountService) {
-		this.exchangeService = exchangeService;
-		this.accountService = accountService;
-	}
+	@Autowired
+	private AccountService accountService;
 
 	/**
 	 * Checks if the minimum gain for the order is met. If no minimum gain is set

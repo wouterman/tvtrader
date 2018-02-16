@@ -20,7 +20,7 @@ import tvtrader.services.AccountService;
 
 @Log4j2
 @Component
-public class OrderCheckJobs implements Runnable {
+public class MailFetchJob implements Runnable {
 
 	@Autowired
 	private MailClient client;

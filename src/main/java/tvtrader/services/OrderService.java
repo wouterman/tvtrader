@@ -2,22 +2,20 @@ package tvtrader.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 
 @Component
 public class OrderService {
+	@Autowired 
 	private ExchangeFactory factory;
-	
-	public OrderService(ExchangeFactory factory) {
-		this.factory = factory;
-	}
 	
 	public boolean placeOrder(MarketOrder order, ApiCredentials credentials) throws ExchangeException {
 		Exchange exchange = factory.getExchange(order.getExchange());

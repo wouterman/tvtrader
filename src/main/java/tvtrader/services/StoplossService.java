@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.Account;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
+import tvtrader.model.Account;
 import tvtrader.orders.OrderPlacer;
 import tvtrader.orders.OrderType;
 import tvtrader.orders.StoplossOrder;
@@ -32,18 +33,17 @@ import tvtrader.stoploss.UnverifiedStoplossWatcherException;
 @Log4j2
 @Component
 public class StoplossService implements StoplossListener {
+	@Autowired 
 	private AccountService accountService;
+	@Autowired 
 	private ExchangeService exchangeService;
+	@Autowired 
 	private StoplossWatcher watcher;
+	
 	private List<StoplossOrder> orders;
 
-	public StoplossService(ExchangeService exchangeService, AccountService accountService, StoplossWatcher watcher,
-			OrderPlacer orderPlacer) {
-		this.exchangeService = exchangeService;
-		this.accountService = accountService;
-		this.watcher = watcher;
+	public StoplossService(OrderPlacer orderPlacer) {
 		orders = new ArrayList<>();
-
 		orderPlacer.addChangeListener(this);
 	}
 

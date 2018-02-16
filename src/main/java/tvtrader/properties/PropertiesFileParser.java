@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.Account;
-import tvtrader.accounts.AccountCreator;
 import tvtrader.exceptionlogger.GameBreakerException;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.mail.InvalidMailConfigException;
+import tvtrader.model.Account;
 import tvtrader.model.MailConfiguration;
 import tvtrader.utils.NumberParser;
 
@@ -37,12 +37,9 @@ public class PropertiesFileParser {
 	private static final String RETRY_CANCELLED_ORDERS = "retry_cancelled_orders";
 	private static final String IMAPS = "imaps";
 	private boolean loaded = false;
-
+	
+	@Autowired
 	private AccountCreator accountCreator;
-
-	public PropertiesFileParser(AccountCreator accountCreator) {
-		this.accountCreator = accountCreator;
-	}
 
 	private Map<String, Integer> intervals = new HashMap<>();
 	private Properties config;

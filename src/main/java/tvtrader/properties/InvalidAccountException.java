@@ -1,4 +1,4 @@
-package tvtrader.accounts;
+package tvtrader.properties;
 
 import tvtrader.exchange.ExchangeException;
 

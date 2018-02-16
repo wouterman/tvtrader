@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
 import tvtrader.exchange.ExchangeException;
-import tvtrader.jobs.OrderCheckJobs;
+import tvtrader.jobs.MailFetchJob;
 import tvtrader.mail.MailClient;
 import tvtrader.orders.GainChecker;
 import tvtrader.orders.MarketOrder;
@@ -52,7 +52,7 @@ class OrderCheckerTest {
 	private OrderBuilder orderBuilder;
 
 	@InjectMocks
-	private OrderCheckJobs orderChecker;
+	private MailFetchJob orderChecker;
 
 	@BeforeAll
 	synchronized static void startup() {

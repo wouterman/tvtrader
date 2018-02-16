@@ -1,7 +1,7 @@
 package tvtrader.stubs;
 
-import tvtrader.accounts.Account;
-import tvtrader.accounts.ApiCredentials;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 
 /**
  * Returns stub accounts for testing purposes.<br>

@@ -17,10 +17,10 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
+import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 
@@ -124,7 +124,7 @@ class BalanceServiceTest {
 
 	@Test
 	void update_shouldUpdateRefreshRate_whenReceivingUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setAssetRefreshRate(ONE_MINUTE);
 
 		service.update(ConfigurationField.ASSETREFRESHRATE, configuration);
@@ -134,7 +134,7 @@ class BalanceServiceTest {
 
 	@Test
 	void update_shouldNotUpdateRefreshRate_whenReceivingIrrelevantUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setAssetRefreshRate(ONE_MINUTE);
 
 		service.update(ConfigurationField.EXPECTEDSENDER, configuration);

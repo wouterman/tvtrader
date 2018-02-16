@@ -4,21 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.NonNull;
-import tvtrader.accounts.Account;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.mail.MailClient;
+import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 
 @Component
-public class InputController {
+public class ConfigurationController {
 
 	@Autowired
 	private Configuration configuration;
 
 	@Autowired
 	private MailClient mailClient;
-
+	
 	/**
 	 * Sets the expected sender for the mailclient.
 	 */
@@ -31,7 +31,7 @@ public class InputController {
 	 * 
 	 */
 	public void setMailConfiguration(@NonNull MailConfiguration config) throws UnverifiedException {
-		configuration.setMailConfig(config);
+		configuration.setMailConfig(config);		
 		mailClient.verify();
 	}
 

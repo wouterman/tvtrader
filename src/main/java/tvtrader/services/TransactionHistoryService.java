@@ -4,18 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.caches.TransactionCache;
 import tvtrader.controllers.Listener;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 import tvtrader.orders.OrderType;
@@ -23,7 +24,9 @@ import tvtrader.orders.OrderType;
 @Log4j2
 @Component
 public class TransactionHistoryService implements Listener {
+	@Autowired
 	private ExchangeFactory factory;
+	@Autowired
 	private AccountService accountService;
 	private Map<String, TransactionCache> accounts;
 
@@ -31,11 +34,8 @@ public class TransactionHistoryService implements Listener {
 	@Setter
 	private int boughtPriceRefreshRate;
 
-	public TransactionHistoryService(ExchangeFactory factory, AccountService accountService, Configuration configuration) {
-		this.factory = factory;
-		this.accountService = accountService;
+	public TransactionHistoryService(Configuration configuration) {
 		accounts = new HashMap<>();
-		
 		configuration.addChangeListener(this);
 	}
 
@@ -109,7 +109,7 @@ public class TransactionHistoryService implements Listener {
 	private boolean checkMainCurrency(String exchangeName, String accountName, Order order) throws ExchangeException {
 		String mainCurrency = order.getMainCoin();
 		String expectedMainCurrency = accountService.getMainCurrency(exchangeName, accountName);
-		
+
 		return mainCurrency.equalsIgnoreCase(expectedMainCurrency);
 	}
 

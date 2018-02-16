@@ -20,11 +20,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.bittrex.BittrexFilledOrder;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 
 class ExchangeServiceTest {

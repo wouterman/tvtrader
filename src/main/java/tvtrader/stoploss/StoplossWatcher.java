@@ -2,6 +2,7 @@ package tvtrader.stoploss;
 
 import java.text.DecimalFormat;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
@@ -35,15 +36,12 @@ import tvtrader.utils.PriceFormatter;
 @Component
 public class StoplossWatcher {
 	private final DecimalFormat formatter = PriceFormatter.getFormatter();
+	@Autowired
 	private ExchangeService exchangeService;
+	@Autowired
 	private AccountService accountService;
+	@Autowired
 	private OrderPlacer orderPlacer;
-
-	public StoplossWatcher(AccountService accountService, ExchangeService exchangeService, OrderPlacer orderPlacer) {
-		this.exchangeService = exchangeService;
-		this.accountService = accountService;
-		this.orderPlacer = orderPlacer;
-	}
 
 	/**
 	 * Checks if the stoploss has been triggered.

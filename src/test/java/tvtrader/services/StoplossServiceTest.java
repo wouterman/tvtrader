@@ -24,8 +24,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
 import tvtrader.exchange.ExchangeException;
+import tvtrader.model.Account;
 import tvtrader.orders.OrderPlacer;
 import tvtrader.orders.StoplossOrder;
 import tvtrader.stoploss.StoplossWatcher;

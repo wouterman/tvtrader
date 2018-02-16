@@ -1,20 +1,18 @@
 package tvtrader.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
-import tvtrader.accounts.Account;
 import tvtrader.controllers.Listener;
 import tvtrader.services.AccountService;
 
 @Component
-public class Configuration implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private transient List<Listener> listeners = new ArrayList<>();
+public class Configuration {
+	private List<Listener> listeners = new ArrayList<>();
 	private static final String INVALID_INTERVAL_MESSAGE = "Interval has to be > 0!";
 
 	@Getter
@@ -35,11 +33,9 @@ public class Configuration implements Serializable {
 	private int tickerRefreshRate;
 	@Getter
 	private int assetRefreshRate;
-	private transient AccountService accountService;
-
-	public Configuration(AccountService accountService) {
-		this.accountService = accountService;
-	}
+	
+	@Autowired
+	private AccountService accountService;
 
 	/**
 	 * Initializes the mail client with the provided configuration.

@@ -1,5 +1,6 @@
 package tvtrader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import tvtrader.properties.PropertiesFileLoader;
@@ -8,14 +9,9 @@ import tvtrader.services.JobService;
 @Component
 public class ConsoleRunner {
 	private static final String ARGUMENT_USAGE_MESSAGE = "Invalid console arguments! Usage console arguments: -[db|properties] [FILE_PATH]";
-	private PropertiesFileLoader propertiesFileLoader;
-	private JobService jobService;
-
-	public ConsoleRunner(PropertiesFileLoader propertiesFileLoader, JobService jobService) {
-		super();
-		this.propertiesFileLoader = propertiesFileLoader;
-		this.jobService = jobService;
-	}
+	
+	@Autowired private PropertiesFileLoader propertiesFileLoader;
+	@Autowired private JobService jobService;
 
 	public void run(String... args) {
 		if (args.length != 2) {

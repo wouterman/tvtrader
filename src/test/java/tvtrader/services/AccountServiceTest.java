@@ -14,10 +14,10 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
-import tvtrader.accounts.ApiCredentials;
+import tvtrader.caches.AccountRepository;
 import tvtrader.exchange.ExchangeException;
-import tvtrader.model.AccountRepository;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 class AccountServiceTest {

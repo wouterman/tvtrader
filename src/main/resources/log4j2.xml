@@ -31,8 +31,8 @@
 			<appender-ref ref="debug-log" level="debug" />
 		</Logger>
 		<!-- Turn off Spring logging -->
-		<Logger name="org.springframework" level="off"/>
-		<Logger name="org.hibernate" level="off"/>
+		<Logger name="org.springframework" level="off" />
+		<Logger name="org.hibernate" level="off" />
 		<Root level="info" additivity="false">
 			<AppenderRef ref="console" />
 		</Root>

@@ -3,11 +3,11 @@ package tvtrader.bittrex;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.Api;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
@@ -15,6 +15,7 @@ import tvtrader.exchange.UnsupportedOrderTypeException;
 import tvtrader.exchange.apidata.JsonParser;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 import tvtrader.services.WebService;
 import tvtrader.web.Url;
@@ -39,16 +40,16 @@ public class Bittrex implements Exchange {
 	private static final double TAKER_FEE = 0.0025;
 	private static final double MAKER_FEE = 0.0025;
 
+	@Autowired
+	@Qualifier("BittrexApi")
 	private Api api;
-	private WebService webService;
+
+	@Autowired
+	@Qualifier("BittrexParser")
 	private JsonParser parser;
-	
-	public Bittrex(@Qualifier("BittrexApi") Api api, WebService webService, @Qualifier("BittrexParser") JsonParser parser) {
-		this.api = api;
-		this.webService = webService;
-		this.parser = parser;
-		
-	}
+
+	@Autowired
+	private WebService webService;
 
 	@Override
 	public String createMarket(String mainCoin, String altCoin) {
@@ -74,7 +75,7 @@ public class Bittrex implements Exchange {
 	public double getMinimumOrderAmount() {
 		return MINIMUM_ORDER_AMOUNT;
 	}
-	
+
 	@Override
 	public Map<String, Ticker> getTickers() throws ExchangeException {
 		Url url = api.getMarketSummaries();
@@ -125,7 +126,7 @@ public class Bittrex implements Exchange {
 
 			String response = webService.sendRequest(url);
 			log.debug("Received response: {}", response);
-			
+
 			return parser.checkResponse(response);
 		} catch (ExchangeException e) {
 			log.info("Couldn't cancel order {}. Received the following message: {}", orderId, e.getMessage());

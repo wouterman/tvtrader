@@ -2,20 +2,18 @@ package tvtrader.services;
 
 import java.util.Iterator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import tvtrader.accounts.Account;
-import tvtrader.accounts.ApiCredentials;
+import tvtrader.caches.AccountRepository;
 import tvtrader.exchange.ExchangeException;
-import tvtrader.model.AccountRepository;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 
 @Component
 public class AccountService {
+	@Autowired
 	private AccountRepository repository;
-
-	public AccountService(AccountRepository repository) {
-		this.repository = repository;
-	}
 
 	/**
 	 * Adds the account to the repository.
@@ -28,7 +26,7 @@ public class AccountService {
 	public void addAccount(String exchange, Account account) {
 		repository.addAccount(exchange, account);
 	}
-	
+
 	/**
 	 * Removes the account to the repository.
 	 * 
@@ -195,8 +193,9 @@ public class AccountService {
 
 	/**
 	 * Returns all the accounts associated with the exchange.<br>
+	 * 
 	 * @param exchange
-	 * The exchange for which to fetch the accounts.
+	 *            The exchange for which to fetch the accounts.
 	 * @return Iterator for the accounts.
 	 */
 	public Iterator<Account> getAccounts(String exchange) {

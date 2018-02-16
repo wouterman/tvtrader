@@ -17,11 +17,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
 import tvtrader.orders.OrderType;
 

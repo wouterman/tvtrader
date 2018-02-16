@@ -57,7 +57,7 @@ public class MailClient implements Listener {
 	private Properties mailProps;
 	private Folder folder;
 	private Store store;
-
+	
 	public MailClient(Configuration configuration) {
 		configuration.addChangeListener(this);
 	}

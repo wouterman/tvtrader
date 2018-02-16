@@ -10,16 +10,16 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
 import tvtrader.mail.MailClient;
+import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 
-class InputControllerTest {
+class ConfigurationControllerTest {
 	@Mock private Configuration configuration;
 	@Mock private MailClient mailClient;
 	
-	@InjectMocks private InputController controller; 
+	@InjectMocks private ConfigurationController controller; 
 	
 	@BeforeAll
 	synchronized static void startup() {

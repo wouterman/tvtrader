@@ -16,6 +16,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import test.logger.Logger;
+import tvtrader.model.Account;
+import tvtrader.properties.AccountCreator;
+import tvtrader.properties.InvalidAccountException;
 import tvtrader.stubs.AccountPropertiesStubs;
 import tvtrader.stubs.AccountStubs;
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.controllers.Listener;
 import tvtrader.jobs.OpenOrdersJob;
-import tvtrader.jobs.OrderCheckJobs;
+import tvtrader.jobs.MailFetchJob;
 import tvtrader.jobs.OrderPlacerJob;
 import tvtrader.jobs.StoplossCheckJob;
 import tvtrader.model.Configuration;
@@ -27,7 +27,7 @@ public class JobService implements Closeable, Listener {
 	private boolean running;
 
 	@Autowired
-	private OrderCheckJobs orderCheckJob;
+	private MailFetchJob orderCheckJob;
 	@Autowired
 	private StoplossCheckJob stoplossCheckJob;
 	@Autowired
@@ -133,7 +133,7 @@ public class JobService implements Closeable, Listener {
 	@Override
 	public void close() {
 		log.info("Shutting down the application.");
-		executorService.shutdown();
+		executorService.shutdownNow();
 		running = false;
 	}
 

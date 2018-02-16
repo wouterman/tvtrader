@@ -1,5 +1,6 @@
 package tvtrader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
@@ -9,14 +10,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Component
 public class Main {
+
+	@Autowired
 	private GuiRunner guiRunner;
+	@Autowired
 	private ConsoleRunner consoleRunner;
-	
-	public Main(GuiRunner guiRunner, ConsoleRunner consoleRunner) {
-		this.guiRunner = guiRunner;
-		this.consoleRunner = consoleRunner;
-	}
-	
+
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -38,5 +37,5 @@ public class Main {
 			guiRunner.run();
 		}
 	}
-	
+
 }

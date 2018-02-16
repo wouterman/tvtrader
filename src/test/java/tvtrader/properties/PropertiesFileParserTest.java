@@ -18,25 +18,25 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.Account;
-import tvtrader.accounts.AccountCreator;
 import tvtrader.exceptionlogger.GameBreakerException;
+import tvtrader.model.Account;
 import tvtrader.model.MailConfiguration;
 import tvtrader.stubs.MailConfigurationStub;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 class PropertiesFileParserTest {
 	private static final String INVALID_CONFIGURATIONS = "invalidConfigurations";
-	private PropertiesFileParser configParser;
 	
 	@Mock private AccountCreator accountCreator;
-	
+
+	@InjectMocks private PropertiesFileParser configParser;
 	
 	@BeforeAll
 	synchronized static void startup() {
@@ -46,8 +46,6 @@ class PropertiesFileParserTest {
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.initMocks(this);
-
-		configParser = new PropertiesFileParser(accountCreator);
 	}
 	
 	@Test

@@ -1,8 +1,11 @@
 package tvtrader.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -23,14 +26,15 @@ public class TickerService implements Listener {
 	private static final String BID = "BID";
 	private static final String ASK = "ASK";
 	private Map<String, TickerCache> caches;
-	@Getter @Setter private int tickerRefreshRate;
+	@Getter
+	@Setter
+	private int tickerRefreshRate;
 
+	@Autowired 
 	private ExchangeFactory factory;
 
-	public TickerService(ExchangeFactory factory, Configuration configuration) {
-		this.factory = factory;
+	public TickerService(Configuration configuration) {
 		caches = new HashMap<>();
-		
 		configuration.addChangeListener(this);
 	}
 
@@ -80,8 +84,7 @@ public class TickerService implements Listener {
 		// cache.
 		TickerCache cache = caches.computeIfAbsent(exchangeName, value -> new TickerCache());
 
-		long currentTimeMilli = System.currentTimeMillis();
-		if (refreshNeeded(cache, currentTimeMilli)) {
+		if (refreshNeeded(cache)) {
 			log.debug("Refreshing ticker cache for {}.", exchangeName);
 			cache.refreshCache(exchange.getTickers());
 
@@ -102,9 +105,11 @@ public class TickerService implements Listener {
 	/**
 	 * Checks if the cache needs to be refreshed.<br>
 	 */
-	private boolean refreshNeeded(TickerCache cache, long currentTimeMilli) {
+	private boolean refreshNeeded(TickerCache cache) {
+		long currentTimeMilli = System.currentTimeMillis();
 		long refreshtime = cache.getLastRefresh() + (tickerRefreshRate * 1_000);
-		log.debug("{} >= {}", currentTimeMilli, refreshtime);
+		log.debug("{} >= {}", LocalDateTime.ofEpochSecond(currentTimeMilli / 1000, 0, ZoneOffset.UTC),
+				LocalDateTime.ofEpochSecond(refreshtime / 1000, 0, ZoneOffset.UTC));
 		return currentTimeMilli >= refreshtime;
 	}
 

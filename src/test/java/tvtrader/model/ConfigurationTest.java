@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
 import test.logger.TestListener;
-import tvtrader.accounts.Account;
 import tvtrader.services.AccountService;
 
 public class ConfigurationTest {

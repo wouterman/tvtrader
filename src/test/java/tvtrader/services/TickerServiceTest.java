@@ -129,7 +129,7 @@ class TickerServiceTest {
 	
 	@Test
 	void update_shouldUpdateRefreshRate_whenReceivingUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setTickerRefreshRate(ONE_MINUTE);
 		
 		service.update(ConfigurationField.TICKERREFRESHRATE, configuration);
@@ -139,7 +139,7 @@ class TickerServiceTest {
 	
 	@Test
 	void update_shouldNotUpdateRefreshRate_whenReceivingIrrelevantUpdate() throws Exception {
-		Configuration configuration = new Configuration(null);
+		Configuration configuration = new Configuration();
 		configuration.setTickerRefreshRate(ONE_MINUTE);
 		
 		service.update(ConfigurationField.EXPECTEDSENDER, configuration);

@@ -2,6 +2,7 @@ package tvtrader.services;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import okhttp3.Response;
@@ -11,12 +12,8 @@ import tvtrader.web.Url;
 
 @Component
 public class WebService {
+	@Autowired 
 	private RequestHandler requestHandler;
-	
-	public WebService(RequestHandler requestHandler) {
-		super();
-		this.requestHandler = requestHandler;
-	}
 	
 	public String sendRequest(Url url) throws ExchangeException {
 		try {

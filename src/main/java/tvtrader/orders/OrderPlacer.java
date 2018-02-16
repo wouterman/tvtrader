@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
@@ -21,14 +22,14 @@ import tvtrader.stoploss.StoplossListener;
 @Component
 public class OrderPlacer {
 	private static List<MarketOrder> orders = new ArrayList<>();
-
+	private List<StoplossListener> listeners;
+	
+	@Autowired
 	private ExchangeService exchangeService;
 
-	private List<StoplossListener> listeners;
 
-	public OrderPlacer(ExchangeService exchangeService) {
-		this.exchangeService = exchangeService;
-
+	public OrderPlacer() {
+		orders = new ArrayList<>();
 		listeners = new ArrayList<>();
 	}
 

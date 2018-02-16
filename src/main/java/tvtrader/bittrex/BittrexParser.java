@@ -24,6 +24,7 @@ import tvtrader.exchange.apidata.Ticker;
 @Component(value="BittrexParser")
 public class BittrexParser implements JsonParser {
 	private static final String RESPONSE_NOT_SUCCESSFUL_MESSAGE = "Response not successful. Received the following message: ";
+	
 	private Gson gson;
 
 	public BittrexParser(Gson gson) {

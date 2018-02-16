@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.Account;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 
 @Log4j2

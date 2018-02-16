@@ -1,4 +1,4 @@
-package tvtrader.accounts;
+package tvtrader.properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
 import tvtrader.exchange.ExchangeException;
+import tvtrader.model.Account;
+import tvtrader.model.ApiCredentials;
 
 /**
  * Responsible for extracting from the configuration file all the accounts

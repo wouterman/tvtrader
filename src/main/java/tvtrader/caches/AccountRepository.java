@@ -1,18 +1,15 @@
-package tvtrader.model;
+package tvtrader.caches;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import tvtrader.accounts.Account;
+import tvtrader.model.Account;
 
 @Component
-public class AccountRepository implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class AccountRepository {
 	private Map<String, Map<String, Account>> repository;
 
 	public AccountRepository() {

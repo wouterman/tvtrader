@@ -17,9 +17,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.accounts.ApiCredentials;
 import tvtrader.bittrex.BittrexApi;
 import tvtrader.exchange.UnsupportedOrderTypeException;
+import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderType;
 import tvtrader.utils.HashingUtility;

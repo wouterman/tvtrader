@@ -3,15 +3,16 @@ package tvtrader.orders;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import tvtrader.accounts.Account;
 import tvtrader.controllers.Listener;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.exchange.apidata.Order;
+import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 import tvtrader.services.AccountService;
@@ -35,18 +36,16 @@ public class OpenOrdersWatcher implements Listener {
 	@Getter
 	private boolean replace;
 
+	@Autowired
 	private ExchangeService exchangeService;
+	@Autowired
 	private AccountService accountService;
+	@Autowired
 	private OrderBuilder orderBuilder;
+	@Autowired
 	private OrderPlacer orderPlacer;
 
-	public OpenOrdersWatcher(ExchangeService exchangeService, AccountService accountService, OrderBuilder orderBuilder,
-			OrderPlacer orderPlacer, Configuration configuration) {
-		this.exchangeService = exchangeService;
-		this.accountService = accountService;
-		this.orderBuilder = orderBuilder;
-		this.orderPlacer = orderPlacer;
-
+	public OpenOrdersWatcher(Configuration configuration) {
 		configuration.addChangeListener(this);
 	}
 
@@ -61,7 +60,6 @@ public class OpenOrdersWatcher implements Listener {
 
 		expirationDate = System.currentTimeMillis() - (expirationTime * 1000);
 		log.debug("Current expirationDate: {}", expirationDate);
-		
 
 		SupportedExchange[] exchanges = SupportedExchange.values();
 
