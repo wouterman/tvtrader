@@ -4,12 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import tvtrader.model.Configuration;
 
+@Transactional
 @Repository
 public class ConfigurationDao {
-		
+
 	@PersistenceContext
 	private EntityManager entityManager;
 

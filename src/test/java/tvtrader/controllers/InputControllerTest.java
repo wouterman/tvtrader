@@ -15,11 +15,11 @@ import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 
-class ConfigurationControllerTest {
+class InputControllerTest {
 	@Mock private Configuration configuration;
 	@Mock private MailClient mailClient;
 	
-	@InjectMocks private ConfigurationController controller; 
+	@InjectMocks private InputController controller; 
 	
 	@BeforeAll
 	synchronized static void startup() {

@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.controllers.ConfigurationController;
+import tvtrader.controllers.InputController;
 import tvtrader.properties.PropertiesFileLoader;
 import tvtrader.properties.PropertiesFileParser;
 
@@ -19,7 +19,7 @@ class PropertiesFileLoaderTest {
 	private static final String INVALID_PATH = "INVALID";
 
 	@Mock
-	private ConfigurationController controller;
+	private InputController controller;
 	@Mock
 	private PropertiesFileParser parser;
 

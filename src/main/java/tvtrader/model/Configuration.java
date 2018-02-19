@@ -3,18 +3,28 @@ package tvtrader.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import tvtrader.controllers.Listener;
 import tvtrader.services.AccountService;
 
+@ToString
+@Entity
 @Component
 public class Configuration {
-	private List<Listener> listeners = new ArrayList<>();
 	private static final String INVALID_INTERVAL_MESSAGE = "Interval has to be > 0!";
 
+	@Id
+	@Getter @Setter private long id = 1;
+	
 	@Getter
 	private MailConfiguration mailConfig;
 	@Getter
@@ -34,8 +44,12 @@ public class Configuration {
 	@Getter
 	private int assetRefreshRate;
 	
+	@Transient
 	@Autowired
 	private AccountService accountService;
+	
+	@Transient
+	private List<Listener> listeners = new ArrayList<>();
 
 	/**
 	 * Initializes the mail client with the provided configuration.

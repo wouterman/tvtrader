@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
-import tvtrader.controllers.ConfigurationController;
+import tvtrader.controllers.InputController;
 import tvtrader.exceptionlogger.GameBreakerException;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.model.Account;
@@ -22,7 +22,7 @@ import tvtrader.model.MailConfiguration;
 @Component
 public class PropertiesFileLoader {
 	@Autowired
-	private ConfigurationController controller;
+	private InputController controller;
 	@Autowired
 	private PropertiesFileParser parser;
 	

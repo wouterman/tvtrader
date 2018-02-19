@@ -7,23 +7,27 @@ import lombok.NonNull;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.mail.MailClient;
 import tvtrader.model.Account;
-import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
+import tvtrader.services.AccountService;
+import tvtrader.services.ConfigurationService;
 
 @Component
-public class ConfigurationController {
+public class InputController {
 
 	@Autowired
-	private Configuration configuration;
+	private ConfigurationService configurationService;
 
 	@Autowired
 	private MailClient mailClient;
+	
+	@Autowired
+	private AccountService accountService;
 	
 	/**
 	 * Sets the expected sender for the mailclient.
 	 */
 	public void setExpectedSender(@NonNull String senderToSet) {
-		configuration.setExpectedSender(senderToSet);
+		configurationService.setExpectedSender(senderToSet);
 	}
 
 	/**
@@ -31,7 +35,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setMailConfiguration(@NonNull MailConfiguration config) throws UnverifiedException {
-		configuration.setMailConfig(config);		
+		configurationService.setMailConfiguration(config);		
 		mailClient.verify();
 	}
 
@@ -40,7 +44,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setMailPollingInterval(int interval) {
-		configuration.setMailPollingInterval(interval);
+		configurationService.setMailPollingInterval(interval);
 	}
 
 	/**
@@ -48,7 +52,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setStoplossInterval(int interval) {
-		configuration.setStoplossInterval(interval);
+		configurationService.setStoplossInterval(interval);
 	}
 
 	/**
@@ -56,7 +60,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setOpenOrdersInterval(int interval) {
-		configuration.setOpenOrdersInterval(interval);
+		configurationService.setOpenOrdersInterval(interval);
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setOpenOrdersExpirationTime(int expirationTime) {
-		configuration.setOpenOrdersExpirationTime(expirationTime);
+		configurationService.setOpenOrdersExpirationTime(expirationTime);
 	}
 
 	/**
@@ -72,14 +76,14 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setTickerRefreshRate(int refreshRate) {
-		configuration.setTickerRefreshRate(refreshRate);
+		configurationService.setTickerRefreshRate(refreshRate);
 	}
 
 	/**
 	 * Sets the asset refresh rate for all exchanges.<br>
 	 */
 	public void setAssetRefreshRate(int refreshRate) {
-		configuration.setAssetRefreshRate(refreshRate);
+		configurationService.setAssetRefreshRate(refreshRate);
 	}
 
 	/**
@@ -87,7 +91,7 @@ public class ConfigurationController {
 	 * 
 	 */
 	public void setUnfilledOrdersReplaceFlag(boolean flag) {
-		configuration.setUnfilledOrdersReplaceFlag(flag);
+		configurationService.setUnfilledOrdersReplaceFlag(flag);
 	}
 
 	/**
@@ -97,7 +101,7 @@ public class ConfigurationController {
 	 *             If one of the arguments is null.
 	 */
 	public void addAccount(@NonNull String exchangeName, @NonNull Account account) {
-		configuration.addAccount(exchangeName, account);
+		accountService.addAccount(exchangeName, account);
 	}
 
 	/**
@@ -107,6 +111,6 @@ public class ConfigurationController {
 	 *             If one of the arguments is null.
 	 */
 	public void removeAccount(@NonNull String exchangeName, @NonNull String accountName) {
-		configuration.deleteAccount(exchangeName, accountName);
+		accountService.removeAccount(exchangeName, accountName);
 	}
 }

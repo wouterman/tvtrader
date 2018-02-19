@@ -1,4 +1,4 @@
-package tvtrader.accounts;
+package tvtrader.properties;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
