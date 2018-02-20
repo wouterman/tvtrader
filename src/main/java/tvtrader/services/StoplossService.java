@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
@@ -33,12 +34,10 @@ import tvtrader.stoploss.UnverifiedStoplossWatcherException;
 @Log4j2
 @Component
 public class StoplossService implements StoplossListener {
-	@Autowired 
-	private AccountService accountService;
-	@Autowired 
-	private ExchangeService exchangeService;
-	@Autowired 
-	private StoplossWatcher watcher;
+	
+	@Autowired @Setter private AccountService accountService;
+	@Autowired @Setter private ExchangeService exchangeService;
+	@Autowired @Setter private StoplossWatcher watcher;
 	
 	private List<StoplossOrder> orders;
 

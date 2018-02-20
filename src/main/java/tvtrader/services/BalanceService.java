@@ -23,13 +23,12 @@ import tvtrader.model.ConfigurationField;
 @Log4j2
 @Component
 public class BalanceService implements Listener {
-	@Autowired private AccountService accountService;
-	@Autowired private ExchangeFactory factory;
-	private Map<String, BalanceCache> caches;
 	
-	@Getter
-	@Setter
-	private int assetRefreshRate;
+	@Autowired @Setter private AccountService accountService;
+	@Autowired @Setter private ExchangeFactory factory;
+	
+	private Map<String, BalanceCache> caches;
+	@Getter	@Setter private int assetRefreshRate;
 
 	public BalanceService(Configuration configuration) {
 		caches = new HashMap<>();

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.controllers.Listener;
 import tvtrader.exchange.ExchangeException;
@@ -29,21 +30,12 @@ import tvtrader.services.ExchangeService;
 @Log4j2
 @Component
 public class OpenOrdersWatcher implements Listener {
-	private long expirationDate;
-
-	@Getter
-	private int expirationTime;
-	@Getter
-	private boolean replace;
-
-	@Autowired
-	private ExchangeService exchangeService;
-	@Autowired
-	private AccountService accountService;
-	@Autowired
-	private OrderBuilder orderBuilder;
-	@Autowired
-	private OrderPlacer orderPlacer;
+	@Getter private int expirationTime;
+	@Getter private boolean replace;
+	@Autowired @Setter private ExchangeService exchangeService;
+	@Autowired @Setter private AccountService accountService;
+	@Autowired @Setter private OrderBuilder orderBuilder;
+	@Autowired @Setter private OrderPlacer orderPlacer;
 
 	public OpenOrdersWatcher(Configuration configuration) {
 		configuration.addChangeListener(this);
@@ -57,9 +49,6 @@ public class OpenOrdersWatcher implements Listener {
 	 */
 	public void checkOrders() {
 		log.info("Checking open orders...");
-
-		expirationDate = System.currentTimeMillis() - (expirationTime * 1000);
-		log.debug("Current expirationDate: {}", expirationDate);
 
 		SupportedExchange[] exchanges = SupportedExchange.values();
 
@@ -87,7 +76,10 @@ public class OpenOrdersWatcher implements Listener {
 
 	private void checkOpenOrders(String exchange, String account) throws ExchangeException {
 		List<Order> openOrders = exchangeService.getOpenOrders(exchange, account);
-
+		
+		long expirationDate = System.currentTimeMillis() - (expirationTime * 1000);
+		log.debug("Current expirationDate: {}", expirationDate);
+		
 		for (Order order : openOrders) {
 			log.debug("Checking open order: {}", order);
 			if (order.getTimeStamp() < expirationDate) {

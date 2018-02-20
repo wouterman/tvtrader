@@ -10,12 +10,13 @@ import tvtrader.model.ApiCredentials;
  *
  */
 public class AccountStubs {
-	private final static Account BTC_ACCOUNT = new Account("DEFAULTBTC", "BTC",0.01, 10, 5, 1, new ApiCredentials("key", "secret"));
-	private final static Account ETH_ACCOUNT = new Account("DEFAULTETH", "ETH",0.01, 10, 5, 1, new ApiCredentials("key", "secret"));
-	private final static Account NO_GAIN = new Account("NOGAINBTC", "BTC",0.01, 10, 5, 0, new ApiCredentials("key", "secret"));
-	private final static Account NO_STOPLOSS = new Account("NOSTOPLOSSBTC", "BTC",0.01, 0, 5, 1, new ApiCredentials("key", "secret"));
+	private final static Account BTC_ACCOUNT = new Account("BITTREX", "DEFAULTBTC", "BTC",0.01, 10, 5, 1, new ApiCredentials("key", "secret"));
+	private final static Account ETH_ACCOUNT = new Account("BITTREX", "DEFAULTETH", "ETH",0.01, 10, 5, 1, new ApiCredentials("key", "secret"));
+	private final static Account NO_GAIN = new Account("BITTREX", "NOGAINBTC", "BTC",0.01, 10, 5, 0, new ApiCredentials("key", "secret"));
+	private final static Account NO_STOPLOSS = new Account("BITTREX", "NOSTOPLOSSBTC", "BTC",0.01, 0, 5, 1, new ApiCredentials("key", "secret"));
 	
 	/**
+	 * Exchange: BITTREX<br>
 	 * Name: defaultBtc<br>
 	 * Main currency: btc<br>
 	 * Buylimit: 0.01<br>
@@ -30,6 +31,7 @@ public class AccountStubs {
 	}
 	
 	/**
+	 * Exchange: BITTREX<br>
 	 * Name: defaultEth<br>
 	 * Main currency: eth<br>
 	 * Buylimit: 0.01<br>
@@ -44,6 +46,7 @@ public class AccountStubs {
 	}
 	
 	/**
+	 * Exchange: BITTREX<br>
 	 * Name: noGainBtc<br>
 	 * Main currency: btc<br>
 	 * Buylimit: 0.01<br>
@@ -58,6 +61,7 @@ public class AccountStubs {
 	}
 	
 	/**
+	 * Exchange: BITTREX<br>
 	 * Name: noStoplossBtc<br>
 	 * Main currency: btc<br>
 	 * Buylimit: 0.01<br>

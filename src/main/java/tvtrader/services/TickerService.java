@@ -26,12 +26,8 @@ public class TickerService implements Listener {
 	private static final String BID = "BID";
 	private static final String ASK = "ASK";
 	private Map<String, TickerCache> caches;
-	@Getter
-	@Setter
-	private int tickerRefreshRate;
-
-	@Autowired 
-	private ExchangeFactory factory;
+	@Getter	@Setter private int tickerRefreshRate;
+	@Autowired @Setter private ExchangeFactory factory;
 
 	public TickerService(Configuration configuration) {
 		caches = new HashMap<>();

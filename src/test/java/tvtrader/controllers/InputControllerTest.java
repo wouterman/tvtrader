@@ -1,9 +1,10 @@
 package tvtrader.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -12,11 +13,13 @@ import org.mockito.MockitoAnnotations;
 import test.logger.Logger;
 import tvtrader.mail.MailClient;
 import tvtrader.model.Account;
-import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
+import tvtrader.services.AccountService;
+import tvtrader.services.ConfigurationService;
 
 class InputControllerTest {
-	@Mock private Configuration configuration;
+	@Mock private ConfigurationService configurationService;
+	@Mock private AccountService accountService;
 	@Mock private MailClient mailClient;
 	
 	@InjectMocks private InputController controller; 
@@ -43,7 +46,7 @@ class InputControllerTest {
 		
 		controller.setExpectedSender(param);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setExpectedSender(param);
+		Mockito.verify(configurationService, Mockito.times(1)).setExpectedSender(param);
 	}
 	
 	@Test
@@ -58,7 +61,7 @@ class InputControllerTest {
 		
 		controller.setMailConfiguration(param);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setMailConfig(param);
+		Mockito.verify(configurationService, Mockito.times(1)).setMailConfiguration(param);
 		Mockito.verify(mailClient, Mockito.times(1)).verify();
 	}
 	
@@ -68,7 +71,7 @@ class InputControllerTest {
 		
 		controller.setMailPollingInterval(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setMailPollingInterval(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setMailPollingInterval(interval);
 	}	
 	
 	@Test
@@ -77,7 +80,7 @@ class InputControllerTest {
 		
 		controller.setStoplossInterval(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setStoplossInterval(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setStoplossInterval(interval);
 	}	
 	
 	@Test
@@ -86,7 +89,7 @@ class InputControllerTest {
 		
 		controller.setOpenOrdersInterval(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setOpenOrdersInterval(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setOpenOrdersInterval(interval);
 	}
 	
 	@Test
@@ -95,7 +98,7 @@ class InputControllerTest {
 		
 		controller.setOpenOrdersExpirationTime(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setOpenOrdersExpirationTime(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setOpenOrdersExpirationTime(interval);
 	}
 	
 	@Test
@@ -104,7 +107,7 @@ class InputControllerTest {
 		
 		controller.setUnfilledOrdersReplaceFlag(flag);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setUnfilledOrdersReplaceFlag(flag);
+		Mockito.verify(configurationService, Mockito.times(1)).setUnfilledOrdersReplaceFlag(flag);
 	}
 	
 	@Test
@@ -113,7 +116,7 @@ class InputControllerTest {
 		
 		controller.setTickerRefreshRate(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setTickerRefreshRate(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setTickerRefreshRate(interval);
 	}
 	
 	@Test
@@ -122,13 +125,13 @@ class InputControllerTest {
 		
 		controller.setAssetRefreshRate(interval);
 		
-		Mockito.verify(configuration, Mockito.times(1)).setAssetRefreshRate(interval);
+		Mockito.verify(configurationService, Mockito.times(1)).setAssetRefreshRate(interval);
 	}
 	
 	@Test
 	void addAccount_whenParamsNull_shouldThrowNPE() throws Exception {
 		String exchange = null;
-		Account account = new Account(null, null, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
 		assertThrows(NullPointerException.class, () -> controller.addAccount(exchange, account));
 		
 		String exchange2 = "EXCHANGE";
@@ -139,11 +142,11 @@ class InputControllerTest {
 	@Test
 	void addAccount_whenCalled_shouldAddAccount() throws Exception {
 		String exchangeName = "EXCHANGE";
-		Account account = new Account(null, null, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
 		
 		controller.addAccount(exchangeName, account);
 		
-		Mockito.verify(configuration, Mockito.times(1)).addAccount(exchangeName, account);
+		Mockito.verify(accountService, Mockito.times(1)).addAccount(exchangeName, account);
 	}
 	
 	@Test
@@ -164,6 +167,6 @@ class InputControllerTest {
 		
 		controller.removeAccount(exchangeName, account);
 		
-		Mockito.verify(configuration, Mockito.times(1)).deleteAccount(exchangeName, account);
+		Mockito.verify(accountService, Mockito.times(1)).removeAccount(exchangeName, account);
 	}
 }

@@ -84,7 +84,7 @@ public class AccountCreator {
 		ApiCredentials credentials = new ApiCredentials(key.trim(), secret.trim());
 
 		// Build account and return
-		return new Account(accountName.trim().toUpperCase(), mainCurrency.trim().toUpperCase(), buyLimit, stoploss, trailingStoploss, minimumGain, credentials);
+		return new Account(exchangeName.trim().toUpperCase(), accountName.trim().toUpperCase(), mainCurrency.trim().toUpperCase(), buyLimit, stoploss, trailingStoploss, minimumGain, credentials);
 	}
 
 	/**

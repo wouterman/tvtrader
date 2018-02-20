@@ -1,20 +1,22 @@
 package tvtrader;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
+import tvtrader.application.AppConfig;
+import tvtrader.application.ConsoleRunner;
 
 @Log4j2
-@Component
-public class Main {
+@SpringBootApplication
+public class Main extends SpringBootServletInitializer {
 
-	@Autowired
-	private GuiRunner guiRunner;
-	@Autowired
-	private ConsoleRunner consoleRunner;
+	@Autowired private ConsoleRunner consoleRunner;
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -34,8 +36,12 @@ public class Main {
 			consoleRunner.run(args);
 		} else {
 			log.info("Starting webgui.");
-			guiRunner.run();
+			SpringApplication.run(Main.class);
 		}
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Main.class);
+	}
 }

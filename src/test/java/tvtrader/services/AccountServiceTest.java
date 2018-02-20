@@ -40,7 +40,7 @@ class AccountServiceTest {
 
 	@Test
 	void addAccount_shouldDelegateToRepository() {
-		Account account = new Account(null, null, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
 		service.addAccount(EXCHANGE, account);
 		
 		Mockito.verify(repository, Mockito.times(1)).addAccount(EXCHANGE, account);
@@ -62,7 +62,7 @@ class AccountServiceTest {
 	
 	@Test
 	void getBuyLimit_whenAccountIsKnown_shouldReturnBuylimit() throws Exception {
-		Account account = new Account(null, null, 1, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 1, 0, 0, 0, null);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		
@@ -80,7 +80,7 @@ class AccountServiceTest {
 	
 	@Test
 	void getStoploss_whenAccountIsKnown_shouldReturnStoploss() throws Exception {
-		Account account = new Account(null, null, 0, 1, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 1, 0, 0, null);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		
@@ -98,7 +98,7 @@ class AccountServiceTest {
 	
 	@Test
 	void getTrailingStoploss_whenAccountIsKnown_shouldReturnTrailingStoploss() throws Exception {
-		Account account = new Account(null, null, 0, 0, 1, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 1, 0, null);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		
@@ -116,7 +116,7 @@ class AccountServiceTest {
 
 	@Test
 	void getMinimumGain_whenAccountIsKnown_shouldReturnMinimumGain() throws Exception {
-		Account account = new Account(null, null, 0, 0, 0, 1, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 1, null);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		
@@ -134,7 +134,7 @@ class AccountServiceTest {
 	
 	@Test
 	void getMainCurrency_whenAccountIsKnown_shouldReturnMainCurrency() throws Exception {
-		Account account = new Account(null, BTC, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, BTC, 0, 0, 0, 0, null);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		
@@ -153,7 +153,7 @@ class AccountServiceTest {
 	@Test
 	void getCredentials_whenAccountIsKnown_shouldReturnCredentials() throws Exception {
 		ApiCredentials credentials = new ApiCredentials(null, null);
-		Account account = new Account(null, null, 0, 0, 0, 0, credentials);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, credentials);
 
 		Mockito.when(repository.getAccount(EXCHANGE, ACCOUNT)).thenReturn(account);
 		

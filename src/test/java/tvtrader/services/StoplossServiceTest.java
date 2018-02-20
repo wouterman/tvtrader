@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -48,7 +47,6 @@ class StoplossServiceTest {
 	@Mock private StoplossWatcher watcher;
 	@Mock private OrderPlacer orderPlacer;
 	
-	@InjectMocks
 	private StoplossService service;
 	
 	@BeforeAll
@@ -59,6 +57,11 @@ class StoplossServiceTest {
 	@BeforeEach
 	void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		
+		service = new StoplossService(orderPlacer);
+		service.setAccountService(accountService);
+		service.setExchangeService(exchangeService);
+		service.setWatcher(watcher);
 	}
 	
 	@Test
@@ -124,7 +127,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenAccountHasPositiveStoploss_shouldStartStoplossProtectionForAccount() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		
@@ -147,7 +150,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenAccountHasPositiveStoploss_shouldNotStartStoplossProtectionForMainCurrency() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		
@@ -170,7 +173,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenStoplossPriceIsBelowMinimumOrderAmount_shouldNotStartStoplossProtection() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		
@@ -193,7 +196,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenNoAltcoinBalanceIsPresent_shouldNotStartStoplossProtectionForAccount() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		
@@ -216,7 +219,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenExchangeExceptionIsThrown_shouldNotStartStoplossProtectionForThatMarket() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		
@@ -239,7 +242,7 @@ class StoplossServiceTest {
 	
 	@Test
 	void startStoplossProtection_whenExchangeExceptionIsThrown_shouldStillStartStoplossProtectionForOtherMarkets() throws Exception {
-		Account account = new Account(ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNT, MAINCOIN, 0, STOPLOSS, 0, 0, null);
 		List<Account> accounts = Arrays.asList(account);
 		when(accountService.getAccounts(ArgumentMatchers.notNull())).thenReturn(accounts.iterator());
 		

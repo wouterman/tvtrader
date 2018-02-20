@@ -9,12 +9,9 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
 import tvtrader.exchange.Exchange;
@@ -24,7 +21,6 @@ import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 
-@RunWith(MockitoJUnitRunner.StrictStubs.class)
 class BalanceServiceTest {
 
 	private static final double ALTCOIN_BALANCE = 1.0;
@@ -36,16 +32,11 @@ class BalanceServiceTest {
 	private static final String ACCOUNT = "ACCOUNT";
 	private static final String EXCHANGE = "EXCHANGE";
 
-	@Mock
-	private Exchange exchange;
-
-	@Mock
-	private AccountService accountService;
-	@Mock
-	private ExchangeFactory factory;
-	@Mock
-	private Configuration configuration;
-	@InjectMocks
+	@Mock private Configuration configuration;
+	@Mock private Exchange exchange;
+	@Mock private AccountService accountService;
+	@Mock private ExchangeFactory factory;
+	
 	private BalanceService service;
 
 	@BeforeAll
@@ -56,6 +47,10 @@ class BalanceServiceTest {
 	@BeforeEach
 	void init() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		
+		service = new BalanceService(configuration);
+		service.setAccountService(accountService);
+		service.setFactory(factory);
 	}
 
 	@Test

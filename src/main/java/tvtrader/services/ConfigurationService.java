@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import lombok.NonNull;
 import tvtrader.controllers.Listener;
-import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.model.Configuration;
 import tvtrader.model.ConfigurationField;
 import tvtrader.model.MailConfiguration;
@@ -17,7 +16,7 @@ public class ConfigurationService implements Listener {
 	private Configuration configuration;
 	
 	@Autowired
-	private ConfigurationDao configurationDao;
+	private ConfigurationDao dao;
 	
 	public ConfigurationService(Configuration configuration) {
 		configuration.addChangeListener(this);
@@ -34,7 +33,8 @@ public class ConfigurationService implements Listener {
 	 * Initializes the mail client with the provided configuration.
 	 * 
 	 */
-	public void setMailConfiguration(@NonNull MailConfiguration config) throws UnverifiedException {
+	public void setMailConfiguration(@NonNull MailConfiguration config) {
+		System.out.println(dao.getConfigurationById(1));
 		configuration.setMailConfig(config);
 	}
 
@@ -95,6 +95,6 @@ public class ConfigurationService implements Listener {
 
 	@Override
 	public void update(ConfigurationField changedField, Configuration configuration) {
-		configurationDao.update(configuration);
+		dao.update(configuration);
 	}
 }

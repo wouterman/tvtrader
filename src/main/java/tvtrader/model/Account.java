@@ -12,6 +12,7 @@ import lombok.ToString;
 @Data
 @ToString(exclude="credentials")
 public class Account {
+	private final String exchange;
 	private final String name;
 	private final String mainCurrency;
 	private final double buyLimit;

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -40,22 +39,13 @@ class TransactionHistoryServiceTest {
 	private static final double MIXED_ORDER_BALANCE = 8.0;
 	private static final double MIXED_ORDER_BOUGHTPRICE = 16.0;
 
-	@Mock
-	Order buyOrder;
-	@Mock
-	Order sellOrder;
+	@Mock private Order buyOrder;
+	@Mock private Order sellOrder;
+	@Mock private Exchange exchange;
+	@Mock private ExchangeFactory factory;
+	@Mock private AccountService accountService;
+	@Mock private Configuration configuration;
 
-	@Mock
-	private Exchange exchange;
-
-	@Mock
-	private ExchangeFactory factory;
-	@Mock
-	private AccountService accountService;
-	@Mock
-	private Configuration configuration;
-
-	@InjectMocks
 	private TransactionHistoryService service;
 
 	@BeforeAll
@@ -66,6 +56,10 @@ class TransactionHistoryServiceTest {
 	@BeforeEach
 	void init() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		
+		service = new TransactionHistoryService(configuration);
+		service.setAccountService(accountService);
+		service.setFactory(factory);
 	}
 
 	@Test

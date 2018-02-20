@@ -24,15 +24,10 @@ import tvtrader.orders.OrderType;
 @Log4j2
 @Component
 public class TransactionHistoryService implements Listener {
-	@Autowired
-	private ExchangeFactory factory;
-	@Autowired
-	private AccountService accountService;
+	@Autowired @Setter private ExchangeFactory factory;
+	@Autowired @Setter private AccountService accountService;
+	@Getter	@Setter private int boughtPriceRefreshRate;
 	private Map<String, TransactionCache> accounts;
-
-	@Getter
-	@Setter
-	private int boughtPriceRefreshRate;
 
 	public TransactionHistoryService(Configuration configuration) {
 		accounts = new HashMap<>();

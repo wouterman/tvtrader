@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -46,7 +45,6 @@ class TickerServiceTest {
 	@Mock
 	private ExchangeFactory factory;
 
-	@InjectMocks
 	private TickerService service;
 
 	@BeforeAll
@@ -57,6 +55,9 @@ class TickerServiceTest {
 	@BeforeEach
 	void init() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		
+		service = new TickerService(configuration);
+		service.setFactory(factory);
 	}
 
 	@Test

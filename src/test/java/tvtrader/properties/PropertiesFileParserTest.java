@@ -317,7 +317,7 @@ class PropertiesFileParserTest {
 		configParser.load(config);
 		
 		String exchange = "BITTREX";
-		Account account = new Account(null, null, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
 		Mockito.when(accountCreator.extractAccounts(exchange, config)).thenReturn(Arrays.asList(account));
 		
 		Map<String, List<Account>> accounts = configParser.parseAccounts();

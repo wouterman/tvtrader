@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
+import tvtrader.application.ConsoleRunner;
 import tvtrader.properties.PropertiesFileLoader;
 import tvtrader.services.JobService;
 

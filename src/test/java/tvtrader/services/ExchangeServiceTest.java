@@ -122,7 +122,7 @@ class ExchangeServiceTest {
 		order.setAccount(accountName);
 		order.setExchange(exchange);
 		ApiCredentials credentials = new ApiCredentials(key, secret);
-		Account account = new Account(accountName, null, 0, 0, 0, 0, credentials);
+		Account account = new Account(null, accountName, null, 0, 0, 0, 0, credentials);
 		
 		Mockito.when(accountService.getAccount(exchange, accountName)).thenReturn(account);
 		Mockito.when(orderService.placeOrder(order, credentials)).thenReturn(true);
@@ -141,7 +141,7 @@ class ExchangeServiceTest {
 		order.setAccount(accountName);
 		order.setExchange(exchange);
 		ApiCredentials credentials = new ApiCredentials(key, secret);
-		Account account = new Account(accountName, null, 0, 0, 0, 0, credentials);
+		Account account = new Account(null, accountName, null, 0, 0, 0, 0, credentials);
 		
 		Mockito.when(accountService.getAccount(exchange, accountName)).thenReturn(account);
 		Mockito.when(orderService.placeOrder(order, credentials)).thenThrow(ExchangeException.class);
@@ -172,7 +172,7 @@ class ExchangeServiceTest {
 		List<Order> orders = Arrays.asList(order);
 		
 		ApiCredentials credentials = new ApiCredentials(key, secret);
-		Account account = new Account(accountName, null, 0, 0, 0, 0, credentials);
+		Account account = new Account(null, accountName, null, 0, 0, 0, 0, credentials);
 		
 		Mockito.when(accountService.getAccount(exchange, accountName)).thenReturn(account);
 		Mockito.when(orderService.getOpenOrders(exchange, credentials)).thenReturn(orders);
@@ -189,7 +189,7 @@ class ExchangeServiceTest {
 		String secret = "secret";
 		
 		ApiCredentials credentials = new ApiCredentials(key, secret);
-		Account account = new Account(accountName, null, 0, 0, 0, 0, credentials);
+		Account account = new Account(null, accountName, null, 0, 0, 0, 0, credentials);
 		
 		Mockito.when(accountService.getAccount(exchange, accountName)).thenReturn(account);
 		Mockito.when(orderService.cancelOrder(exchange, credentials, orderId)).thenReturn(true);

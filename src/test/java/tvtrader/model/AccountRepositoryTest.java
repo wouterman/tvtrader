@@ -31,14 +31,14 @@ class AccountRepositoryTest {
 	
 	@Test
 	void hasAccount_whenKnownAccount_shouldReturnTrue() {
-		Account account = new Account(ACCOUNTNAME, null, 0, 0, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNTNAME, null, 0, 0, 0, 0, null);
 		repository.addAccount(EXCHANGE, account);
 		assertTrue(repository.hasAccount(EXCHANGE, ACCOUNTNAME));
 	}
 	
 	@Test
 	void removeAccount_whenKnownAccount_shouldRemoveAccount() {
-		Account account = new Account(ACCOUNTNAME, null, 0, 0, 0, 0, null);
+		Account account = new Account(EXCHANGE, ACCOUNTNAME, null, 0, 0, 0, 0, null);
 		repository.addAccount(EXCHANGE, account);
 		
 		repository.removeAccount(EXCHANGE, ACCOUNTNAME);

@@ -16,7 +16,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -39,24 +38,22 @@ class OpenOrdersWatcherTest {
 	private static final String MAINCOIN = "MAINCOIN";
 	private static final String ALTCOIN = "ALTCOIN";
 	
+	private static final String EXCHANGE = "EXCHANGE";
 	private static final String ACCOUNT = "ACCOUNT";
 	private static final String ACCOUNT_2 = "ACCOUNT_2";
 	private static final long ONE_DAY = 1_000 * 60 * 60 * 24;
 	private static final int ONE_SECOND = 1;
 	
 	private List<Account> accounts;
-	
-	@Mock
-	private Order order;
 	private List<Order> orders;
 	
+	@Mock private Order order;
 	@Mock private ExchangeService exchangeService;
 	@Mock private AccountService accountService;
 	@Mock private OrderBuilder orderBuilder;
 	@Mock private OrderPlacer orderPlacer;
 	@Mock private Configuration configuration;
 	
-	@InjectMocks
 	private OpenOrdersWatcher orderWatcher;
 	
 	private Account btcAccount;
@@ -71,6 +68,12 @@ class OpenOrdersWatcherTest {
 	void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
+		orderWatcher = new OpenOrdersWatcher(configuration);
+		orderWatcher.setAccountService(accountService);
+		orderWatcher.setExchangeService(exchangeService);
+		orderWatcher.setOrderBuilder(orderBuilder);
+		orderWatcher.setOrderPlacer(orderPlacer);
+		
 		when(order.getCommission()).thenReturn(1.0);
 		when(order.getMainCoin()).thenReturn(MAINCOIN);
 		when(order.getAltCoin()).thenReturn(ALTCOIN);
@@ -84,8 +87,8 @@ class OpenOrdersWatcherTest {
 		orders = new ArrayList<>();
 		orders.add(order);
 		
-		btcAccount = new Account(ACCOUNT, null, 0, 0, 0, 0, null);
-		ethAccount = new Account(ACCOUNT_2, null, 0, 0, 0, 0, null);
+		btcAccount = new Account(EXCHANGE ,ACCOUNT, null, 0, 0, 0, 0, null);
+		ethAccount = new Account(EXCHANGE, ACCOUNT_2, null, 0, 0, 0, 0, null);
 		accounts = Arrays.asList(btcAccount, ethAccount);
 		
 		orderWatcher.setExpirationTime(ONE_MINUTE);

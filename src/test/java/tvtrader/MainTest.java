@@ -9,16 +9,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
+import tvtrader.application.ConsoleRunner;
 
 public class MainTest {
-
-	@Mock
-	private GuiRunner guiRunner;
-	@Mock
-	private ConsoleRunner consoleRunner;
-
-	@InjectMocks
-	private Main main;
+	@Mock private ConsoleRunner consoleRunner;
+	@InjectMocks private Main main;
 
 	@BeforeAll
 	synchronized static void startup() {
@@ -36,14 +31,6 @@ public class MainTest {
 		main.escapeStatic(args);
 
 		Mockito.verify(consoleRunner, Mockito.times(1)).run(args);
-	}
-
-	@Test
-	void main_whenNoConsoleArgsPresent_shouldStartGuiRunner() throws Exception {
-		String[] args = {};
-		main.escapeStatic(args);
-
-		Mockito.verify(guiRunner, Mockito.times(1)).run();
 	}
 
 }

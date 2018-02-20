@@ -212,7 +212,7 @@ public class ConfigurationTest {
 	
 	@Test
 	void addAccount_whenCalled_shouldDelegateToRepositoryAndNotNotifyListeners() {
-		Account account = new Account(null, null, 0, 0, 0, 0, null);
+		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
 		String exchange = "";
 		configuration.addAccount(exchange, account);
 		assertFalse(listener.isNotified());
