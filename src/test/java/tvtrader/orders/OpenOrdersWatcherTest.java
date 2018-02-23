@@ -25,7 +25,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.model.Account;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 import tvtrader.services.AccountService;
 import tvtrader.services.ExchangeService;
 
@@ -159,7 +159,7 @@ class OpenOrdersWatcherTest {
 		Configuration configuration = new Configuration();
 		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		
-		orderWatcher.update(ConfigurationField.OPENORDERSEXPIRATIONTIME, configuration);
+		orderWatcher.update(ListenerField.OPENORDERSEXPIRATIONTIME, configuration);
 		
 		assertEquals(ONE_SECOND, orderWatcher.getExpirationTime());
 	}
@@ -169,7 +169,7 @@ class OpenOrdersWatcherTest {
 		Configuration configuration = new Configuration();
 		configuration.setUnfilledOrdersReplaceFlag(true);
 		
-		orderWatcher.update(ConfigurationField.UNFILLEDORDERSREPLACEFLAG, configuration);
+		orderWatcher.update(ListenerField.UNFILLEDORDERSREPLACEFLAG, configuration);
 		
 		assertTrue(orderWatcher.isReplace());
 	}
@@ -180,7 +180,7 @@ class OpenOrdersWatcherTest {
 		configuration.setOpenOrdersExpirationTime(ONE_SECOND);
 		configuration.setUnfilledOrdersReplaceFlag(true);
 		
-		orderWatcher.update(ConfigurationField.EXPECTEDSENDER, configuration);
+		orderWatcher.update(ListenerField.EXPECTEDSENDER, configuration);
 		
 		assertEquals(ONE_MINUTE, orderWatcher.getExpirationTime());
 		assertFalse(orderWatcher.isReplace());

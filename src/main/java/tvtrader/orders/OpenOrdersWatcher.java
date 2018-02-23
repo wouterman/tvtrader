@@ -15,7 +15,7 @@ import tvtrader.exchange.SupportedExchange;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.model.Account;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 import tvtrader.services.AccountService;
 import tvtrader.services.ExchangeService;
 
@@ -141,11 +141,11 @@ public class OpenOrdersWatcher implements Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.OPENORDERSEXPIRATIONTIME) {
-			setExpirationTime(configuration.getOpenOrdersExpirationTime());
-		} else if (changedField == ConfigurationField.UNFILLEDORDERSREPLACEFLAG) {
-			setReplaceFlag(configuration.isRetryOrderFlag());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.OPENORDERSEXPIRATIONTIME) {
+			setExpirationTime(((Configuration)subject).getOpenOrdersExpirationTime());
+		} else if (changedField == ListenerField.UNFILLEDORDERSREPLACEFLAG) {
+			setReplaceFlag(((Configuration)subject).isRetryOrderFlag());
 		}
 	}
 

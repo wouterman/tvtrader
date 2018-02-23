@@ -1,39 +1,48 @@
 package tvtrader.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.validation.Valid;
 
-import tvtrader.model.Configuration;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import tvtrader.model.FormConfiguration;
 
 @Controller
-public class WebController {
-
-	@Autowired
-	private Configuration config;
+public class WebController extends WebMvcConfigurerAdapter {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView showForm() {
-		return new ModelAndView("welcome", "Configuration", config);
+	private FormConfiguration formConfiguration;
+	
+	@ModelAttribute("formConfiguration")
+	public FormConfiguration getFormConfiguration() {
+		return formConfiguration;
+	}
+	
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/configuration").setViewName("configuration");
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView submit( @ModelAttribute("Configuration") @Validated Configuration config, BindingResult result,
-			ModelMap model, final RedirectAttributes redirectAttributes) {
-		
-		if (result.hasErrors()) {
-			return new ModelAndView("error");
-		}
-		
+	@GetMapping(value = "/configuration")
+	public String showConfiguration() {
+		return "configuration";
+	}
 
-		return showForm();
+	@PostMapping(value = "/configuration")
+	public String submit(@Valid FormConfiguration formConfiguration, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "configuration";
+		}
+
+		this.formConfiguration = formConfiguration;
+		
+		return showConfiguration();
 	}
 
 }

@@ -9,15 +9,12 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import test.logger.Logger;
-import tvtrader.bittrex.BittrexApi;
 import tvtrader.exchange.UnsupportedOrderTypeException;
 import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;

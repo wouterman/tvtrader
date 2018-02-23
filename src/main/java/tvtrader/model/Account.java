@@ -1,5 +1,9 @@
 package tvtrader.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,6 +16,10 @@ import lombok.ToString;
 @Data
 @ToString(exclude="credentials")
 public class Account {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
 	private final String exchange;
 	private final String name;
 	private final String mainCurrency;

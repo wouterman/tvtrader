@@ -11,12 +11,14 @@ import org.springframework.context.support.AbstractApplicationContext;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.application.AppConfig;
 import tvtrader.application.ConsoleRunner;
+import tvtrader.application.GuiRunner;
 
 @Log4j2
 @SpringBootApplication
 public class Main extends SpringBootServletInitializer {
 
 	@Autowired private ConsoleRunner consoleRunner;
+	@Autowired private GuiRunner guiRunner;
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -36,7 +38,9 @@ public class Main extends SpringBootServletInitializer {
 			consoleRunner.run(args);
 		} else {
 			log.info("Starting webgui.");
+			guiRunner.run();
 			SpringApplication.run(Main.class);
+			
 		}
 	}
 

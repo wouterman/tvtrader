@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
@@ -38,21 +37,6 @@ public class ConfigurationTest {
 		listener = new TestListener();
 		
 		configuration.addChangeListener(listener);
-	}
-	
-	@Test
-	void setMailConfig_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		MailConfiguration mailconfig = new MailConfiguration();
-		configuration.setMailConfig(mailconfig);
-		assertTrue(listener.isNotified());
-		
-		listener.reset();
-		assertFalse(listener.isNotified());
-		
-		configuration.setMailConfig(mailconfig);
-		
-		assertFalse(listener.isNotified());
-		assertEquals(mailconfig, configuration.getMailConfig());
 	}
 	
 	@Test
@@ -210,23 +194,4 @@ public class ConfigurationTest {
 		assertThrows(IllegalArgumentException.class, () -> configuration.setAssetRefreshRate(interval));
 	}
 	
-	@Test
-	void addAccount_whenCalled_shouldDelegateToRepositoryAndNotNotifyListeners() {
-		Account account = new Account(null, null, null, 0, 0, 0, 0, null);
-		String exchange = "";
-		configuration.addAccount(exchange, account);
-		assertFalse(listener.isNotified());
-		
-		Mockito.verify(service, Mockito.times(1)).addAccount(exchange, account);
-	}
-	
-	@Test
-	void deleteAccount_whenCalled_shouldDelegateToRepositoryAndNotNotifyListeners() {
-		String exchange = "";
-		String account = "";
-		configuration.deleteAccount(exchange, account);
-		assertFalse(listener.isNotified());
-		
-		Mockito.verify(service, Mockito.times(1)).removeAccount(exchange, account);
-	}
 }

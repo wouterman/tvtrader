@@ -11,25 +11,25 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import tvtrader.model.Configuration;
+import tvtrader.model.MailConfiguration;
 
 @Transactional
 @Repository
-public class ConfigurationDao {
-
+public class MailConfigurationDao {
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public void update(Configuration configuration) {
+	public void update(MailConfiguration configuration) {
 		entityManager.merge(configuration);
 	}
 
-	public Optional<Configuration> getConfiguration() {
-		Query query = entityManager.createQuery("from Configuration");
+	public Optional<MailConfiguration> getConfiguration() {
+		Query query = entityManager.createQuery("from MailConfiguration");
 
-		Optional<Configuration> optional;
+		Optional<MailConfiguration> optional;
 		try {
-			Configuration configuration = (Configuration) query.getSingleResult();
+			MailConfiguration configuration = (MailConfiguration) query.getSingleResult();
 			optional = Optional.of(configuration);
 		} catch (NoResultException | NonUniqueResultException e) {
 			optional = Optional.empty();
@@ -37,5 +37,4 @@ public class ConfigurationDao {
 
 		return optional;
 	}
-
 }

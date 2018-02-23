@@ -22,7 +22,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
 class TickerServiceTest {
@@ -133,7 +133,7 @@ class TickerServiceTest {
 		Configuration configuration = new Configuration();
 		configuration.setTickerRefreshRate(ONE_MINUTE);
 		
-		service.update(ConfigurationField.TICKERREFRESHRATE, configuration);
+		service.update(ListenerField.TICKERREFRESHRATE, configuration);
 		
 		assertEquals(ONE_MINUTE, service.getTickerRefreshRate());
 	}
@@ -143,7 +143,7 @@ class TickerServiceTest {
 		Configuration configuration = new Configuration();
 		configuration.setTickerRefreshRate(ONE_MINUTE);
 		
-		service.update(ConfigurationField.EXPECTEDSENDER, configuration);
+		service.update(ListenerField.EXPECTEDSENDER, configuration);
 		
 		assertEquals(NOT_SET, service.getTickerRefreshRate());
 	}

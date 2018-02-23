@@ -26,9 +26,9 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="overview">Overview</a></li>
+					<li><a href="overview">Overview</a></li>
 					<li><a href="configuration">Configuration</a></li>
-					<li><a href="console">Console</a></li>
+					<li  class="active"><a href="console">Console</a></li>
 				</ul>
 			</div>
 		</div>
@@ -37,7 +37,7 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>Welcome</h1>
+			<h1>TODO</h1>
 		</div>
 
 	</div>

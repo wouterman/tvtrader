@@ -7,7 +7,7 @@ package tvtrader.model;
  * @author Wouter
  *
  */
-public enum ConfigurationField {
+public enum ListenerField {
 	MAILCONFIG,
 	EXPECTEDSENDER,
 	MAILPOLLINGINTERVAL,

@@ -1,14 +1,13 @@
 package test.logger;
 
 import tvtrader.controllers.Listener;
-import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 public class TestListener implements Listener {
 	boolean notified = false;
 	
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
+	public void update(ListenerField changedField, Object subject) {
 		notified=true;			
 	}
 	

@@ -11,15 +11,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
-import tvtrader.controllers.InputController;
-import tvtrader.properties.PropertiesFileLoader;
-import tvtrader.properties.PropertiesFileParser;
+import tvtrader.services.AccountService;
+import tvtrader.services.ConfigurationService;
 
 class PropertiesFileLoaderTest {
 	private static final String INVALID_PATH = "INVALID";
 
 	@Mock
-	private InputController controller;
+	private ConfigurationService configurationService;
+	@Mock
+	private AccountService accountService;
 	@Mock
 	private PropertiesFileParser parser;
 

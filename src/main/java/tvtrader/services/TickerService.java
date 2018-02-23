@@ -18,7 +18,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 @Log4j2
 @Component
@@ -120,9 +120,9 @@ public class TickerService implements Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.TICKERREFRESHRATE) {
-			setTickerRefreshRate(configuration.getTickerRefreshRate());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.TICKERREFRESHRATE) {
+			setTickerRefreshRate(((Configuration)subject).getTickerRefreshRate());
 		}
 	}
 

@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
 import tvtrader.controllers.Listener;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 import tvtrader.model.MailConfiguration;
 
 /**
@@ -38,7 +38,7 @@ import tvtrader.model.MailConfiguration;
 @Log4j2
 @Component
 public class MailClient implements Listener {
-	private static final String TRADINGVIEW = "<noreply@tradingview.com>";
+	private static final String TRADINGVIEW = "noreply@tradingview.com";
 
 	// Mails older than this will be ignored.
 	private static final int DEFAULT_TIME_LIMIT_IN_SECONDS = 300;
@@ -58,8 +58,9 @@ public class MailClient implements Listener {
 	private Folder folder;
 	private Store store;
 	
-	public MailClient(Configuration configuration) {
+	public MailClient(Configuration configuration, MailConfiguration mailConfig) {
 		configuration.addChangeListener(this);
+		mailConfig.addChangeListener(this);
 	}
 
 	/**
@@ -330,13 +331,13 @@ public class MailClient implements Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.EXPECTEDSENDER) {
-			setExpectedSender(configuration.getExpectedSender());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.EXPECTEDSENDER) {
+			setExpectedSender(((Configuration)subject).getExpectedSender());
 		}
 
-		if (changedField == ConfigurationField.MAILCONFIG) {
-			setMailConfiguration(configuration.getMailConfig());
+		if (changedField == ListenerField.MAILCONFIG) {
+			setMailConfiguration(((MailConfiguration)subject));
 		}
 	}
 }

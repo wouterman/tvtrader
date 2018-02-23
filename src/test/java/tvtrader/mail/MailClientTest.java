@@ -24,7 +24,7 @@ import com.icegreen.greenmail.util.ServerSetupTest;
 import test.logger.Logger;
 import tvtrader.exceptionlogger.UnverifiedException;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 import tvtrader.model.MailConfiguration;
 import tvtrader.stubs.MailConfigurationStub;
 
@@ -172,7 +172,7 @@ class MailClientTest {
 		Configuration configuration = new Configuration();
 		configuration.setExpectedSender(EXPECTED_SENDER);
 		
-		client.update(ConfigurationField.EXPECTEDSENDER, configuration);
+		client.update(ListenerField.EXPECTEDSENDER, configuration);
 		
 		assertEquals(EXPECTED_SENDER, client.getExpectedSender());
 	}
@@ -182,7 +182,7 @@ class MailClientTest {
 		Configuration configuration = new Configuration();
 		configuration.setExpectedSender(UNEXPECTED_SENDER);
 		
-		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);
+		client.update(ListenerField.TICKERREFRESHRATE, configuration);
 		
 		assertEquals(EXPECTED_SENDER, client.getExpectedSender());
 	}
@@ -190,10 +190,8 @@ class MailClientTest {
 	@Test
 	void update_shouldUpdateMailConfig_whenReceivingUpdate() throws Exception {
 		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
-		Configuration configuration = new Configuration();
-		configuration.setMailConfig(config);
-		
-		client.update(ConfigurationField.MAILCONFIG, configuration);
+
+		client.update(ListenerField.MAILCONFIG, config);
 		
 		assertEquals(config, client.getConfig());
 	}
@@ -202,10 +200,7 @@ class MailClientTest {
 	void update_shouldNotUpdateMailConfig_whenReceivingIrrelevantUpdate() throws Exception {
 		MailConfiguration config = MailConfigurationStub.getExpectedMailConfiguration();
 		
-		Configuration configuration = new Configuration();
-		configuration.setMailConfig(config);
-		
-		client.update(ConfigurationField.TICKERREFRESHRATE, configuration);
+		client.update(ListenerField.TICKERREFRESHRATE, config);
 		
 		assertNull(null);
 	}

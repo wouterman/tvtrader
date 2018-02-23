@@ -7,14 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import tvtrader.controllers.Listener;
-import tvtrader.services.AccountService;
 
 @ToString
 @Entity
@@ -23,10 +21,10 @@ public class Configuration {
 	private static final String INVALID_INTERVAL_MESSAGE = "Interval has to be > 0!";
 
 	@Id
-	@Getter @Setter private long id = 1;
-	
 	@Getter
-	private MailConfiguration mailConfig;
+	@Setter
+	private long id = 1;
+
 	@Getter
 	private String expectedSender;
 	@Getter
@@ -35,32 +33,17 @@ public class Configuration {
 	private int stoplossInterval;
 	@Getter
 	private int openOrdersInterval;
-	@Getter
+	@Getter 
 	private int openOrdersExpirationTime;
 	@Getter
 	private boolean retryOrderFlag;
 	@Getter
 	private int tickerRefreshRate;
-	@Getter
+	@Getter 
 	private int assetRefreshRate;
-	
-	@Transient
-	@Autowired
-	private AccountService accountService;
-	
+
 	@Transient
 	private List<Listener> listeners = new ArrayList<>();
-
-	/**
-	 * Initializes the mail client with the provided configuration.
-	 * 
-	 */
-	public void setMailConfig(MailConfiguration mailConfig) {
-		if (this.mailConfig == null || !this.mailConfig.equals(mailConfig)) {
-			this.mailConfig = mailConfig;
-			notifyListeners(ConfigurationField.MAILCONFIG);
-		}
-	}
 
 	/**
 	 * Sets the expected sender for the mailclient.
@@ -68,7 +51,7 @@ public class Configuration {
 	public void setExpectedSender(String expectedSender) {
 		if (this.expectedSender == null || !this.expectedSender.equals(expectedSender)) {
 			this.expectedSender = expectedSender;
-			notifyListeners(ConfigurationField.EXPECTEDSENDER);
+			notifyListeners(ListenerField.EXPECTEDSENDER);
 		}
 	}
 
@@ -85,7 +68,7 @@ public class Configuration {
 
 		if (this.mailPollingInterval != mailPollingInterval) {
 			this.mailPollingInterval = mailPollingInterval;
-			notifyListeners(ConfigurationField.MAILPOLLINGINTERVAL);
+			notifyListeners(ListenerField.MAILPOLLINGINTERVAL);
 		}
 	}
 
@@ -102,7 +85,7 @@ public class Configuration {
 
 		if (this.stoplossInterval != stoplossInterval) {
 			this.stoplossInterval = stoplossInterval;
-			notifyListeners(ConfigurationField.STOPLOSSINTERVAL);
+			notifyListeners(ListenerField.STOPLOSSINTERVAL);
 		}
 	}
 
@@ -118,7 +101,7 @@ public class Configuration {
 		}
 		if (this.openOrdersInterval != openOrdersInterval) {
 			this.openOrdersInterval = openOrdersInterval;
-			notifyListeners(ConfigurationField.OPENORDERSINTERVAL);
+			notifyListeners(ListenerField.OPENORDERSINTERVAL);
 		}
 	}
 
@@ -135,7 +118,7 @@ public class Configuration {
 
 		if (this.openOrdersExpirationTime != openOrdersExpirationTime) {
 			this.openOrdersExpirationTime = openOrdersExpirationTime;
-			notifyListeners(ConfigurationField.OPENORDERSEXPIRATIONTIME);
+			notifyListeners(ListenerField.OPENORDERSEXPIRATIONTIME);
 		}
 	}
 
@@ -146,7 +129,7 @@ public class Configuration {
 	public void setUnfilledOrdersReplaceFlag(boolean retryOrderFlag) {
 		if (this.retryOrderFlag != retryOrderFlag) {
 			this.retryOrderFlag = retryOrderFlag;
-			notifyListeners(ConfigurationField.UNFILLEDORDERSREPLACEFLAG);
+			notifyListeners(ListenerField.UNFILLEDORDERSREPLACEFLAG);
 		}
 	}
 
@@ -162,8 +145,8 @@ public class Configuration {
 		}
 
 		if (this.tickerRefreshRate != tickerRefreshRate) {
-			notifyListeners(ConfigurationField.TICKERREFRESHRATE);
 			this.tickerRefreshRate = tickerRefreshRate;
+			notifyListeners(ListenerField.TICKERREFRESHRATE);
 		}
 	}
 
@@ -180,28 +163,11 @@ public class Configuration {
 
 		if (this.assetRefreshRate != assetRefreshRate) {
 			this.assetRefreshRate = assetRefreshRate;
-			notifyListeners(ConfigurationField.ASSETREFRESHRATE);
+			notifyListeners(ListenerField.ASSETREFRESHRATE);
 		}
 	}
 
-	/**
-	 * Adds the account to the repository.<br>
-	 * 
-	 */
-	public void addAccount(String exchange, Account account) {
-		accountService.addAccount(exchange, account);
-	}
-
-	/**
-	 * Removes the account from the repository.<br>
-	 * 
-	 */
-	public void deleteAccount(String exchange, String accountName) {
-		accountService.removeAccount(exchange, accountName);
-
-	}
-
-	private void notifyListeners(ConfigurationField field) {
+	private void notifyListeners(ListenerField field) {
 		for (Listener listener : listeners) {
 			listener.update(field, this);
 		}

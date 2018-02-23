@@ -19,7 +19,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 class BalanceServiceTest {
 
@@ -122,7 +122,7 @@ class BalanceServiceTest {
 		Configuration configuration = new Configuration();
 		configuration.setAssetRefreshRate(ONE_MINUTE);
 
-		service.update(ConfigurationField.ASSETREFRESHRATE, configuration);
+		service.update(ListenerField.ASSETREFRESHRATE, configuration);
 
 		assertEquals(ONE_MINUTE, service.getAssetRefreshRate());
 	}
@@ -132,7 +132,7 @@ class BalanceServiceTest {
 		Configuration configuration = new Configuration();
 		configuration.setAssetRefreshRate(ONE_MINUTE);
 
-		service.update(ConfigurationField.EXPECTEDSENDER, configuration);
+		service.update(ListenerField.EXPECTEDSENDER, configuration);
 
 		assertEquals(NOT_SET, service.getAssetRefreshRate());
 	}

@@ -15,7 +15,7 @@ import tvtrader.jobs.MailFetchJob;
 import tvtrader.jobs.OrderPlacerJob;
 import tvtrader.jobs.StoplossCheckJob;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 @Log4j2
 @Component
@@ -138,13 +138,13 @@ public class JobService implements Closeable, Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.MAILPOLLINGINTERVAL) {
-			setPollingInterval(configuration.getMailPollingInterval());
-		} else if (changedField == ConfigurationField.STOPLOSSINTERVAL) {
-			setStoplossInterval(configuration.getStoplossInterval());
-		} else if (changedField == ConfigurationField.OPENORDERSINTERVAL) {
-			setOpenOrdersInterval(configuration.getOpenOrdersInterval());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.MAILPOLLINGINTERVAL) {
+			setPollingInterval(((Configuration)subject).getMailPollingInterval());
+		} else if (changedField == ListenerField.STOPLOSSINTERVAL) {
+			setStoplossInterval(((Configuration)subject).getStoplossInterval());
+		} else if (changedField == ListenerField.OPENORDERSINTERVAL) {
+			setOpenOrdersInterval(((Configuration)subject).getOpenOrdersInterval());
 		}
 	}
 

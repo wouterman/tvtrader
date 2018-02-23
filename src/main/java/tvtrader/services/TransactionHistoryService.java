@@ -18,7 +18,7 @@ import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 import tvtrader.orders.OrderType;
 
 @Log4j2
@@ -126,9 +126,9 @@ public class TransactionHistoryService implements Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.ASSETREFRESHRATE) {
-			setBoughtPriceRefreshRate(configuration.getAssetRefreshRate());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.ASSETREFRESHRATE) {
+			setBoughtPriceRefreshRate(((Configuration)subject).getAssetRefreshRate());
 		}
 	}
 

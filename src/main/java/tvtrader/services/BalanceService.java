@@ -18,7 +18,7 @@ import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 @Log4j2
 @Component
@@ -103,9 +103,9 @@ public class BalanceService implements Listener {
 	}
 
 	@Override
-	public void update(ConfigurationField changedField, Configuration configuration) {
-		if (changedField == ConfigurationField.ASSETREFRESHRATE) {
-			setAssetRefreshRate(configuration.getAssetRefreshRate());
+	public void update(ListenerField changedField, Object subject) {
+		if (changedField == ListenerField.ASSETREFRESHRATE) {
+			setAssetRefreshRate(((Configuration)subject).getAssetRefreshRate());
 		}
 	}
 }

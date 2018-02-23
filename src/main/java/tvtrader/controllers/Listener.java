@@ -1,10 +1,9 @@
 package tvtrader.controllers;
 
-import tvtrader.model.Configuration;
-import tvtrader.model.ConfigurationField;
+import tvtrader.model.ListenerField;
 
 public interface Listener {
 
-	public void update(ConfigurationField changedField, Configuration configuration);
+	public void update(ListenerField changedField, Object subject);
 
 }
