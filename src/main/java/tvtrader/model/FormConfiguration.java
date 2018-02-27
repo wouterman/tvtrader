@@ -9,32 +9,10 @@ import lombok.Data;
 
 @Data
 public class FormConfiguration {
-	
-	public FormConfiguration() {
-		mailPollingInterval = 1;
-		stoplossInterval = 1;
-		openOrdersInterval = 1;
-		openOrdersExpirationTime = 1;
-		tickerRefreshRate = 1;
-		assetRefreshRate = 1;
-		
-		expectedSender = "DEFAULT@EXAMPLE.COM";
-		retryOrderFlag = false;
-		
-		protocol = "IMAPS";
-		host = "imaps.host.com";
-		username = "username";
-		password = "password";
-		inbox = "INBOX";
-		port=0;
-	}
-	
-	
+
 	@Email
 	private String expectedSender;
 	
-	
-	private String protocol;
 	private String host;
 	private String username;
 	private String password;

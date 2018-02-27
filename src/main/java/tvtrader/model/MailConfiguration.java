@@ -33,6 +33,7 @@ public class MailConfiguration {
 		this.username = "username";
 		this.password = "password";
 		this.inbox = DEFAULT_INBOX_NAME;
+		this.port=0;
 	}
 	
 	@Id

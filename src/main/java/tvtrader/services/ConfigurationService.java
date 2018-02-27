@@ -149,7 +149,6 @@ public class ConfigurationService {
 		setAssetRefreshRate(formConfig.getAssetRefreshRate());
 		
 		setHost(formConfig.getHost());
-		setProtocol(formConfig.getProtocol());
 		setInbox(formConfig.getInbox());
 		setUsername(formConfig.getUsername());
 		setPassword(formConfig.getPassword());
@@ -177,5 +176,27 @@ public class ConfigurationService {
 		setUsername(mailConfig.getUsername());
 		setPassword(mailConfig.getPassword());
 		setPort(mailConfig.getPort());
+	}
+
+	public FormConfiguration getFormConfiguration() {
+		FormConfiguration formConfig = new FormConfiguration();
+		
+		formConfig.setExpectedSender(configuration.getExpectedSender());
+		formConfig.setAssetRefreshRate(configuration.getAssetRefreshRate());
+		formConfig.setMailPollingInterval(configuration.getMailPollingInterval());
+		formConfig.setOpenOrdersInterval(configuration.getOpenOrdersInterval());
+		formConfig.setStoplossInterval(configuration.getStoplossInterval());
+		formConfig.setTickerRefreshRate(configuration.getTickerRefreshRate());
+
+		formConfig.setOpenOrdersExpirationTime(configuration.getOpenOrdersExpirationTime());
+		formConfig.setRetryOrderFlag(configuration.isRetryOrderFlag());
+
+		formConfig.setHost(mailConfiguration.getHost());
+		formConfig.setPort(mailConfiguration.getPort());
+		formConfig.setInbox(mailConfiguration.getInbox());
+		formConfig.setUsername(mailConfiguration.getUsername());
+		formConfig.setPassword(mailConfiguration.getPassword());
+		
+		return formConfig;
 	}
 }

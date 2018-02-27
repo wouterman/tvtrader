@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import tvtrader.utils.Encoding;
 import tvtrader.utils.HashingUtility;
 
-@ComponentScan(basePackages = "tvtrader")
+@ComponentScan(basePackages= {"tvtrader"})
 @Configuration
 public class AppConfig {
 

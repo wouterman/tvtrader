@@ -44,6 +44,18 @@ public class Configuration {
 
 	@Transient
 	private List<Listener> listeners = new ArrayList<>();
+	
+	public Configuration() {
+		this.mailPollingInterval = 1;
+		this.stoplossInterval = 1;
+		this.openOrdersInterval = 1;
+		this.openOrdersExpirationTime = 1;
+		this.tickerRefreshRate = 1;
+		this.assetRefreshRate = 1;
+		
+		this.expectedSender = "DEFAULT@EXAMPLE.COM";
+		this.retryOrderFlag = false;
+	}
 
 	/**
 	 * Sets the expected sender for the mailclient.
