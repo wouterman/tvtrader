@@ -104,8 +104,10 @@ public class TickerService implements Listener {
 	private boolean refreshNeeded(TickerCache cache) {
 		long currentTimeMilli = System.currentTimeMillis();
 		long refreshtime = cache.getLastRefresh() + (tickerRefreshRate * 1_000);
+		
 		log.debug("{} >= {}", LocalDateTime.ofEpochSecond(currentTimeMilli / 1000, 0, ZoneOffset.UTC),
 				LocalDateTime.ofEpochSecond(refreshtime / 1000, 0, ZoneOffset.UTC));
+		
 		return currentTimeMilli >= refreshtime;
 	}
 

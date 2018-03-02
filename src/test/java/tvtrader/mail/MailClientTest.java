@@ -44,6 +44,9 @@ class MailClientTest {
 	@Mock
 	private Configuration configuration;
 	
+	@Mock
+	private MailConfiguration mailConfiguration;
+	
 	@InjectMocks
 	private MailClient client;
 	
