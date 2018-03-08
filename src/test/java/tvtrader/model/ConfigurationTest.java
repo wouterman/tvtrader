@@ -17,6 +17,9 @@ import test.logger.TestListener;
 import tvtrader.services.AccountService;
 
 public class ConfigurationTest {
+	private static final int INTERVAL = 2;
+
+	private static final int INVALID_INTERVAL = 0;
 	
 	private TestListener listener;
 	
@@ -56,86 +59,78 @@ public class ConfigurationTest {
 	
 	@Test
 	void setMailPollingInterval_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setMailPollingInterval(interval);
+		configuration.setMailPollingInterval(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setMailPollingInterval(interval);
+		configuration.setMailPollingInterval(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getMailPollingInterval());
+		assertEquals(INTERVAL, configuration.getMailPollingInterval());
 	}
 	
 	@Test
 	void setMailPollingInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setMailPollingInterval(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setMailPollingInterval(INVALID_INTERVAL));
 	}
 	
 	@Test
 	void setStoplossInterval_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setStoplossInterval(interval);
+		configuration.setStoplossInterval(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setStoplossInterval(interval);
+		configuration.setStoplossInterval(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getStoplossInterval());
+		assertEquals(INTERVAL, configuration.getStoplossInterval());
 	}
 	
 	@Test
 	void setStoplossInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setStoplossInterval(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setStoplossInterval(INVALID_INTERVAL));
 	}
 	
 	@Test
 	void setOpenOrdersInterval_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setOpenOrdersInterval(interval);
+		configuration.setOpenOrdersInterval(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setOpenOrdersInterval(interval);
+		configuration.setOpenOrdersInterval(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getOpenOrdersInterval());
+		assertEquals(INTERVAL, configuration.getOpenOrdersInterval());
 	}
 	
 	@Test
 	void setOpenOrdersInterval_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersInterval(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersInterval(INVALID_INTERVAL));
 	}
 	
 	@Test
 	void setOpenOrdersExpirationTime_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setOpenOrdersExpirationTime(interval);
+		configuration.setOpenOrdersExpirationTime(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setOpenOrdersExpirationTime(interval);
+		configuration.setOpenOrdersExpirationTime(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getOpenOrdersExpirationTime());
+		assertEquals(INTERVAL, configuration.getOpenOrdersExpirationTime());
 	}
 	
 	@Test
 	void setOpenOrdersExpirationTime_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersExpirationTime(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setOpenOrdersExpirationTime(INVALID_INTERVAL));
 	}
 	
 	@Test
@@ -154,44 +149,40 @@ public class ConfigurationTest {
 	
 	@Test
 	void setTickerRefreshRate_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setTickerRefreshRate(interval);
+		configuration.setTickerRefreshRate(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setTickerRefreshRate(interval);
+		configuration.setTickerRefreshRate(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getTickerRefreshRate());
+		assertEquals(INTERVAL, configuration.getTickerRefreshRate());
 	}
 	
 	@Test
 	void setTickerRefreshRate_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setTickerRefreshRate(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setTickerRefreshRate(INVALID_INTERVAL));
 	}
 	
 	@Test
 	void setAssetRefreshRate_whenArgumentIsSameAsPrevious_shouldDoNothing() {
-		int interval = 1;
-		configuration.setAssetRefreshRate(interval);
+		configuration.setAssetRefreshRate(INTERVAL);
 		assertTrue(listener.isNotified());
 		
 		listener.reset();
 		assertFalse(listener.isNotified());
 		
-		configuration.setAssetRefreshRate(interval);
+		configuration.setAssetRefreshRate(INTERVAL);
 		
 		assertFalse(listener.isNotified());
-		assertEquals(interval, configuration.getAssetRefreshRate());
+		assertEquals(INTERVAL, configuration.getAssetRefreshRate());
 	}
 	
 	@Test
 	void setAssetRefreshRate_whenArgumentIsSmallerThanOne_shouldThrowIllegalArgumentException() throws Exception {
-		int interval = 0;
-		assertThrows(IllegalArgumentException.class, () -> configuration.setAssetRefreshRate(interval));
+		assertThrows(IllegalArgumentException.class, () -> configuration.setAssetRefreshRate(INVALID_INTERVAL));
 	}
 	
 }

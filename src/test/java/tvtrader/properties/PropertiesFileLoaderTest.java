@@ -8,11 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
+import tvtrader.model.MailConfiguration;
 import tvtrader.services.AccountService;
 import tvtrader.services.ConfigurationService;
+import tvtrader.stubs.MailConfigurationStub;
 
 class PropertiesFileLoaderTest {
 	private static final String INVALID_PATH = "INVALID";
@@ -47,6 +50,8 @@ class PropertiesFileLoaderTest {
 
 	@Test
 	void load_whenPathIsValid_shoudReturnTrue() throws Exception {
+		MailConfiguration mailConfig = MailConfigurationStub.getExpectedMailConfiguration();
+		Mockito.when(parser.parseMailConfiguration()).thenReturn(mailConfig);
 
 		boolean loaded = loader.autoload("src/test/resources/test.properties");
 
