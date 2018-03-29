@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import tvtrader.controllers.Listener;
+import tvtrader.model.Listener;
 import tvtrader.model.Account;
 import tvtrader.model.Configuration;
 import tvtrader.model.ListenerField;

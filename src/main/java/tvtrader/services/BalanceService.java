@@ -1,24 +1,23 @@
 package tvtrader.services;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import tvtrader.caches.BalanceCache;
-import tvtrader.controllers.Listener;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.model.ApiCredentials;
 import tvtrader.model.Configuration;
+import tvtrader.model.Listener;
 import tvtrader.model.ListenerField;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Log4j2
 @Component
@@ -32,7 +31,7 @@ public class BalanceService implements Listener {
 
 	public BalanceService(Configuration configuration) {
 		caches = new HashMap<>();
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 	}
 
 	/**

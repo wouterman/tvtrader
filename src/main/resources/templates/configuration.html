@@ -1,107 +1,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>TvTrader</title>
+    <title>TvTrader</title>
 
-<link th:href="@{/css/main.css}" href="/css/main.css"  rel="stylesheet" type="text/css"  />
+    <link th:href="@{/css/main.css}" href="/css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-	<h1>Configuration</h1>
-	<hr/>
-	<form action="#" th:action="@{/configuration}"
-		th:object="${formConfiguration}" method="post">
-		<div class="container">
-			<h2>Intervals</h2>
-			<label><b>Mail polling interval:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('mailPollingInterval')}"
-				th:errors="*{mailPollingInterval}">
-				</label> <input type="text"
-				th:field="*{mailPollingInterval}" />
-			
-			<label><b>Stoploss Interval:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('stoplossInterval')}"
-				th:errors="*{stoplossInterval}">
-				</label> <input type="text"
-				th:field="*{stoplossInterval}" />
-						
-			<label><b>Open Orders Interval:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('openOrdersInterval')}"
-				th:errors="*{openOrdersInterval}">
-				</label> <input type="text"
-				th:field="*{openOrdersInterval}" />
-			
-			<label><b>Open Orders Expiration Time:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('openOrdersExpirationTime')}"
-				th:errors="*{openOrdersExpirationTime}">
-				</label> <input type="text"
-				th:field="*{openOrdersExpirationTime}" />
-				
-			<label><b>Ticker Refresh Rate:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('tickerRefreshRate')}"
-				th:errors="*{tickerRefreshRate}">
-				</label> <input type="text"
-				th:field="*{tickerRefreshRate}" />
-				
-			<label><b>Asset Refresh Rate:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('assetRefreshRate')}"
-				th:errors="*{assetRefreshRate}">
-				</label> <input type="text"
-				th:field="*{assetRefreshRate}" />
-			
-			<h2>Mail Configuration</h2>
-			<label><b>Expected Sender:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('expectedSender')}"
-				th:errors="*{expectedSender}">
-				</label> <input type="text"
-				th:field="*{expectedSender}" />
-				
-			<label><b>IMAPS Host:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('host')}"
-				th:errors="*{host}">
-				</label> <input type="text"
-				th:field="*{host}" />
-				
-			<label><b>Port:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('port')}"
-				th:errors="*{port}">
-				</label> <input type="text"
-				th:field="*{port}" />
-				
-			<label><b>Username:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('username')}"
-				th:errors="*{username}">
-				</label> <input type="text"
-				th:field="*{username}" />
-				
-			<label><b>Password:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('password')}"
-				th:errors="*{password}">
-				</label> <input type="text"
-				th:field="*{password}" />
+<h1>Configuration</h1>
+<hr/>
+<form action="#" th:action="@{/configuration}" method="post">
+    <div class="container">
+        <h2>Intervals</h2>
+        <label><b>Mail polling interval:</b></label>
+        <input type="text"
+               th:value="${configuration.mailPollingInterval}" name="mailPollingInterval" />
 
-			<label><b>Inbox:</b></label> 
-			<label
-				th:if="${#fields.hasErrors('inbox')}"
-				th:errors="*{inbox}">
-				</label> <input type="text"
-				th:field="*{inbox}" />						
+        <label><b>Mail server port:</b></label>
+        <input type="text"
+               th:value="${mailConfiguration.port}" name="port" />
 
-    		<div class="clearfix">
-     			<button type="submit" class="signupbtn">Update</button>
-    		</div>
-
-		</div>
-	</form>
+        <div class="clearfix">
+            <button type="submit" class="signupbtn">Update</button>
+        </div>
+    </div>
+</form>
 </body>
 </html>

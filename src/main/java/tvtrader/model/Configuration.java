@@ -1,18 +1,17 @@
 package tvtrader.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-
-import org.springframework.stereotype.Component;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import tvtrader.controllers.Listener;
+import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @Entity
@@ -25,21 +24,21 @@ public class Configuration {
 	@Setter
 	private long id = 1;
 
-	@Getter
+	@Getter @Email
 	private String expectedSender;
-	@Getter
+	@Getter @Min(1)
 	private int mailPollingInterval;
-	@Getter
+	@Getter @Min(1)
 	private int stoplossInterval;
-	@Getter
+	@Getter @Min(1)
 	private int openOrdersInterval;
-	@Getter 
+	@Getter  @Min(1)
 	private int openOrdersExpirationTime;
 	@Getter
 	private boolean retryOrderFlag;
-	@Getter
+	@Getter @Min(1)
 	private int tickerRefreshRate;
-	@Getter 
+	@Getter  @Min(1)
 	private int assetRefreshRate;
 
 	@Transient
@@ -135,7 +134,7 @@ public class Configuration {
 	}
 
 	/**
-	 * Boolean flag. Indicating if we should replace cancelled orders.<br>
+	 * Boolean flag. Indicating if we should replace unfilled cancelled orders.<br>
 	 * 
 	 */
 	public void setUnfilledOrdersReplaceFlag(boolean retryOrderFlag) {
@@ -185,7 +184,7 @@ public class Configuration {
 		}
 	}
 
-	public void addChangeListener(Listener newListener) {
+	public void subscribe(Listener newListener) {
 		listeners.add(newListener);
 	}
 

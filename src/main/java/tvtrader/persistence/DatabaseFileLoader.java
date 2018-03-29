@@ -1,18 +1,17 @@
 package tvtrader.persistence;
 
-import java.util.Optional;
-
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
 import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 import tvtrader.services.ConfigurationService;
 
+import java.util.Optional;
+
 @Log4j2
 @Component
-public class DatabaseLoader {
+public class DatabaseFileLoader {
 	@Autowired private ConfigurationService configurationService;
 	@Autowired private ConfigurationDao configurationDao;
 	@Autowired private MailConfigurationDao mailConfigDao;
@@ -24,7 +23,7 @@ public class DatabaseLoader {
 		if(config.isPresent()) {
 			log.debug("Retrieved configuration.");
 			Configuration storedConfig = config.get();
-			
+
 			configurationService.cloneConfig(storedConfig);
 		}
 		

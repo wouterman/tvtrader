@@ -1,18 +1,17 @@
 package tvtrader.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import lombok.Data;
+import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-
-import org.springframework.stereotype.Component;
-
-import lombok.Data;
-import lombok.NonNull;
-import tvtrader.controllers.Listener;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Data holder for the mail configuration.
@@ -47,6 +46,8 @@ public class MailConfiguration {
 	private String username;
 	private String password;
 	private String inbox;
+	
+	@Min(0) @Max(65535)
 	private int port;
 
 	/**

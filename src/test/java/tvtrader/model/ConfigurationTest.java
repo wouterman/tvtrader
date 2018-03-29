@@ -39,7 +39,7 @@ public class ConfigurationTest {
 		
 		listener = new TestListener();
 		
-		configuration.addChangeListener(listener);
+		configuration.subscribe(listener);
 	}
 	
 	@Test

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import tvtrader.controllers.Listener;
+import tvtrader.model.Listener;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.exchange.apidata.Order;
@@ -38,7 +38,7 @@ public class OpenOrdersWatcher implements Listener {
 	@Autowired @Setter private OrderPlacer orderPlacer;
 
 	public OpenOrdersWatcher(Configuration configuration) {
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 	}
 
 	/**

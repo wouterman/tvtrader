@@ -1,15 +1,14 @@
 package tvtrader.web;
 
-import java.io.IOException;
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import lombok.extern.log4j.Log4j2;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Handles the requests to the endpoint.<br>
@@ -35,6 +34,7 @@ public class RequestHandler {
 		log.debug("Building request with endpoint: {}", endpoint.getUrl());
 		Builder builder = setupBuilder(endpoint.getUrl());
 		addHeaders(endpoint.getHeaders(), builder);
+		builder.method(endpoint.getMethod(), null);
 		Request request = builder.build();
 		return sendRequest(request);
 	}

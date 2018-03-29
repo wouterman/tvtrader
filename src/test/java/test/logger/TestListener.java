@@ -1,6 +1,6 @@
 package test.logger;
 
-import tvtrader.controllers.Listener;
+import tvtrader.model.Listener;
 import tvtrader.model.ListenerField;
 
 public class TestListener implements Listener {

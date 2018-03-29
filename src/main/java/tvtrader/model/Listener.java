@@ -1,6 +1,4 @@
-package tvtrader.controllers;
-
-import tvtrader.model.ListenerField;
+package tvtrader.model;
 
 public interface Listener {
 

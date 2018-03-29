@@ -1,24 +1,21 @@
 package tvtrader.services;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import tvtrader.caches.TickerCache;
-import tvtrader.controllers.Listener;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.model.Configuration;
+import tvtrader.model.Listener;
 import tvtrader.model.ListenerField;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Log4j2
 @Component
@@ -31,7 +28,7 @@ public class TickerService implements Listener {
 
 	public TickerService(Configuration configuration) {
 		caches = new HashMap<>();
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 	}
 
 	/**
@@ -104,10 +101,7 @@ public class TickerService implements Listener {
 	private boolean refreshNeeded(TickerCache cache) {
 		long currentTimeMilli = System.currentTimeMillis();
 		long refreshtime = cache.getLastRefresh() + (tickerRefreshRate * 1_000);
-		
-		log.debug("{} >= {}", LocalDateTime.ofEpochSecond(currentTimeMilli / 1000, 0, ZoneOffset.UTC),
-				LocalDateTime.ofEpochSecond(refreshtime / 1000, 0, ZoneOffset.UTC));
-		
+
 		return currentTimeMilli >= refreshtime;
 	}
 

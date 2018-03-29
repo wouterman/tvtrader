@@ -1,9 +1,12 @@
 # Compiled class file
 *.class
 
-#Eclipse Project files
+#Project files
 .project
 .classpath
+.settings/
+.idea/
+*.iml
 
 # Log file
 *.log

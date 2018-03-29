@@ -1,21 +1,20 @@
 package tvtrader.services;
 
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import tvtrader.jobs.MailFetchJob;
+import tvtrader.jobs.OpenOrdersJob;
+import tvtrader.jobs.OrderPlacerJob;
+import tvtrader.jobs.StoplossCheckJob;
+import tvtrader.model.Configuration;
+import tvtrader.model.Listener;
+import tvtrader.model.ListenerField;
+
 import java.io.Closeable;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
-import tvtrader.controllers.Listener;
-import tvtrader.jobs.OpenOrdersJob;
-import tvtrader.jobs.MailFetchJob;
-import tvtrader.jobs.OrderPlacerJob;
-import tvtrader.jobs.StoplossCheckJob;
-import tvtrader.model.Configuration;
-import tvtrader.model.ListenerField;
 
 @Log4j2
 @Component
@@ -42,7 +41,7 @@ public class JobService implements Closeable, Listener {
 	private ScheduledFuture<?> openOrdersCheckerFuture;
 	
 	public JobService(Configuration configuration) {
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 	}
 	
 	public void startJobs() {

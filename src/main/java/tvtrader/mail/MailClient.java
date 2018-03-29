@@ -1,29 +1,22 @@
 package tvtrader.mail;
 
+import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
+import tvtrader.exceptionlogger.UnverifiedException;
+import tvtrader.model.Configuration;
+import tvtrader.model.Listener;
+import tvtrader.model.ListenerField;
+import tvtrader.model.MailConfiguration;
+
+import javax.mail.*;
+import javax.mail.Flags.Flag;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
-
-import javax.mail.Address;
-import javax.mail.Flags.Flag;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Store;
-
-import org.springframework.stereotype.Component;
-
-import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
-import tvtrader.controllers.Listener;
-import tvtrader.exceptionlogger.UnverifiedException;
-import tvtrader.model.Configuration;
-import tvtrader.model.ListenerField;
-import tvtrader.model.MailConfiguration;
 
 /**
  * Models an IMAPS mail client.<br>
@@ -59,7 +52,7 @@ public class MailClient implements Listener {
 	private Store store;
 	
 	public MailClient(Configuration configuration, MailConfiguration mailConfig) {
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 		mailConfig.addChangeListener(this);
 	}
 

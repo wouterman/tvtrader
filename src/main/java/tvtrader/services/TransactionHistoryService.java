@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import tvtrader.caches.TransactionCache;
-import tvtrader.controllers.Listener;
+import tvtrader.model.Listener;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
@@ -31,7 +31,7 @@ public class TransactionHistoryService implements Listener {
 
 	public TransactionHistoryService(Configuration configuration) {
 		accounts = new HashMap<>();
-		configuration.addChangeListener(this);
+		configuration.subscribe(this);
 	}
 
 	public double getBoughtPrice(String exchangeName, String accountName, String altCoin, double balance)

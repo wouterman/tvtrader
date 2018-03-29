@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 import test.logger.Logger;
 import tvtrader.model.Configuration;
-import tvtrader.model.MailConfiguration;
 import tvtrader.services.ConfigurationService;
 
 class DatabaseLoaderTest {
@@ -23,7 +22,7 @@ class DatabaseLoaderTest {
 	@Mock private ConfigurationDao configurationDao;
 	@Mock private MailConfigurationDao mailConfigDao;
 	
-	@InjectMocks private DatabaseLoader dbLoader;
+	@InjectMocks private DatabaseFileLoader dbLoader;
 	
 	@BeforeAll
 	synchronized static void startup() {
