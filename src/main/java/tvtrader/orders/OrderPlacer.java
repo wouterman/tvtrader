@@ -1,15 +1,14 @@
 package tvtrader.orders;
 
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import tvtrader.services.ExchangeService;
+import tvtrader.stoploss.StoplossListener;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
-import tvtrader.services.ExchangeService;
-import tvtrader.stoploss.StoplossListener;
 
 /**
  * Responsible for placing the orders at the exchange and, if successful,
@@ -49,10 +48,11 @@ public class OrderPlacer {
 			placed = exchangeService.placeOrder(order);
 
 			if (placed) {
-				iterator.remove();
-
+				log.info("Order placed!");
 				notifyListeners(order);
 			}
+
+			iterator.remove();
 		}
 	}
 

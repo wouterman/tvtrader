@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 public class Configuration {
 	private static final String INVALID_INTERVAL_MESSAGE = "Interval has to be > 0!";
-
+	
 	@Id
 	@Getter
 	@Setter
