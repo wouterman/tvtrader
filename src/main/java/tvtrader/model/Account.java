@@ -1,11 +1,11 @@
 package tvtrader.model;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import lombok.Data;
-import lombok.ToString;
 
 /**
  * Holds all the relevant info for exchange accounts.<br>

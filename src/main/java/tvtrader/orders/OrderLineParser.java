@@ -1,13 +1,12 @@
 package tvtrader.orders;
 
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
+
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
 
 /**
  * Helper class for the OrderBuilder. Determines if the subject line matches the

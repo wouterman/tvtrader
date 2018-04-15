@@ -1,10 +1,10 @@
 package tvtrader.utils;
 
+import lombok.experimental.UtilityClass;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-
-import lombok.experimental.UtilityClass;
 
 /**
  * Factory class that returns a formatter that prevents scientific notation and

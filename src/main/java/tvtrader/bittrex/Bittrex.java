@@ -1,13 +1,9 @@
 package tvtrader.bittrex;
 
-import java.util.List;
-import java.util.Map;
-
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
 import tvtrader.exchange.Api;
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
@@ -19,6 +15,9 @@ import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
 import tvtrader.services.WebService;
 import tvtrader.web.Url;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Representation of Bittrex.<br>

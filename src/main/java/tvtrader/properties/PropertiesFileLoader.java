@@ -1,5 +1,15 @@
 package tvtrader.properties;
 
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import tvtrader.exceptionlogger.GameBreakerException;
+import tvtrader.exchange.ExchangeException;
+import tvtrader.model.Account;
+import tvtrader.model.MailConfiguration;
+import tvtrader.services.AccountService;
+import tvtrader.services.ConfigurationService;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,17 +17,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
-import tvtrader.exceptionlogger.GameBreakerException;
-import tvtrader.exchange.ExchangeException;
-import tvtrader.model.Account;
-import tvtrader.model.MailConfiguration;
-import tvtrader.services.AccountService;
-import tvtrader.services.ConfigurationService;
 
 @Log4j2
 @Component

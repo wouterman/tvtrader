@@ -1,8 +1,8 @@
 package tvtrader.bittrex.response;
 
-import java.util.List;
-
 import tvtrader.bittrex.BittrexFilledOrder;
+
+import java.util.List;
 
 public class BittrexOrderHistoryResponse extends BittrexBaseResponse<BittrexFilledOrder> {
 	List<BittrexFilledOrder> result;

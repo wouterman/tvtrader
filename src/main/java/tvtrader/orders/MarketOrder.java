@@ -1,9 +1,9 @@
 package tvtrader.orders;
 
-import java.text.DecimalFormat;
-
 import lombok.Data;
 import tvtrader.utils.PriceFormatter;
+
+import java.text.DecimalFormat;
 
 /**
  * Contains all the information needed to place a valid order at the exchange.

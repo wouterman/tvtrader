@@ -1,18 +1,13 @@
 package tvtrader.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import tvtrader.model.Listener;
-import tvtrader.model.Account;
-import tvtrader.model.Configuration;
-import tvtrader.model.ListenerField;
-import tvtrader.model.MailConfiguration;
+import tvtrader.model.*;
 import tvtrader.persistence.AccountDao;
 import tvtrader.persistence.ConfigurationDao;
 import tvtrader.persistence.MailConfigurationDao;
+
+import java.util.List;
+import java.util.Optional;
 
 public class PersistenceService implements Listener {
 	

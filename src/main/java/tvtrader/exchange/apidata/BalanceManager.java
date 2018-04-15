@@ -1,9 +1,9 @@
 package tvtrader.exchange.apidata;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.extern.log4j.Log4j2;
 
 /**
  * Data holder for all the assets (altcoin balances) for an account. <br>

@@ -1,12 +1,11 @@
 package tvtrader.caches;
 
+import org.springframework.stereotype.Component;
+import tvtrader.model.Account;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
-import tvtrader.model.Account;
 
 @Component
 public class AccountRepository {

@@ -1,16 +1,14 @@
 package tvtrader.application;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
+import com.google.gson.Gson;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import com.google.gson.Gson;
-
 import tvtrader.utils.Encoding;
 import tvtrader.utils.HashingUtility;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @ComponentScan(basePackages= {"tvtrader"})
 @Configuration

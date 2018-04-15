@@ -1,12 +1,11 @@
 package tvtrader.utils;
 
-import java.util.Formatter;
+import lombok.NonNull;
+import lombok.SneakyThrows;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import java.util.Formatter;
 
 /**
  * Responsible for calculating the hash signature required for account specific

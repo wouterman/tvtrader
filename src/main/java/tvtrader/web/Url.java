@@ -17,7 +17,6 @@ import java.util.Map;
  */
 public class Url {
     public static final String GET = "GET";
-    private UriComponentsBuilder builder;
 
     @Setter
 	private String baseUrl;

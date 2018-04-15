@@ -1,10 +1,10 @@
 package tvtrader.caches;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.Getter;
 import tvtrader.exchange.apidata.Ticker;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TickerCache {
 	@Getter private long lastRefresh;

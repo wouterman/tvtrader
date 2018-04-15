@@ -1,12 +1,11 @@
 package tvtrader.bittrex;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 import com.google.gson.annotations.SerializedName;
-
 import tvtrader.exchange.apidata.Order;
 import tvtrader.orders.OrderType;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * 

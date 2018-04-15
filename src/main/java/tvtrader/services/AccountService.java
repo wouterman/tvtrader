@@ -1,14 +1,13 @@
 package tvtrader.services;
 
-import java.util.Iterator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import tvtrader.caches.AccountRepository;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.model.Account;
 import tvtrader.model.ApiCredentials;
+
+import java.util.Iterator;
 
 @Component
 public class AccountService {

@@ -1,9 +1,9 @@
 package tvtrader.mail;
 
+import lombok.extern.log4j.Log4j2;
+
 import javax.mail.event.ConnectionEvent;
 import javax.mail.event.ConnectionListener;
-
-import lombok.extern.log4j.Log4j2;
 
 /**
  * ConnectionListener for the mail store.

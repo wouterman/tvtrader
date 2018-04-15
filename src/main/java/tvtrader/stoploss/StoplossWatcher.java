@@ -1,11 +1,8 @@
 package tvtrader.stoploss;
 
-import java.text.DecimalFormat;
-
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.orders.MarketOrder;
 import tvtrader.orders.OrderPlacer;
@@ -14,6 +11,8 @@ import tvtrader.orders.StoplossOrder;
 import tvtrader.services.AccountService;
 import tvtrader.services.ExchangeService;
 import tvtrader.utils.PriceFormatter;
+
+import java.text.DecimalFormat;
 
 /**
  * Responsible for checking if the stoploss condition for a certain account and
