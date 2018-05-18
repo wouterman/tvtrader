@@ -1,12 +1,12 @@
 package tvtrader.exchange;
 
-import java.util.List;
-import java.util.Map;
-
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
 import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Models an exchange and all the requests it should handle.<br>

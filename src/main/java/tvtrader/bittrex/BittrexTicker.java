@@ -1,7 +1,6 @@
 package tvtrader.bittrex;
 
 import com.google.gson.annotations.SerializedName;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import tvtrader.exchange.apidata.Ticker;

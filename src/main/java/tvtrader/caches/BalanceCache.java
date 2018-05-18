@@ -1,10 +1,10 @@
 package tvtrader.caches;
 
+import lombok.Getter;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import lombok.Getter;
 
 public class BalanceCache {
 	@Getter private long lastRefresh;

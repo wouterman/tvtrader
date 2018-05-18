@@ -1,14 +1,13 @@
 package tvtrader.services;
 
-import java.io.IOException;
-
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import okhttp3.Response;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.web.RequestHandler;
 import tvtrader.web.Url;
+
+import java.io.IOException;
 
 @Component
 public class WebService {

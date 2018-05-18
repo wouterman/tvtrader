@@ -1,22 +1,16 @@
 package tvtrader.jobs;
 
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import tvtrader.exchange.ExchangeException;
+import tvtrader.mail.MailClient;
+import tvtrader.orders.*;
+import tvtrader.services.AccountService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import lombok.extern.log4j.Log4j2;
-import tvtrader.exchange.ExchangeException;
-import tvtrader.mail.MailClient;
-import tvtrader.orders.GainChecker;
-import tvtrader.orders.MarketOrder;
-import tvtrader.orders.OrderBuilder;
-import tvtrader.orders.OrderLineParser;
-import tvtrader.orders.OrderPlacer;
-import tvtrader.orders.OrderType;
-import tvtrader.services.AccountService;
 
 @Log4j2
 @Component

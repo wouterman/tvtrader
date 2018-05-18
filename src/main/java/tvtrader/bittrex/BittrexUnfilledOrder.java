@@ -1,7 +1,6 @@
 package tvtrader.bittrex;
 
 import com.google.gson.annotations.SerializedName;
-
 import lombok.ToString;
 
 @ToString

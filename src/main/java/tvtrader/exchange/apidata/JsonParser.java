@@ -1,9 +1,9 @@
 package tvtrader.exchange.apidata;
 
+import tvtrader.exchange.ExchangeException;
+
 import java.util.List;
 import java.util.Map;
-
-import tvtrader.exchange.ExchangeException;
 
 public interface JsonParser {
 

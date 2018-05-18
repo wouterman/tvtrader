@@ -1,23 +1,22 @@
 package tvtrader.orders;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import tvtrader.model.Listener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.model.Account;
 import tvtrader.model.Configuration;
+import tvtrader.model.Listener;
 import tvtrader.model.ListenerField;
 import tvtrader.services.AccountService;
 import tvtrader.services.ExchangeService;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Responsible for checking (and canceling) open orders that have expired.<br>

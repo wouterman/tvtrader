@@ -2,7 +2,6 @@ package tvtrader.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import tvtrader.properties.PropertiesFileLoader;
 import tvtrader.services.JobService;
 

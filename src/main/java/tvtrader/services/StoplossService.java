@@ -1,16 +1,9 @@
 package tvtrader.services;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.SupportedExchange;
 import tvtrader.model.Account;
@@ -20,6 +13,12 @@ import tvtrader.orders.StoplossOrder;
 import tvtrader.stoploss.StoplossListener;
 import tvtrader.stoploss.StoplossWatcher;
 import tvtrader.stoploss.UnverifiedStoplossWatcherException;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Responsible for the stoploss protection for altcoins.<br>

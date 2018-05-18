@@ -1,17 +1,11 @@
 package tvtrader.persistence;
 
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import tvtrader.model.MailConfiguration;
+
+import javax.persistence.*;
+import java.util.Optional;
 
 @Transactional
 @Repository

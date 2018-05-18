@@ -1,25 +1,14 @@
 package tvtrader.bittrex;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Component;
-
 import com.google.gson.Gson;
-
-import tvtrader.bittrex.response.BittrexBalanceResponse;
-import tvtrader.bittrex.response.BittrexBaseResponse;
-import tvtrader.bittrex.response.BittrexOpenOrderResponse;
-import tvtrader.bittrex.response.BittrexOrderHistoryResponse;
-import tvtrader.bittrex.response.BittrexOrderResponse;
-import tvtrader.bittrex.response.BittrexTickerResponse;
+import org.springframework.stereotype.Component;
+import tvtrader.bittrex.response.*;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.apidata.JsonParser;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.exchange.apidata.Ticker;
+
+import java.util.*;
 
 @Component(value="BittrexParser")
 public class BittrexParser implements JsonParser {

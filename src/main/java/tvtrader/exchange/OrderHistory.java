@@ -1,11 +1,10 @@
 package tvtrader.exchange;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import tvtrader.exchange.apidata.Order;
 import tvtrader.orders.OrderType;
+
+import java.util.List;
 
 /**
  * Interface modeling the order history from the exchange.

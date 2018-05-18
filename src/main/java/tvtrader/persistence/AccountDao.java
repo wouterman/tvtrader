@@ -1,15 +1,13 @@
 package tvtrader.persistence;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import tvtrader.model.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import tvtrader.model.Account;
+import java.util.List;
 
 @Transactional
 @Repository

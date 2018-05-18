@@ -1,16 +1,15 @@
 package tvtrader.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import tvtrader.exchange.Exchange;
 import tvtrader.exchange.ExchangeException;
 import tvtrader.exchange.ExchangeFactory;
 import tvtrader.exchange.apidata.Order;
 import tvtrader.model.ApiCredentials;
 import tvtrader.orders.MarketOrder;
+
+import java.util.List;
 
 @Component
 public class OrderService {
