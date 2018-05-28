@@ -23,10 +23,6 @@ import tvtrader.web.Url;
 public class BittrexApi implements Api {
     private static final String MARKET_DELIMITER = "-";
     private static final String BASE_URL = "https://bittrex.com/api/v1.1/";
-    private static final String METHOD = "GET";
-    private static final String SCHEME = "https";
-    private static final String HOST = "bittrex.com";
-    private static final String API_PATH = "api/v1.1";
 
     @Autowired
     @Qualifier("BittrexHasher")

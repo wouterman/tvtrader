@@ -36,7 +36,7 @@ public class ExchangeFactory {
 			try {
 				exchanges.add(getExchange(exchangeName));
 			} catch (UnsupportedExchangeException e) {
-				continue;
+				// Can't happen
 			}
 		}
 

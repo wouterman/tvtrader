@@ -32,6 +32,7 @@ public class Bittrex implements Exchange {
 	private static final String NAME = "BITTREX";
 	private static final String MARKET_DELIMITER = "-";
 	private static final double MINIMUM_ORDER_AMOUNT = 0.0005;
+	private static final String RECEIVED_RESPONSE = "Received response: {}";
 
 	/**
 	 * Bittrex uses one fee for all orders.
@@ -81,7 +82,7 @@ public class Bittrex implements Exchange {
 
 		try {
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 			return parser.parseMarketSummaries(response);
 		} catch (ExchangeException e) {
 			throw new ExchangeException("Couldn't get tickers from " + getName(), e);
@@ -93,7 +94,7 @@ public class Bittrex implements Exchange {
 		try {
 			Url url = api.getBalances(credentials);
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 
 			return parser.parseBalances(response);
 		} catch (ExchangeException e) {
@@ -107,7 +108,7 @@ public class Bittrex implements Exchange {
 			Url url = api.placeOrder(order, credentials);
 
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 
 			return parser.checkResponse(response);
 		} catch (UnsupportedOrderTypeException | ExchangeException e) {
@@ -124,7 +125,7 @@ public class Bittrex implements Exchange {
 			Url url = api.cancelOrder(orderId, credentials);
 
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 
 			return parser.checkResponse(response);
 		} catch (ExchangeException e) {
@@ -139,7 +140,7 @@ public class Bittrex implements Exchange {
 		try {
 			Url url = api.getOpenOrders(credentials);
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 
 			return parser.parseOpenOrders(response);
 		} catch (ExchangeException e) {
@@ -154,7 +155,7 @@ public class Bittrex implements Exchange {
 		try {
 			Url url = api.getOrderHistory(credentials);
 			String response = webService.sendRequest(url);
-			log.debug("Received response: {}", response);
+			log.debug(RECEIVED_RESPONSE, response);
 
 			return parser.parseOrderHistory(response);
 		} catch (ExchangeException e) {

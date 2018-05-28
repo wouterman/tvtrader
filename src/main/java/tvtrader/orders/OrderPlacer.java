@@ -20,15 +20,15 @@ import java.util.List;
 @Log4j2
 @Component
 public class OrderPlacer {
+
+	//TODO arraydeque
 	private static List<MarketOrder> orders = new ArrayList<>();
 	private List<StoplossListener> listeners;
-	
-	@Autowired
 	private ExchangeService exchangeService;
 
-
-	public OrderPlacer() {
-		orders = new ArrayList<>();
+    @Autowired
+	public OrderPlacer(ExchangeService exchangeService) {
+	    this.exchangeService = exchangeService;
 		listeners = new ArrayList<>();
 	}
 

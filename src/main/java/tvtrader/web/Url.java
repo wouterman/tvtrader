@@ -2,12 +2,8 @@ package tvtrader.web;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Wrapper for a url. Holds the base url, parameters (if any) and headers (if any).
@@ -16,7 +12,7 @@ import java.util.Map;
  *
  */
 public class Url {
-    public static final String GET = "GET";
+    private static final String GET = "GET";
 
     @Setter
 	private String baseUrl;
@@ -48,7 +44,7 @@ public class Url {
             if (i == 0) {
                 url.append(parameters.get(i));
             } else {
-                url.append("&" + parameters.get(i));
+                url.append("&").append(parameters.get(i));
             }
         }
 
@@ -60,10 +56,6 @@ public class Url {
 	}
 	
 	public void addParameters(String...params) {
-		for (String p : params) {
-			parameters.add(p);
-		}
+		parameters.addAll(Arrays.asList(params));
 	}
-	
-	
 }
