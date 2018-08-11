@@ -1,0 +1,172 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TvTrader</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link th:href="@{/css/main.css}" href="../css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<h1 th:text="#{configuration}"></h1>
+<hr/>
+<form action="#" th:action="@{/configuration}" method="post">
+    <div class="container">
+
+        <h2 th:text="#{intervals}"></h2>
+        <label>
+            <span>
+                <b th:text="#{mailPollingInterval}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.mailPollingInterval}" name="mailPollingInterval"/>
+            <p th:if="${#fields.hasErrors('configurationForm.mailPollingInterval')}" th:errors="*{configurationForm.mailPollingInterval}">Incorrect interval</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{stoplossInterval}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.stoplossInterval}" name="stoplossInterval"/>
+            <p th:if="${#fields.hasErrors('configurationForm.stoplossInterval')}" th:errors="*{configurationForm.stoplossInterval}">Incorrect interval</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{openOrdersInterval}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.openOrdersInterval}" name="openOrdersInterval"/>
+            <p th:if="${#fields.hasErrors('configurationForm.openOrdersInterval')}" th:errors="*{configurationForm.openOrdersInterval}">Incorrect interval</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{openOrdersExpirationTime}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.openOrdersExpirationTime}" name="openOrdersExpirationTime"/>
+            <p th:if="${#fields.hasErrors('configurationForm.openOrdersExpirationTime')}" th:errors="*{configurationForm.openOrdersExpirationTime}">Incorrect interval</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{tickersRefreshRate}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.tickerRefreshRate}" name="tickerRefreshRate"/>
+            <p th:if="${#fields.hasErrors('configurationForm.tickerRefreshRate')}" th:errors="*{configurationForm.tickerRefreshRate}">Incorrect interval</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{assetRefreshRate}">:</b>
+            </span>
+            <input type="number" min="1"
+                   th:field="${configurationForm.assetRefreshRate}" name="assetRefreshRate"/>
+            <p th:if="${#fields.hasErrors('configurationForm.assetRefreshRate')}" th:errors="*{configurationForm.assetRefreshRate}">Incorrect interval</p>
+        </label>
+    </div>
+
+    <div class="container">
+        <h2 th:text="#{options}"></h2>
+        <label>
+            <span>
+                <b th:text="#{expectedSender}">:</b>
+            </span>
+            <input type="text"
+                   th:field="${configurationForm.expectedSender}" name="expectedSender"/>
+            <p th:if="${#fields.hasErrors('configurationForm.expectedSender')}" th:errors="*{configurationForm.expectedSender}">Can't be empty!</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{retryOrders}">:</b>
+            </span>
+            <input type="checkbox"
+                   th:field="${configurationForm.retryOrderFlag}" name="retryOrderFlag"/>
+        </label>
+    </div>
+
+    <div class="container">
+        <h2 th:text="#{mailConfiguration}"></h2>
+        <label>
+            <span>
+                <b th:text="#{host}">:</b>
+            </span>
+            <input type="text"
+                   th:field="${mailConfigurationForm.host}" name="host"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.host')}" th:errors="*{mailConfigurationForm.host}">Can't be empty!</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{username}">:</b>
+            </span>
+            <input type="text"
+                   th:field="${mailConfigurationForm.username}" name="username"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.username')}" th:errors="*{mailConfigurationForm.username}">Can't be empty!</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{password}">:</b>
+            </span>
+            <input type="text"
+                   th:field="${mailConfigurationForm.password}" name="password"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.password')}" th:errors="*{mailConfigurationForm.password}">Can't be empty!</p>
+        </label>
+
+        <label>
+           <span>
+               <b th:text="#{protocol}">:</b>
+           </span>
+            <input type="text"
+                   th:field="${mailConfigurationForm.protocol}" name="protocol"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.protocol')}" th:errors="*{mailConfigurationForm.protocol}">Can't be empty!</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{inbox}">:</b>
+            </span>
+            <input type="text"
+                   th:field="${mailConfigurationForm.inbox}" name="inbox" placeholder="INBOX"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.inbox')}" th:errors="*{mailConfigurationForm.inbox}">Can't be empty!</p>
+        </label>
+
+        <label>
+            <span>
+                <b th:text="#{port}">:</b>
+            </span>
+            <input type="number" min=0 max=65535
+                   th:field="${mailConfigurationForm.port}" name="port"/>
+            <p th:if="${#fields.hasErrors('mailConfigurationForm.port')}" th:errors="*{mailConfigurationForm.port}">Must be between 0 and 65535</p>
+        </label>
+    </div>
+
+    <label>
+        <select>
+            <option th:each="acount : ${accountFormList}" th:value="${acount}" th:text="${acount.accountName}"></option>
+        </select>
+    </label>
+
+
+    <div class="clearfix">
+        <button type="submit" class="signupbtn">Update</button>
+    </div>
+
+</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
