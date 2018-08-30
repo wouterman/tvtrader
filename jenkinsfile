@@ -47,17 +47,17 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
+        }
 
-            stage('Repository upload') {
-                steps {
-                    sh "mvn deploy -Dmaven.test.skip=true"
-                }
+        stage('Repository upload') {
+            steps {
+                sh "mvn deploy -Dmaven.test.skip=true"
             }
+        }
 
-        } post {
-            always {
-                deleteDir()
-            }
+    } post {
+        always {
+            deleteDir()
         }
     }
 }
