@@ -1,0 +1,70 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+
+    options {
+        buildDiscarder(
+                logRotator(numToKeepStr: '1')
+        )
+    }
+
+    tools {
+        maven 'maven 3.5.4'
+        jdk 'JDK8'
+    }
+
+    stages {
+        stage('Checkout source code') {
+            steps {
+                scm checkout
+            }
+        }
+
+        stage('Compile and package') {
+            steps {
+                sh "mvn package -Dmaven.test.skip=true"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh "mvn test"
+            }
+        }
+
+        stage('Sonar') {
+            steps {
+                withSonarQubeEnv('Sonarqube'){
+                    sh "mvn sonar:sonar -Dmaven.test.skip=true"
+                }
+            }
+        }
+
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+
+                parallel {
+                    stage('Repository upload') {
+                        steps {
+                            sh "mvn deploy -Dmaven.test.skip=true"
+                        }
+                    }
+
+                    stage('Deploy') {
+                        steps {
+
+                        }
+                    }
+                }
+            } post {
+                always {
+                    deleteDir()
+                }
+            }
+        }
+    }
+}
