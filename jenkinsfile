@@ -3,7 +3,17 @@
 pipeline {
     agent any
 
+    post {
+        failure {
+            updateGitlabCommitStatus name: 'Test', state: 'failed'
+        }
+        success {
+            updateGitlabCommitStatus name: 'Test', state: 'success'
+        }
+    }
+
     options {
+        gitLabConnection('Gitlab')
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
         )
@@ -12,6 +22,10 @@ pipeline {
     tools {
         maven 'maven 3.5.4'
         jdk 'JDK8'
+    }
+
+    triggers {
+        gitlab(triggerOnPush: true, triggerOnMergeRequest: true, branchFilterType: 'All')
     }
 
     stages {
