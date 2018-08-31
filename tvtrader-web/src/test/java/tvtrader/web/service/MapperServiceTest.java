@@ -56,6 +56,8 @@ class MapperServiceTest {
 		Configuration actual = mapper.map(form);
 
 		assertEquals(expected, actual, "Mapper didn't map ConfigurationForm to Configuration!");
+
+		throw new IllegalArgumentException();
 	}
 
 	@Test
