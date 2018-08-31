@@ -21,15 +21,15 @@ pipeline {
             }
         }
 
-        stage('Compile and package') {
+        stage('Compile source code') {
             steps {
-                sh "mvn clean package -Dmaven.test.skip=true"
+                // Lifecycle phase right before testing.
+                sh "mvn process-test-classes"
             }
         }
 
         stage('Unit Tests') {
             steps {
-                sh "mvn test-compile"
                 sh "mvn surefire:test"
             }
         }
