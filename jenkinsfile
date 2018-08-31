@@ -23,12 +23,13 @@ pipeline {
 
         stage('Compile and package') {
             steps {
-                sh "mvn package -Dmaven.test.skip=true"
+                sh "mvn clean package -Dmaven.test.skip=true"
             }
         }
 
         stage('Unit Tests') {
             steps {
+                sh "mvn test-compile"
                 sh "mvn surefire:test"
             }
         }
