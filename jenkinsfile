@@ -69,7 +69,7 @@ pipeline {
         stage('Repository upload') {
             steps {
                 git credentialsId: 'Gitlab', url: 'http://192.168.2.60:8085/wouter/ci-support.git'
-                sh 'python Main.py'
+                sh 'python Main.py TvTrader'
                 sh 'dir'
 //                sh "mvn deploy -Dmaven.test.skip=true"
             }
