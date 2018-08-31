@@ -68,6 +68,8 @@ pipeline {
 
         stage('Repository upload') {
             steps {
+                git credentialsId: 'Gitlab', url: 'http://192.168.2.60:8085/wouter/ci-support.git'
+                sh 'dir'
                 sh "mvn deploy -Dmaven.test.skip=true"
             }
         }
