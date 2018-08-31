@@ -27,13 +27,13 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
                 sh "mvn test"
             }
         }
 
-        stage('Sonar') {
+        stage('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('Sonarqube') {
                     sh "mvn sonar:sonar -Dmaven.test.skip=true"
@@ -42,8 +42,12 @@ pipeline {
         }
 
         stage('Quality Gate') {
+            agent none
+
             steps {
-                waitForQualityGate abortPipeline: true
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
 
