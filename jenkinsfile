@@ -29,49 +29,46 @@ pipeline {
     }
 
     stages {
-//        stage('Checkout source code') {
-//            steps {
-//                checkout scm
-//            }
-//        }
-//
-//        stage('Compile source code') {
-//            steps {
-//                // Lifecycle phase right before testing.
-//                sh "mvn process-test-classes"
-//            }
-//        }
-//
-//        stage('Unit Tests') {
-//            steps {
-//                sh "mvn surefire:test"
-//            }
-//        }
-//
-//        stage('Sonarqube Analysis') {
-//            steps {
-//                withSonarQubeEnv('Sonarqube') {
-//                    sh "mvn sonar:sonar -Dmaven.test.skip=true"
-//                }
-//            }
-//        }
-//
-//        stage('Quality Gate') {
-//            agent none
-//
-//            steps {
-//                timeout(time: 1, unit: 'HOURS') {
-//                    waitForQualityGate abortPipeline: true
-//                }
-//            }
-//        }
+        stage('Checkout source code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Compile source code') {
+            steps {
+                // Lifecycle phase right before testing.
+                sh "mvn process-test-classes"
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh "mvn surefire:test"
+            }
+        }
+
+        stage('Sonarqube Analysis') {
+            steps {
+                withSonarQubeEnv('Sonarqube') {
+                    sh "mvn sonar:sonar -Dmaven.test.skip=true"
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            agent none
+
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         stage('Repository upload') {
             steps {
-                git credentialsId: 'Gitlab', url: 'http://192.168.2.60:8085/wouter/ci-support.git'
-                sh 'python Main.py TvTrader'
-                sh 'dir'
-//                sh "mvn deploy -Dmaven.test.skip=true"
+                sh "mvn deploy -Dmaven.test.skip=true"
             }
         }
     }

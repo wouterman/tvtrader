@@ -12,15 +12,19 @@
     </properties>
 
     <modules>
-        <module>tvtrader-java</module>
-        <module>tvtrader-web</module>
+        <module>Tvtrader-java</module>
+        <module>Tvtrader-web</module>
     </modules>
 
     <distributionManagement>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>nexus</id>
             <url>http://192.168.2.60:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
+        <repository>
+            <id>nexus</id>
+            <url>http://192.168.2.60:8081/repository/maven-releases</url>
+        </repository>
     </distributionManagement>
 
     <build>
