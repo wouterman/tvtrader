@@ -98,6 +98,17 @@
 
     <!-- DEPENDENCIES -->
     <dependencies>
+        <!-- TvTrader -->
+        <dependency>
+            <groupId>TvTrader</groupId>
+            <artifactId>tvtrader-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>TvTrader</groupId>
+            <artifactId>tvtrader-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- SPRING DI -->
         <dependency>
