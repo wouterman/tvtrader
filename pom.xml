@@ -12,8 +12,8 @@
     </properties>
 
     <modules>
-        <module>Tvtrader-java</module>
-        <module>Tvtrader-web</module>
+        <module>TvTrader-java</module>
+        <module>TvTrader-web</module>
     </modules>
 
     <distributionManagement>
