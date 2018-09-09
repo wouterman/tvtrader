@@ -74,7 +74,7 @@ pipeline {
 
         stage('Deploying to Tomcat') {
             steps {
-                sh "mvn tomcat7:redeploy"
+                sh "mvn tomcat7:redeploy -Dmaven.test.skip=true"
             }
         }
 
