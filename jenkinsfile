@@ -37,14 +37,13 @@ pipeline {
 
         stage('Compile source code') {
             steps {
-                // Lifecycle phase right before testing.
-                sh "mvn process-test-classes"
+                sh "mvn compile"
             }
         }
 
         stage('Unit Tests') {
             steps {
-                sh "mvn surefire:test"
+                sh "mvn test"
             }
         }
 
