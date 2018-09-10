@@ -38,6 +38,7 @@ pipeline {
         stage('Compile source code') {
             steps {
                 sh "mvn compile"
+                echo "BRANCH: $env.gitlabBranch"
             }
         }
 
