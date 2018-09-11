@@ -13,7 +13,6 @@ pipeline {
     }
 
     options {
-        gitLabConnection('Gitlab')
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
         )
@@ -35,15 +34,7 @@ pipeline {
             }
         }
 
-        stage('Compile source code') {
-            steps {
-                echo "BRANCH: $env.gitlabBranch"
-                sh "git checkout $env.gitlabBranch -f"
-                sh "mvn compile"
-            }
-        }
-
-        stage('Unit Tests') {
+        stage('Compile and Unit Tests') {
             steps {
                 sh "mvn test"
             }
@@ -72,12 +63,5 @@ pipeline {
                 sh "mvn deploy -Dmaven.test.skip=true"
             }
         }
-
-        stage('Deploying to Tomcat') {
-            steps {
-                sh "mvn tomcat7:redeploy -Dmaven.test.skip=true"
-            }
-        }
-
     }
 }
