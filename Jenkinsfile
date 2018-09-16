@@ -70,7 +70,7 @@ pipeline {
         }
 
         cleanup {
-            withCredentials([usernamePassword(credentialsId: influx_workaround, usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
+            withCredentials([usernamePassword(credentialsId: 'influx_workaround', usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
 
                 script {
                     step([$class       : 'InfluxDbPublisher',
