@@ -73,11 +73,16 @@ pipeline {
 
         cleanup {
             script {
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archive 'target/*.jar'
+                step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
+
                 step([$class       : 'InfluxDbPublisher',
                       customData   : null,
                       customDataMap: null,
                       customPrefix : null,
                       target       : 'InfluxDB'])
+
             }
         }
     }
