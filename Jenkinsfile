@@ -57,11 +57,15 @@ pipeline {
     }
     post {
         failure {
-            currentBuild.result = "FAILURE"
+            script {
+                currentBuild.result = "FAILURE"
+            }
             updateGitlabCommitStatus name: 'Test', state: 'failed'
         }
         success {
-            currentBuild.result = "SUCCESS"
+            script {
+                currentBuild.result = "SUCCESS"
+            }
             updateGitlabCommitStatus name: 'Test', state: 'success'
         }
 
