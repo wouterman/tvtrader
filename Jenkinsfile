@@ -35,7 +35,6 @@ pipeline {
                     step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
                 }
             }
-        }   }
         }
 
         stage('Sonarqube Analysis') {
