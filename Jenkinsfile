@@ -57,15 +57,20 @@ pipeline {
     }
     post {
         failure {
+            currentBuild.result = "FAILURE"
             updateGitlabCommitStatus name: 'Test', state: 'failed'
         }
         success {
+            currentBuild.result = "SUCCESS"
             updateGitlabCommitStatus name: 'Test', state: 'success'
         }
 
-        always {
+        cleanup {
             script {
                 step([$class       : 'InfluxDbPublisher',
+                      customData   : null,
+                      customDataMap: null,
+                      customPrefix : null,
                       target       : 'InfluxDB'])
             }
         }
