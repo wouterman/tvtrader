@@ -33,8 +33,10 @@ pipeline {
 
         stage('Sonarqube Analysis') {
             steps {
-                withSonarQubeEnv('Sonarqube') {
-                    sh "mvn sonar:sonar -Dmaven.test.skip=true"
+                withCredentials([usernamePassword(credentialsId: 'influx_workaround', usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
+                    withSonarQubeEnv('Sonarqube') {
+                        sh "mvn sonar:sonar -Dmaven.test.skip=true"
+                    }
                 }
             }
         }
@@ -70,15 +72,12 @@ pipeline {
         }
 
         cleanup {
-            withCredentials([usernamePassword(credentialsId: 'influx_workaround', usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
-
-                script {
-                    step([$class       : 'InfluxDbPublisher',
-                          customData   : null,
-                          customDataMap: null,
-                          customPrefix : null,
-                          target       : 'InfluxDB'])
-                }
+            script {
+                step([$class       : 'InfluxDbPublisher',
+                      customData   : null,
+                      customDataMap: null,
+                      customPrefix : null,
+                      target       : 'InfluxDB'])
             }
         }
     }
