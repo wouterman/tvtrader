@@ -29,6 +29,14 @@ pipeline {
             steps {
                 sh "mvn test"
             }
+        } post {
+            always {
+                script {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archive 'target/*.jar'
+                    step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
+                }
+            }
         }
 
         stage('Sonarqube Analysis') {
@@ -73,10 +81,6 @@ pipeline {
 
         cleanup {
             script {
-                junit '**/target/surefire-reports/TEST-*.xml'
-                archive 'target/*.jar'
-                step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
-
                 step([$class       : 'InfluxDbPublisher',
                       customData   : null,
                       customDataMap: null,
