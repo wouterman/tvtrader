@@ -28,15 +28,14 @@ pipeline {
         stage('Compile and Unit Tests') {
             steps {
                 sh "mvn test"
-            }
-        } post {
-            always {
+
                 script {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archive 'target/*.jar'
                     step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
                 }
             }
+        }   }
         }
 
         stage('Sonarqube Analysis') {
