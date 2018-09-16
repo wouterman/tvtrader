@@ -3,15 +3,6 @@
 pipeline {
     agent any
 
-    post {
-        failure {
-            updateGitlabCommitStatus name: 'Test', state: 'failed'
-        }
-        success {
-            updateGitlabCommitStatus name: 'Test', state: 'success'
-        }
-    }
-
     options {
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
@@ -65,6 +56,13 @@ pipeline {
         }
     }
     post {
+        failure {
+            updateGitlabCommitStatus name: 'Test', state: 'failed'
+        }
+        success {
+            updateGitlabCommitStatus name: 'Test', state: 'success'
+        }
+
         always {
             script {
                 step([$class       : 'InfluxDbPublisher',
