@@ -70,12 +70,15 @@ pipeline {
         }
 
         cleanup {
-            script {
-                step([$class       : 'InfluxDbPublisher',
-                      customData   : null,
-                      customDataMap: null,
-                      customPrefix : null,
-                      target       : 'InfluxDB'])
+            withCredentials([usernamePassword(credentialsId: influx_workaround, usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
+
+                script {
+                    step([$class       : 'InfluxDbPublisher',
+                          customData   : null,
+                          customDataMap: null,
+                          customPrefix : null,
+                          target       : 'InfluxDB'])
+                }
             }
         }
     }
