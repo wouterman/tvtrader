@@ -31,7 +31,7 @@ pipeline {
 
                 script {
                     junit '**/target/surefire-reports/TEST-*.xml'
-                    archive 'target/*.jar'
+                    archiveArtifacts 'target/*.jar'
                     step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
                 }
             }
@@ -39,10 +39,8 @@ pipeline {
 
         stage('Sonarqube Analysis') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'influx_workaround', usernameVariable: 'USER', passwordVariable: 'PASSWD')]) {
-                    withSonarQubeEnv('Sonarqube') {
-                        sh "mvn sonar:sonar -Dmaven.test.skip=true"
-                    }
+                withSonarQubeEnv('Sonarqube') {
+                    sh "mvn sonar:sonar -Dmaven.test.skip=true"
                 }
             }
         }
