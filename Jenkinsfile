@@ -31,7 +31,7 @@ pipeline {
 
                 script {
                     junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
+                    archive 'target/*.jar'
                     step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
                 }
             }
