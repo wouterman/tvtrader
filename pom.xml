@@ -102,6 +102,20 @@
             </plugin>
 
             <plugin>
+                <groupId>com.hello2morrow.sonargraph</groupId>
+                <artifactId>maven-sonargraph-plugin</artifactId>
+                <version>9.8.1</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>create-report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.5.1</version>
