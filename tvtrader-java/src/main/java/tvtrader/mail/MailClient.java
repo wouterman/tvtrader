@@ -18,9 +18,7 @@ import java.util.Properties;
 /**
  * Models an IMAPS mail client.<br>
  * Fetches the subject lines from mails within the timelimit as set with
- * setTimeLimit(int) and with the sender as set with setFromSender(String).<br>
- * If the expected sender is not set the client will default to the TradingView
- * Alert mailaddress. (TradingView {@code <noreply@tradingview.com>})
+ * setTimeLimit(int) and from the expected sender.<br>
  * 
  * @author Wouter
  *

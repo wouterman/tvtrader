@@ -44,7 +44,7 @@
         <!-- DEPENDENCIES -->
     <dependencies>
         <dependency>
-            <groupId>TvTrader</groupId>
+            <groupId>tvtrader</groupId>
             <artifactId>tvtrader-java</artifactId>
             <version>${project.version}</version>
         </dependency>

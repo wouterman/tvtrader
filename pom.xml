@@ -17,9 +17,9 @@
         <sonar.language>java</sonar.language>
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.tests>src/test/java</sonar.tests>
-        <sonar.host.url>http://192.168.2.60:9000</sonar.host.url>
+        <sonar.host.url>${sonarqubeUrl}</sonar.host.url>
 
-        <sonargraph.activationCode>4676-CCF0-0A40-1BAE</sonargraph.activationCode>
+        <sonargraph.activationCode>${sonargraphActivationCode}</sonargraph.activationCode>
     </properties>
 
     <modules>
@@ -30,11 +30,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>nexus</id>
-            <url>http://192.168.2.60:8081/repository/maven-snapshots/</url>
+            <url>${nexusSnapshots}</url>
         </snapshotRepository>
         <repository>
             <id>nexus</id>
-            <url>http://192.168.2.60:8081/repository/maven-releases/</url>
+            <url>${nexusReleases}</url>
         </repository>
     </distributionManagement>
 
@@ -126,7 +126,7 @@
                 </executions>
                 <configuration>
                     <serverId>nexus</serverId>
-                    <nexusUrl>http://192.168.2.60:8081/</nexusUrl>
+                    <nexusUrl>${nexusUrl}</nexusUrl>
                     <skipStaging>true</skipStaging>
                 </configuration>
             </plugin>
@@ -136,8 +136,8 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://192.168.2.60:80/manager/text</url>
-                    <server>TomcatServer</server>
+                    <url>${tomcatDeploymentUrl}</url>
+                    <server>${tomcatServerName}</server>
                     <path>/tvtrader</path>
                 </configuration>
             </plugin>
