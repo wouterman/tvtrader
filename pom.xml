@@ -18,8 +18,9 @@
         <sonar.sources>src/main/java</sonar.sources>
         <sonar.tests>src/test/java</sonar.tests>
         <sonar.host.url>http://192.168.2.60:9000</sonar.host.url>
-    </properties>
 
+        <sonargraph.activationCode>4676-CCF0-0A40-1BAE</sonargraph.activationCode>
+    </properties>
 
     <modules>
         <module>tvtrader-java</module>
@@ -102,17 +103,12 @@
             </plugin>
 
             <plugin>
-                <groupId>com.hello2morrow.sonargraph</groupId>
-                <artifactId>maven-sonargraph-plugin</artifactId>
+                <groupId>com.hello2morrow</groupId>
+                <artifactId>sonargraph-maven-plugin</artifactId>
                 <version>9.8.1</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>create-report</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+                    <prepareForSonarQube>true</prepareForSonarQube>
+                </configuration>
             </plugin>
 
             <plugin>
