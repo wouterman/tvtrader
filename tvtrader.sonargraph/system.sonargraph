@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<ns2:softwareSystem xmlns:ns2="http://www.hello2morrow.com/sonargraph/core" id="9bfabc0cfe3a54d68c2ab72aa27eb440" version="9.8.1.523">
+    <description></description>
+    <module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="tvtrader-java" id="496ca835ec591e75a7f7fe8c6e68a3a0" language="Java">
+        <description></description>
+        <rootPath xsi:type="ns4:xsdSourceRootPath" name="./tvtrader-java/src/main/java"></rootPath>
+        <rootPath name="./tvtrader-java/target/classes"></rootPath>
+    </module>
+    <module xmlns:ns4="http://www.hello2morrow.com/sonargraph/languageprovider/java" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns4:xsdJavaModule" name="tvtrader-web" id="7c8f837891ed0d586811e6ad9185f4b1" language="Java">
+        <description></description>
+        <dependsOn xsi:type="ns4:xsdJavaManualWorkspaceDependency" id="496ca835ec591e75a7f7fe8c6e68a3a0" name="tvtrader-java"></dependsOn>
+        <rootPath xsi:type="ns4:xsdSourceRootPath" name="./tvtrader-web/src/main/java"></rootPath>
+        <rootPath name="./tvtrader-web/target/classes"></rootPath>
+    </module>
+</ns2:softwareSystem>
