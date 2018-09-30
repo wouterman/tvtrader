@@ -40,8 +40,8 @@ pipeline {
         stage('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('Sonarqube') {
-                    sh "mvn sonar:sonar"
                     sh "mvn sonargraph:create-report"
+                    sh "mvn sonar:sonar"
                 }
             }
         }
