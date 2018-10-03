@@ -77,13 +77,15 @@ pipeline {
         }
 
         cleanup {
-            script {
-                step([$class       : 'InfluxDbPublisher',
-                      customData   : null,
-                      customDataMap: null,
-                      customPrefix : null,
-                      target       : 'InfluxDB'])
+            withSonarQubeEnv('Sonarqube') {
+                script {
+                    step([$class       : 'InfluxDbPublisher',
+                          customData   : null,
+                          customDataMap: null,
+                          customPrefix : null,
+                          target       : 'InfluxDB'])
 
+                }
             }
         }
     }
