@@ -11,6 +11,10 @@
     <artifactId>tvtrader-web</artifactId>
     <packaging>war</packaging>
 
+    <properties>
+        <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
