@@ -77,7 +77,6 @@ pipeline {
         }
 
         cleanup {
-            withSonarQubeEnv('Sonarqube') {
                 script {
                     step([$class       : 'InfluxDbPublisher',
                           customData   : null,
@@ -86,7 +85,6 @@ pipeline {
                           target       : 'InfluxDB'])
 
                 }
-            }
         }
     }
 }
