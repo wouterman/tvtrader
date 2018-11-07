@@ -9,6 +9,10 @@ pipeline {
         )
     }
 
+    environment {
+        SONAR_HOST_URL = 'http://http://192.168.2.60:9000/'
+    }
+
     tools {
         maven 'maven 3.5.4'
         jdk 'JDK8'
