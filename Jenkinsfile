@@ -14,6 +14,10 @@ pipeline {
         jdk 'JDK8'
     }
 
+    triggers {
+        gitlab(triggerOnPush: true, triggerOnMergeRequest: true, branchFilterType: 'All')
+    }
+
     stages {
         stage('Checkout source code') {
             steps {
