@@ -14,10 +14,6 @@ pipeline {
         jdk 'JDK8'
     }
 
-    triggers {
-        gitlab(triggerOnPush: true, triggerOnMergeRequest: true, branchFilterType: 'All')
-    }
-
     stages {
         stage('Checkout source code') {
             steps {
@@ -63,28 +59,20 @@ pipeline {
         }
     }
     post {
-        failure {
-            script {
-                currentBuild.result = "FAILURE"
-            }
-            updateGitlabCommitStatus name: 'Test', state: 'failed'
-        }
-        success {
-            script {
-                currentBuild.result = "SUCCESS"
-            }
-            updateGitlabCommitStatus name: 'Test', state: 'success'
-        }
-
-        cleanup {
+        always {
+            withSonarQubeEnv('Sonarqube') {
                 script {
-                    step([$class       : 'InfluxDbPublisher',
-                          customData   : null,
-                          customDataMap: null,
-                          customPrefix : null,
-                          target       : 'InfluxDB'])
-
+                    step([$class        : 'InfluxDbPublisher',
+                          customData    : null,
+                          customDataMap : null,
+                          customPrefix  : null,
+                          target        : 'InfluxDB',
+                          selectedTarget: 'InfluxDB'
+                    ])
                 }
+            }
+
         }
+
     }
 }
