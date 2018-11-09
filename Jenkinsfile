@@ -62,6 +62,12 @@ pipeline {
         always {
             withSonarQubeEnv('Sonarqube') {
                 script {
+
+                    sh 'env > env.txt'
+                    for (String i : readFile('env.txt').split("\r?\n")) {
+                        println i
+                    }
+
                     step([$class        : 'InfluxDbPublisher',
                           customData    : null,
                           customDataMap : null,
