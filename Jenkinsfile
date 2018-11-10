@@ -26,8 +26,8 @@ pipeline {
         }
 
         stage('Compile and Unit Tests') {
-                steps {
-                    durationMeasure(script: this, measurementName: 'build_duration') {
+            steps {
+                durationMeasure(script: this, measurementName: 'build_duration') {
                     sh "mvn test"
 
                     script {
@@ -68,27 +68,24 @@ pipeline {
         always {
 
             script {
-                withSonarQubeEnv('Sonarqube') {
-                    try {
-                        if (currentBuild.result == null) {
-                            currentBuild.result = "SUCCESS" // sets the ordinal as 0 and boolean to true
-                        }
-                    } catch (err) {
-                        if (currentBuild.result == null) {
-                            currentBuild.result = "FAILURE" // sets the ordinal as 4 and boolean to false
-                        }
-                        throw err
-                    } finally {
-                        step([$class                : 'InfluxDbPublisher',
-                              customData            : null,
-                              customDataMap         : null,
-                              customPrefix          : null,
-                              jenkinsEnvParameterTag: "wouter",
-                              customProjectName     : 'TvTrader',
-                              target                : 'InfluxDB',
-                              selectedTarget        : 'InfluxDB'
-                        ])
+                try {
+                    if (currentBuild.result == null) {
+                        currentBuild.result = "SUCCESS" // sets the ordinal as 0 and boolean to true
                     }
+                } catch (err) {
+                    if (currentBuild.result == null) {
+                        currentBuild.result = "FAILURE" // sets the ordinal as 4 and boolean to false
+                    }
+                    throw err
+                } finally {
+                    step([$class                : 'InfluxDbPublisher',
+                          customData            : null,
+                          customDataMap         : null,
+                          customPrefix          : null,
+                          customProjectName     : 'TvTrader',
+                          target                : 'InfluxDB',
+                          selectedTarget        : 'InfluxDB'
+                    ])
                 }
             }
 
