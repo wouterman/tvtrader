@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-@Library('piper-library-os') _
-
 pipeline {
     agent any
 
@@ -29,7 +27,6 @@ pipeline {
 
         stage('Compile and Unit Tests') {
             steps {
-                durationMeasure(script: this, measurementName: 'build_duration') {
                     sh "mvn test"
 
                     script {
@@ -38,7 +35,6 @@ pipeline {
                         step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
                     }
                 }
-            }
         }
 
         stage('Sonarqube Analysis') {
@@ -80,12 +76,11 @@ pipeline {
                     }
                     throw err
                 } finally {
-                    influxWriteData script: this
-
                     step([$class                : 'InfluxDbPublisher',
                           customData            : null,
                           customDataMap         : null,
                           customPrefix          : null,
+                          jenkinsEnvParameterTag: "wouter",
                           customProjectName     : 'TvTrader',
                           target                : 'InfluxDB',
                           selectedTarget        : 'InfluxDB'
