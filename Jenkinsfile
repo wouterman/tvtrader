@@ -26,8 +26,8 @@ pipeline {
         }
 
         stage('Compile and Unit Tests') {
-            durationMeasure(script: this, measurementName: 'build_duration') {
                 steps {
+                    durationMeasure(script: this, measurementName: 'build_duration') {
                     sh "mvn test"
 
                     script {
