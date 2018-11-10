@@ -81,6 +81,7 @@ pipeline {
                               customData       : null,
                               customDataMap    : null,
                               customPrefix     : null,
+                              jenkinsEnvParameterTag: "wouter",
                               customProjectName: 'TvTrader',
                               target           : 'InfluxDB',
                               selectedTarget   : 'InfluxDB'

@@ -2,7 +2,6 @@ package tvtrader.model;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
