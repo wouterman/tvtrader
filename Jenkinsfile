@@ -80,6 +80,8 @@ pipeline {
                     }
                     throw err
                 } finally {
+                    influxWriteData script: this
+
                     step([$class                : 'InfluxDbPublisher',
                           customData            : null,
                           customDataMap         : null,
