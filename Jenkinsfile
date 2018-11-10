@@ -26,13 +26,15 @@ pipeline {
         }
 
         stage('Compile and Unit Tests') {
-            steps {
-                sh "mvn test"
+            durationMeasure(script: this, measurementName: 'build_duration') {
+                steps {
+                    sh "mvn test"
 
-                script {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archive 'target/*.jar'
-                    step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
+                    script {
+                        junit '**/target/surefire-reports/TEST-*.xml'
+                        archive 'target/*.jar'
+                        step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
+                    }
                 }
             }
         }
@@ -77,14 +79,14 @@ pipeline {
                         }
                         throw err
                     } finally {
-                        step([$class           : 'InfluxDbPublisher',
-                              customData       : null,
-                              customDataMap    : null,
-                              customPrefix     : null,
+                        step([$class                : 'InfluxDbPublisher',
+                              customData            : null,
+                              customDataMap         : null,
+                              customPrefix          : null,
                               jenkinsEnvParameterTag: "wouter",
-                              customProjectName: 'TvTrader',
-                              target           : 'InfluxDB',
-                              selectedTarget   : 'InfluxDB'
+                              customProjectName     : 'TvTrader',
+                              target                : 'InfluxDB',
+                              selectedTarget        : 'InfluxDB'
                         ])
                     }
                 }
