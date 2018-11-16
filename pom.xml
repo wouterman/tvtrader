@@ -16,7 +16,7 @@
         <sonar.junit.reportPaths>${project.build.directory}/surefire-reports</sonar.junit.reportPaths>
 
         <sonar.language>java</sonar.language>
-        <sonar.sources>src/main/java, scr/main/xxx</sonar.sources>
+        <sonar.sources>src/main/java,scr/main/xxx</sonar.sources>
         <sonar.tests>src/test/java</sonar.tests>
         <sonar.host.url>${sonarqubeUrl}</sonar.host.url>
 
