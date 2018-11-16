@@ -31,8 +31,13 @@ pipeline {
 
                     script {
                         junit '**/target/surefire-reports/TEST-*.xml'
-                        archive 'target/*.jar'
-                        step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec'])
+
+                        jacoco(
+                                execPattern: '**/target/*.exec',
+                                classPattern: 'target/classes',
+                                sourcePattern: 'src/main/java',
+                                exclusionPattern: 'src/test*'
+                        )
                     }
                 }
         }
