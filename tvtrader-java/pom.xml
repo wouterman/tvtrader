@@ -11,6 +11,8 @@
     <artifactId>tvtrader-java</artifactId>
 
     <properties>
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.tests>src/test/java</sonar.tests>
         <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
     </properties>
 
