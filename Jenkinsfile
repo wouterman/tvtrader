@@ -33,7 +33,7 @@ pipeline {
                         junit '**/target/surefire-reports/TEST-*.xml'
 
                         jacoco(
-                                execPattern: '**/target/*.exec',
+                                execPattern: '../target/*.exec',
                                 classPattern: 'target/classes',
                                 sourcePattern: 'src/main/java',
                                 exclusionPattern: 'src/test*'
