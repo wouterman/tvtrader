@@ -30,7 +30,7 @@ pipeline {
 
                 duration = startTime - endTime
 
-                echo duration
+                echo String.valueOf(duration)
             }
             }
         }
