@@ -28,7 +28,7 @@ pipeline {
 
                 endTime = System.nanoTime();
 
-                duration = startTime - endTime
+                duration =  endTime-startTime
 
                 echo String.valueOf(duration)
             }
