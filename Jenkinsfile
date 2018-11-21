@@ -1,11 +1,9 @@
 #!/usr/bin/env groovy
 
+def buildTimes = [:]
+
 pipeline {
     agent any
-
-    environment {
-        buildTimes = [:]
-    }
 
     options {
         buildDiscarder(
