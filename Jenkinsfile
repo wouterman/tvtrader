@@ -3,6 +3,10 @@
 pipeline {
     agent any
 
+    def startTime
+    def stopTime
+    def duration
+
     options {
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
@@ -20,8 +24,16 @@ pipeline {
 
     stages {
         stage('Checkout source code') {
-            steps {
-                checkout scm
+            script {
+                startTime = System.nanoTime();
+                steps {
+                    checkout scm
+                }
+                endTime = Systen.nanoTime();
+
+                duration = startTime - endTime
+
+                echo duration
             }
         }
 
