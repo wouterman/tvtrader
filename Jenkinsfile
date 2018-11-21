@@ -3,10 +3,6 @@
 pipeline {
     agent any
 
-    def startTime
-    def stopTime
-    def duration
-
     options {
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
