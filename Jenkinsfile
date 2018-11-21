@@ -3,6 +3,10 @@
 pipeline {
     agent any
 
+    environment {
+        buildTimes = [:]
+    }
+
     options {
         buildDiscarder(
                 logRotator(numToKeepStr: '1')
@@ -31,6 +35,7 @@ pipeline {
                 duration =  endTime-startTime
 
                 echo String.valueOf(duration)
+                buildTimes['checkout'] = duration
             }
             }
         }
@@ -93,7 +98,7 @@ pipeline {
                     throw err
                 } finally {
                     step([$class                : 'InfluxDbPublisher',
-                          customData            : null,
+                          customData            : buildTimes,
                           customDataMap         : null,
                           customPrefix          : null,
                           customProjectName     : 'TvTrader',
