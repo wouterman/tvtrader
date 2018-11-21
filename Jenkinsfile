@@ -25,7 +25,7 @@ pipeline {
                 steps {
                     checkout scm
                 }
-                endTime = Systen.nanoTime();
+                endTime = System.nanoTime();
 
                 duration = startTime - endTime
 
