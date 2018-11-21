@@ -24,11 +24,11 @@ pipeline {
         stage('Checkout source code') {
             steps {
             script {
-                startTime = System.nanoTime();
+                startTime = System.currentTimeMillis();
 
                 checkout scm
 
-                endTime = System.nanoTime();
+                endTime = System.currentTimeMillis();
 
                 duration =  endTime-startTime
 
@@ -88,10 +88,12 @@ pipeline {
                 try {
                     if (currentBuild.result == null) {
                         currentBuild.result = "SUCCESS" // sets the ordinal as 0 and boolean to true
+                        buildTimes['buildResult'] = "SUCCESS"
                     }
                 } catch (err) {
                     if (currentBuild.result == null) {
                         currentBuild.result = "FAILURE" // sets the ordinal as 4 and boolean to false
+                        buildTimes['buildResult'] = "FAILURE"
                     }
                     throw err
                 } finally {
