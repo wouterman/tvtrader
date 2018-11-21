@@ -20,16 +20,18 @@ pipeline {
 
     stages {
         stage('Checkout source code') {
+            steps {
             script {
                 startTime = System.nanoTime();
-                steps {
-                    checkout scm
-                }
+
+                checkout scm
+
                 endTime = System.nanoTime();
 
                 duration = startTime - endTime
 
                 echo duration
+            }
             }
         }
 
