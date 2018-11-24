@@ -113,3 +113,7 @@ pipeline {
         }
     }
 }
+
+void startTimer() {
+    startTime = System.currentTimeMillis();
+}
