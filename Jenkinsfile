@@ -30,7 +30,6 @@ pipeline {
                 checkout scm
 
                 stopTimer()
-
                 script {
                     buildTimes['Checkout source code'] = getDuration()
                 }
@@ -58,8 +57,8 @@ pipeline {
                         // No unit tests available
                     }
 
-                    buildTimes['Compile and Unit Tests'] = getDuration()
                     stopTimer()
+                    buildTimes['Compile and Unit Tests'] = getDuration()
                 }
             }
         }
@@ -74,7 +73,6 @@ pipeline {
                 }
 
                 stopTimer()
-
                 script {
                     buildTimes['Sonarqube Analysis'] = getDuration()
                 }
@@ -99,7 +97,6 @@ pipeline {
                 sh "mvn deploy -Dmaven.test.skip=true"
 
                 stopTimer()
-
                 script {
                     buildTimes['Repository upload'] = getDuration()
                 }
