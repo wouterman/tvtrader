@@ -25,14 +25,12 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps {
-            script {
                 startTimer()
 
                 checkout scm
 
                 stopTimer()
                 buildTimes['checkout'] = getDuration()
-            }
             }
         }
 
