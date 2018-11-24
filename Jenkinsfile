@@ -1,8 +1,6 @@
 #!/usr/bin/env groovy
 
-def stageTimes = [:]
-def startTime
-def endTime
+def buildTimes = [:]
 
 pipeline {
     agent any
@@ -25,104 +23,91 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps {
-                script {
-                    startTimer()
+            script {
+                startTime = System.currentTimeMillis();
 
-                    checkout scm
+                checkout scm
 
-                    stopTimer()
-
-                    stageTimes['checkout'] = getTimerDuration()
-                }
+                endTime = System.currentTimeMillis();
+                buildTimes['checkout'] = endTime-startTime
+            }
             }
         }
 
         stage('Compile and Unit Tests') {
             steps {
-                sh "mvn test"
+                    sh "mvn test"
 
-                script {
-                    try {
+                    script {
+                        try {
+                            jacoco(
+                                    execPattern: '**/target/*.exec',
+                                    classPattern: '**/target/classes',
+                                    sourcePattern: '**/src/main/java',
+                                    exclusionPattern: '**/src/test*'
 
-                        jacoco(
-                                execPattern: '**/target/*.exec',
-                                classPattern: '**/target/classes',
-                                sourcePattern: '**/src/main/java',
-                                exclusionPattern: '**/src/test*'
+                            )
 
-                        )
-
-                        junit '**/target/surefire-reports/TEST-*.xml'
-                    } catch (ignore) {
-                        // No surefire reports available.
+                            junit '**/target/surefire-reports/TEST-*.xml'
+                        } catch (ignore) {
+                            // No unit tests available
+                        }
                     }
                 }
-            }
+        }
 
-            stage('Sonarqube Analysis') {
-                steps {
-                    withSonarQubeEnv('Sonarqube') {
-                        sh "mvn sonargraph:create-report"
-                        sh "mvn sonar:sonar"
-                    }
-                }
-            }
-
-            stage('Quality Gate') {
-                agent none
-
-                steps {
-                    timeout(time: 1, unit: 'HOURS') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-
-            stage('Repository upload') {
-                steps {
-                    sh "mvn deploy -Dmaven.test.skip=true"
+        stage('Sonarqube Analysis') {
+            steps {
+                withSonarQubeEnv('Sonarqube') {
+                    sh "mvn sonargraph:create-report"
+                    sh "mvn sonar:sonar"
                 }
             }
         }
-        post {
-            always {
 
-                script {
-                    try {
-                        if (currentBuild.result == null) {
-                            currentBuild.result = "SUCCESS" // sets the ordinal as 0 and boolean to true
-                            stageTimes['buildResult'] = "SUCCESS"
-                        }
-                    } catch (err) {
-                        if (currentBuild.result == null) {
-                            currentBuild.result = "FAILURE" // sets the ordinal as 4 and boolean to false
-                            stageTimes['buildResult'] = "FAILURE"
-                        }
-                        throw err
-                    } finally {
-                        step([$class           : 'InfluxDbPublisher',
-                              customData       : stageTimes,
-                              customDataMap    : null,
-                              customPrefix     : null,
-                              customProjectName: 'TvTrader',
-                              target           : 'InfluxDB',
-                              selectedTarget   : 'InfluxDB'
-                        ])
-                    }
+        stage('Quality Gate') {
+            agent none
+
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
                 }
+            }
+        }
+
+        stage('Repository upload') {
+            steps {
+                sh "mvn deploy -Dmaven.test.skip=true"
             }
         }
     }
-}
+    post {
+        always {
 
-void startTimer() {
-    startTime = System.currentTimeMillis();
-}
+            script {
+                try {
+                    if (currentBuild.result == null) {
+                        currentBuild.result = "SUCCESS" // sets the ordinal as 0 and boolean to true
+                        buildTimes['buildResult'] = "SUCCESS"
+                    }
+                } catch (err) {
+                    if (currentBuild.result == null) {
+                        currentBuild.result = "FAILURE" // sets the ordinal as 4 and boolean to false
+                        buildTimes['buildResult'] = "FAILURE"
+                    }
+                    throw err
+                } finally {
+                    step([$class                : 'InfluxDbPublisher',
+                          customData            : buildTimes,
+                          customDataMap         : null,
+                          customPrefix          : null,
+                          customProjectName     : 'TvTrader',
+                          target                : 'InfluxDB',
+                          selectedTarget        : 'InfluxDB'
+                    ])
+                }
+            }
 
-void stopTimer() {
-    endTime = System.currentTimeMillis();
-}
-
-long getTimerDuration() {
-    return endTime - startTime
+        }
+    }
 }
