@@ -30,8 +30,9 @@ pipeline {
                 checkout scm
 
                 stopTimer()
-                stageTimes['checkout'] = getTimerDuration()
-
+                script {
+                    stageTimes['checkout'] = getTimerDuration()
+                }
             }
         }
 
