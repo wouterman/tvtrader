@@ -32,13 +32,15 @@ pipeline {
                 stopTimer()
 
                 script {
-                    buildTimes['checkout'] = getDuration()
+                    buildTimes['Checkout source code'] = getDuration()
                 }
             }
         }
 
         stage('Compile and Unit Tests') {
             steps {
+                startTimer()
+
                 sh "mvn test"
 
                 script {
@@ -55,15 +57,26 @@ pipeline {
                     } catch (ignore) {
                         // No unit tests available
                     }
+
+                    buildTimes['Compile and Unit Tests'] = getDuration()
+                    stopTimer()
                 }
             }
         }
 
         stage('Sonarqube Analysis') {
             steps {
+                startTimer()
+
                 withSonarQubeEnv('Sonarqube') {
                     sh "mvn sonargraph:create-report"
                     sh "mvn sonar:sonar"
+                }
+
+                stopTimer()
+
+                script {
+                    buildTimes['Sonarqube Analysis'] = getDuration()
                 }
             }
         }
@@ -76,11 +89,20 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
+
         }
 
         stage('Repository upload') {
             steps {
+                startTimer()
+
                 sh "mvn deploy -Dmaven.test.skip=true"
+
+                stopTimer()
+
+                script {
+                    buildTimes['Repository upload'] = getDuration()
+                }
             }
         }
     }
