@@ -25,12 +25,13 @@ pipeline {
     stages {
         stage('Checkout source code') {
             steps {
-                startTimer()
-
-                checkout scm
-
-                stopTimer()
                 script {
+                    startTimer()
+
+                    checkout scm
+
+                    stopTimer()
+
                     stageTimes['checkout'] = getTimerDuration()
                 }
             }
@@ -109,7 +110,6 @@ pipeline {
                         ])
                     }
                 }
-
             }
         }
     }
