@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 
 def buildTimes = [:]
+def startTime
+def endTime
 
 pipeline {
     agent any
