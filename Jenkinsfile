@@ -31,7 +31,7 @@ pipeline {
                 checkout scm
 
                 stopTimer()
-                buildTimes['checkout'] = endTime-startTime
+                buildTimes['checkout'] = getDuration()
             }
             }
         }
@@ -120,4 +120,8 @@ void startTimer() {
 
 void stopTimer() {
     endTime = System.currentTimeMillis();
+}
+
+long getDuration() {
+    return endTime-startTime
 }
