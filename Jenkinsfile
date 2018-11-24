@@ -117,3 +117,7 @@ pipeline {
 void startTimer() {
     startTime = System.currentTimeMillis();
 }
+
+void stopTimer() {
+    endTime = System.currentTimeMillis();
+}
