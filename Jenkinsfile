@@ -114,15 +114,14 @@ pipeline {
     }
 }
 
-    void startTimer() {
-        startTime = System.currentTimeMillis();
-    }
+void startTimer() {
+    startTime = System.currentTimeMillis();
+}
 
-    void stopTimer() {
-        endTime = System.currentTimeMillis();
-    }
+void stopTimer() {
+    endTime = System.currentTimeMillis();
+}
 
-    long getTimerDuration() {
-        return endTime - startTime
-    }
+long getTimerDuration() {
+    return endTime - startTime
 }
