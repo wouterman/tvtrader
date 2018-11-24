@@ -30,30 +30,33 @@ pipeline {
                 checkout scm
 
                 stopTimer()
-                buildTimes['checkout'] = getDuration()
+
+                script {
+                    buildTimes['checkout'] = getDuration()
+                }
             }
         }
 
         stage('Compile and Unit Tests') {
             steps {
-                    sh "mvn test"
+                sh "mvn test"
 
-                    script {
-                        try {
-                            jacoco(
-                                    execPattern: '**/target/*.exec',
-                                    classPattern: '**/target/classes',
-                                    sourcePattern: '**/src/main/java',
-                                    exclusionPattern: '**/src/test*'
+                script {
+                    try {
+                        jacoco(
+                                execPattern: '**/target/*.exec',
+                                classPattern: '**/target/classes',
+                                sourcePattern: '**/src/main/java',
+                                exclusionPattern: '**/src/test*'
 
-                            )
+                        )
 
-                            junit '**/target/surefire-reports/TEST-*.xml'
-                        } catch (ignore) {
-                            // No unit tests available
-                        }
+                        junit '**/target/surefire-reports/TEST-*.xml'
+                    } catch (ignore) {
+                        // No unit tests available
                     }
                 }
+            }
         }
 
         stage('Sonarqube Analysis') {
@@ -97,13 +100,13 @@ pipeline {
                     }
                     throw err
                 } finally {
-                    step([$class                : 'InfluxDbPublisher',
-                          customData            : buildTimes,
-                          customDataMap         : null,
-                          customPrefix          : null,
-                          customProjectName     : 'TvTrader',
-                          target                : 'InfluxDB',
-                          selectedTarget        : 'InfluxDB'
+                    step([$class           : 'InfluxDbPublisher',
+                          customData       : buildTimes,
+                          customDataMap    : null,
+                          customPrefix     : null,
+                          customProjectName: 'TvTrader',
+                          target           : 'InfluxDB',
+                          selectedTarget   : 'InfluxDB'
                     ])
                 }
             }
@@ -121,5 +124,5 @@ void stopTimer() {
 }
 
 long getDuration() {
-    return endTime-startTime
+    return endTime - startTime
 }
