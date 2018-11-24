@@ -26,11 +26,11 @@ pipeline {
         stage('Checkout source code') {
             steps {
             script {
-                startTime = System.currentTimeMillis();
+                startTimer()
 
                 checkout scm
 
-                endTime = System.currentTimeMillis();
+                stopTimer()
                 buildTimes['checkout'] = endTime-startTime
             }
             }
