@@ -1,9 +1,10 @@
-package tvtrader.web.application;
+package tvtrader.application;
 
+import com.google.gson.Gson;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -11,18 +12,36 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import tvtrader.application.AppConfig;
+import tvtrader.utils.Encoding;
+import tvtrader.utils.HashingUtility;
 
 import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 @EnableWebMvc
-@Import(AppConfig.class)
+@ComponentScan(basePackages= {"tvtrader"})
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 	private ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
+	}
+
+	@Bean
+	public ScheduledExecutorService scheduledExecutorService() {
+		return Executors.newSingleThreadScheduledExecutor();
+	}
+
+	@Bean
+	public Gson gson() {
+		return new Gson();
+	}
+
+	@Bean(name = "BittrexHasher")
+	public HashingUtility bittrexHasher() {
+		return new HashingUtility(Encoding.SHA512);
 	}
 
 	// VIEW RESOLVER

@@ -2,6 +2,7 @@ package tvtrader.model;
 
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -26,7 +27,7 @@ public class Account {
 	private double trailingStoploss;
 	private double minimumGain;
 
-	@ManyToOne
+	@ManyToOne(cascade= CascadeType.ALL)
 	private final ApiCredentials credentials;
 
 	/**

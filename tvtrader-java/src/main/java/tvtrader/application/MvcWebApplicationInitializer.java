@@ -1,6 +1,7 @@
-package tvtrader.web.application;
+package tvtrader.application;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import tvtrader.application.WebConfig;
 
 public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

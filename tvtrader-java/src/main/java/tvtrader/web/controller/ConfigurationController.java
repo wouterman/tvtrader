@@ -38,8 +38,8 @@ public class ConfigurationController {
 	public ModelAndView showConfiguration() {
 		ModelAndView model = new ModelAndView(CONFIGURATION_VIEW);
 
-		Configuration  configuration = daoService.getConfiguration().orElse(new Configuration());
-		MailConfiguration mailConfiguration = daoService.getMailConfiguration().orElse(new MailConfiguration());
+		Configuration  configuration = daoService.getConfiguration("DEFAULT").orElse(new Configuration());
+		MailConfiguration mailConfiguration = daoService.getMailConfiguration("DEFAULT").orElse(new MailConfiguration());
 		List<Account> accounts = daoService.getAccounts();
 
 		if (accounts.isEmpty()) {
@@ -70,10 +70,10 @@ public class ConfigurationController {
 		Configuration configuration = mapper.map(configurationForm);
 		MailConfiguration mailConfiguration = mapper.map(mailConfigurationForm);
 
-		daoService.saveOrUpdate(configuration);
+		daoService.save(configuration);
 		configService.setConfiguration(configuration);
 
-		daoService.saveOrUpdate(mailConfiguration);
+		daoService.save(mailConfiguration);
 		configService.setMailConfiguration(mailConfiguration);
 
 		return CONFIGURATION_VIEW;

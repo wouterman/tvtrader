@@ -195,7 +195,7 @@ public class StoplossWatcher {
 
 	/**
 	 * Tries to verify the bought price from the exchange.<br>
-	 * Some exchanges don't update the order history immediately after completing an
+	 * Some exchanges don't save the order history immediately after completing an
 	 * order. So if this fails, we will retry 10 more times.<br>
 	 * 
 	 * @return

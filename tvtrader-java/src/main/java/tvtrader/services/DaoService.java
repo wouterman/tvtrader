@@ -6,6 +6,7 @@ import tvtrader.dao.AccountDao;
 import tvtrader.dao.ConfigurationDao;
 import tvtrader.dao.MailConfigurationDao;
 import tvtrader.model.Account;
+import tvtrader.model.AccountId;
 import tvtrader.model.Configuration;
 import tvtrader.model.MailConfiguration;
 
@@ -26,32 +27,32 @@ public class DaoService {
 		this.accountDao = accountDao;
 	}
 
-	public void saveOrUpdate(Configuration configuration) {
-		configurationDao.update(configuration);
+	public void save(Configuration configuration) {
+		configurationDao.save(configuration);
 	}
 	
-	public Optional<Configuration> getConfiguration() {
-		return configurationDao.getConfiguration();
+	public Optional<Configuration> getConfiguration(String name) {
+		return configurationDao.findByName(name);
 	}
 	
-	public void saveOrUpdate(Account account) {
-		accountDao.update(account);
+	public void save(Account account) {
+		accountDao.save(account);
 	}
 	
 	public List<Account> getAccounts() {
-		return accountDao.getAccounts();
+		return accountDao.findAll();
 	}
 	
-	public Account getAccount(String exchange, String accountName) {
-		return accountDao.getAccount(exchange, accountName);
+	public Optional<Account> getAccount(String exchange, String accountName) {
+		return accountDao.findById(new AccountId(exchange, accountName));
 	}
 
-	public void saveOrUpdate(MailConfiguration configuration) {
-		mailConfigDao.update(configuration);		
+	public void save(MailConfiguration configuration) {
+		mailConfigDao.save(configuration);
 	}
 	
-	public Optional<MailConfiguration> getMailConfiguration() {
-		return mailConfigDao.getConfiguration();
+	public Optional<MailConfiguration> getMailConfiguration(String name) {
+		return mailConfigDao.findByName(name);
 	}
 
 }

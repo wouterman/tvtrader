@@ -23,7 +23,6 @@
 
     <modules>
         <module>tvtrader-java</module>
-        <module>tvtrader-web</module>
     </modules>
 
     <distributionManagement>

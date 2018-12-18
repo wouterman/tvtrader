@@ -1,6 +1,7 @@
 package tvtrader.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
@@ -9,9 +10,8 @@ import java.util.Properties;
 
 /**
  * Data holder for the mail configuration.
- * 
- * @author Wouter
  *
+ * @author Wouter
  */
 @Entity
 @Data
@@ -27,10 +27,10 @@ public class MailConfiguration {
 		this.username = "username";
 		this.password = "password";
 		this.inbox = DEFAULT_INBOX_NAME;
-		this.port=0;
+		this.port = 0;
 	}
 
-	@Id @Setter(AccessLevel.NONE) @Getter(AccessLevel.NONE)
+	@NonNull @Id
 	private String name;
 
 	@NonNull
@@ -48,7 +48,6 @@ public class MailConfiguration {
 
 	/**
 	 * Sets the portnumber for the mailClient.
-	 * 
 	 */
 	public void setPort(int port) {
 		if (port < 0 || port > 65535) {

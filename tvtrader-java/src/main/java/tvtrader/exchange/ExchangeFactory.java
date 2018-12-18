@@ -44,9 +44,7 @@ public class ExchangeFactory {
 	}
 
 	/**
-	 * Returns an initialized exchange.<br>
-	 * .
-	 * 
+	 * Returns an initialized exchange.<br>	 *
 	 * @throws UnsupportedExchangeException
 	 *             If the exchange is not supported.
 	 */
