@@ -68,7 +68,6 @@ pipeline {
                 startTimer()
 
                 withSonarQubeEnv('Sonarqube') {
-                    sh "mvn sonargraph:create-report"
                     sh "mvn sonar:sonar"
                 }
 

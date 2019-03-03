@@ -1,5 +1,6 @@
 package tvtrader.bittrex;
 
+import javassist.tools.web.Webserver;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,16 +41,16 @@ public class Bittrex implements Exchange {
 	private static final double TAKER_FEE = 0.0025;
 	private static final double MAKER_FEE = 0.0025;
 
-	@Autowired
-	@Qualifier("BittrexApi")
 	private Api api;
-
-	@Autowired
-	@Qualifier("BittrexParser")
 	private JsonParser parser;
+	private WebService webService;
 
 	@Autowired
-	private WebService webService;
+	public Bittrex(@Qualifier("BittrexApi") Api api, @Qualifier("BittrexParser") JsonParser parser, WebService webService) {
+		this.api = api;
+		this.parser = parser;
+		this.webService = webService;
+	}
 
 	@Override
 	public String createMarket(String mainCoin, String altCoin) {

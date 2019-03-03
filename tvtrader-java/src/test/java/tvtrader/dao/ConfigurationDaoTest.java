@@ -27,7 +27,7 @@ public class ConfigurationDaoTest {
 	private ConfigurationDao configurationDao;
 
 	@Test
-	void whenFindByName_thenReturnConfiguration() {
+	void findByNameShouldReturnConfigurationWhenNameIsKnown() {
 		Configuration configuration = new Configuration();
 		entityManager.persist(configuration);
 		entityManager.flush();

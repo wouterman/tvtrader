@@ -30,7 +30,7 @@ public class AccountDaoTest {
 	private AccountDao accountDao;
 
 	@Test
-	public void whenFindByExchangeAndName_thenReturnAccount() {
+	public void findByIdShouldReturnAccountWhenNameAndExchangeAreKnown() {
 		Account account = new Account();
 
 		entityManager.persist(account);
@@ -42,7 +42,7 @@ public class AccountDaoTest {
 	}
 
 	@Test
-	public void whenFindAll_thenReturnAllAccounts() {
+	public void findAllShouldReturnAllAccounts() {
 		Account account = new Account();
 
 		entityManager.persist(account);

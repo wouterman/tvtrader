@@ -28,7 +28,7 @@ public class MailConfigurationDaoTest {
 	private MailConfigurationDao mailConfigurationDao;
 
 	@Test
-	void whenFindByName_thenReturnConfiguration() {
+	void findByNameShouldReturnConfigurationWhenNameIsKnown() {
 		MailConfiguration configuration = new MailConfiguration();
 		entityManager.persist(configuration);
 		entityManager.flush();
